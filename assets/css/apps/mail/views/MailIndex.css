@@ -1,1 +1,10 @@
  /* mail index  */
+
+ .email {
+     font-family: 'Product Sans', Roboto,
+         Helvetica,
+         Arial,
+         sans-serif;
+     font-weight: 700;
+     font-size: .875rem;
+ }
