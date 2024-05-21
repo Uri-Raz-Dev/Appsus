@@ -1,1 +1,17 @@
  /* note index */
+
+ :root {
+     --keep-bg-color: #FFFFFF;
+
+     --keep-logo: #5f6368;
+
+     --keep-action: rgb(26, 115, 232);
+
+     --keep-light-txt: rgb(95, 99, 104);
+     --keep-dark-txt: #202124;
+
+ }
+
+ .note-index {
+     color: var(--keep-light-txt);
+ }

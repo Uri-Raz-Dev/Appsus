@@ -7,7 +7,6 @@ export function AppHeader() {
             <h3>LOGO!</h3>
         </Link>
         <nav>
-            {/* Hi Uri */}
             <NavLink to="/">Home</NavLink>
             <NavLink to="/about">About</NavLink>
             <NavLink to="/mail">Mail</NavLink>
