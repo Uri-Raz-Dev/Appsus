@@ -133,7 +133,7 @@ function _createMails() {
                 isRead: false,
                 sentAt: utilService.getFormattedDate(date, 'en-US'),
                 removedAt: null,
-                from: `${utilService.makeName(4)}@${utilService.makeName(5)}.com`,
+                from: `${utilService.makeName(4).toLowerCase()}@${utilService.makeName(5).toLowerCase()}.com`,
                 to: 'user@appsus.com'
             }
             mailList.push(email)
