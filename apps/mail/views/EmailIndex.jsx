@@ -14,6 +14,7 @@ const trash = <box-icon name='trash' ></box-icon>
 const compose = <box-icon name='pencil' ></box-icon>
 const arrow = <box-icon name='chevron-up' ></box-icon>
 
+
 const emailNav = [inbox, starred, sent, drafts, trash]
 
 export function EmailIndex() {
@@ -29,7 +30,7 @@ export function EmailIndex() {
 
 
 
-    return <section className="email-layout">
+    return <section className="email-layout grid">
         <EmailList mails={mails} />
 
     </section>
