@@ -6,11 +6,25 @@ export const utilService = {
     padNum,
     getDayName,
     getMonthName,
+    saveToStorage,
+    loadFromStorage,
+    makeName,
+    getFormattedDate
 }
 
 function makeId(length = 6) {
     var txt = ''
     var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+
+    for (var i = 0; i < length; i++) {
+        txt += possible.charAt(Math.floor(Math.random() * possible.length))
+    }
+
+    return txt
+}
+function makeName(length = 6) {
+    var txt = ''
+    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
 
     for (var i = 0; i < length; i++) {
         txt += possible.charAt(Math.floor(Math.random() * possible.length))
@@ -59,4 +73,19 @@ function getMonthName(date) {
         "July", "August", "September", "October", "November", "December"
     ]
     return monthNames[date.getMonth()]
+}
+
+function saveToStorage(key, val) {
+    localStorage.setItem(key, JSON.stringify(val))
+}
+
+function loadFromStorage(key) {
+    var val = localStorage.getItem(key)
+    return JSON.parse(val)
+}
+function getFormattedDate(date, locale) {
+    date = new Date(date)
+    const monthName = getMonthName(date)
+    const day = date.getDate()
+    return `${monthName} ${day}`
 }
