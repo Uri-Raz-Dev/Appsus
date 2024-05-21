@@ -30,7 +30,6 @@ export function EmailIndex() {
 
 
     return <section className="email-layout">
-        {emailNav}
         <EmailList mails={mails} />
 
     </section>
