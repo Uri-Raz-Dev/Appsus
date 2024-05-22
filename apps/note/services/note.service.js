@@ -59,7 +59,7 @@ function query(filterBy = {}) {
 function get(noteId) {
     return storageService.get(NOTE_KEY, noteId)
         .then(note => {
-            note = _setNextPrevNoteId(note)
+            // note = _setNextPrevNoteId(note)
             return note
         })
 }
