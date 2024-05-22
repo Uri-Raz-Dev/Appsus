@@ -18,10 +18,26 @@ export function NoteIndex() {
             .then(setNotes)
     }, [/*filterBy*/])
 
+    function removeNote(noteId) {
+        // setIsLoading(true)
+        noteService.remove(noteId)
+            .then(() => {
+                // utilService.animateCSS('fadeAway')
+                //     .then(() => setNotes(prevNotes => prevNotes.filter(note => note.id !== noteId)))
+                setNotes(prevNotes => prevNotes.filter(note => note.id !== noteId))
+                // showSuccessMsg(`Note (${noteId}) removed successfully!`)
+            })
+            .catch(err => {
+                console.log('err:', err)
+                showErrorMsg('There was a problem')
+            })
+        // .finally(() => setIsLoading(false))
+    }
+
     return <main className="note-index">
         {/* <CreateNote /> */}
         {/* <div className="create">Take a note</div> */}
         note app
-        <NoteList notes={notes} />
+        <NoteList notes={notes} onRemove={removeNote} />
     </main>
 }
