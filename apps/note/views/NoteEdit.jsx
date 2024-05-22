@@ -70,17 +70,29 @@ export function NoteEdit() {
             <h1>{params.noteId ? 'Edit note' : 'Add note'}</h1>
 
             <form onSubmit={onSave}>
-                <label htmlFor="title">Vendor</label>
+                <label htmlFor="title"></label>
                 <input
                     onChange={handleChange} value={(note.info) ? note.info.title : note.title}
                     id="title" name="title"
                     type="text" placeholder="title" />
 
+                <label htmlFor="txt"></label>
+                <textarea
+                    name='txt'
+                    id="txt"
+                    cols='46'
+                    rows='10'
+                    wrap="hard"
+                    placeholder="Text"
+                    value={(note.info) ? note.info.txt : note.txt}
+                    onChange={handleChange}
+                ></textarea>
+                {/* 
                 <label htmlFor="txt">Speed</label>
                 <input
                     onChange={handleChange} value={(note.info) ? note.info.txt : note.txt}
                     id="txt" name="txt"
-                    type="text" placeholder="txt" />
+                    type="text" placeholder="txt" /> */}
 
                 <button>Save</button>
             </form>

@@ -1,0 +1,16 @@
+.note-edit {
+    /* width:  50vw; */
+}
+
+.note-edit form {
+    position: fixed;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+}
+
+.note-edit form>* {
+    display: block;
+    border: none;
+    font-size: 22px;
+}
