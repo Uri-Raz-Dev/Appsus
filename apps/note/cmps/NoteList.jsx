@@ -1,14 +1,23 @@
 import { NotePreview } from './NotePreview.jsx'
+import { Buttons } from './Buttons.jsx'
 
-export function NoteList({ notes }) {
+const { Link } = ReactRouterDOM
+
+export function NoteList({ notes, onRemove }) {
     return (<section className="notes"/*style={{ opacity: isLoading ? 0.5 : 1 }}*/ >
         <ul className="list">
             {notes.map(note =>
-                <li key={note.id}>
-                    <NotePreview note={note} />
-                    {/* <button onClick={() => onRemove(note.id)}>x</button> */}
-                    {/* <Link to={`/note/${note.id}`}><button>Details</button></Link> */}
-                    {/* <Link to={`/note/edit/${note.id}`}><button>Edit</button></Link> */}
+                <li key={note.id} >
+                    <Link to={`/note/edit/${note.id}`}>
+                        <article className="note">
+
+                            <NotePreview note={note} />
+                            <Buttons note={note} onRemove={onRemove} />
+
+                            {/* <button onClick={() => onRemove(note.id)}>x</button> */}
+                            {/* <Link to={`/note/${note.id}`}><button>Details</button></Link> */}
+                        </article>
+                    </Link>
                 </li>)
             }
         </ul>
