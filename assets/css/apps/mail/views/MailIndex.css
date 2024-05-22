@@ -1,10 +1,31 @@
  /* mail index  */
 
  .email-layout {
+     position: relative;
+     min-height: 100dvh;
+     grid-template-columns: 1fr 3fr 1fr;
+     grid-template-rows: minmax(20px, 100px) 3fr;
      font-family: 'Product Sans', Roboto,
          Helvetica,
          Arial,
          sans-serif;
      font-weight: 700;
-     font-size: 1.25rem;
+     font-size: .875rem;
+ }
+
+ .mail-list {
+     grid-column: 2/-1;
+ }
+
+ .main-layout .full {
+     grid-column: 1 / -1;
+ }
+
+ .top-filter {
+     grid-column: 2;
+ }
+
+ .side-filter {
+     grid-column: 1;
+     grid-row: 2;
  }

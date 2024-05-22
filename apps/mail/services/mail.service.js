@@ -17,16 +17,7 @@ export const mailService = {
 }
 
 
-export const email = {
-    id: utilService.makeId,
-    subject: utilService.makeLorem(4).charAt(0).toUpperCase().slice(1),
-    body: utilService.makeLorem(5).charAt(0).toUpperCase().slice(1),
-    isRead: false,
-    sentAt: 1551133930594,
-    removedAt: null,
-    from: 'momo@momo.com',
-    to: 'user@appsus.com'
-}
+
 const loggedinUser = {
     email: 'user@appsus.com',
     fullname: 'Mahatma Appsus'
@@ -37,34 +28,41 @@ window.ms = mailService
 function query(filterBy = {}) {
     return storageService.query(MAIL_KEY)
         .then(mails => {
-            if (filterBy.title) {
-                const regExp = new RegExp(filterBy.title, 'i')
+            if (filterBy.txt) {
+                const regExp = new RegExp(filterBy.txt, 'i')
 
-                mails = mails.filter(mail => regExp.test(mail.title))
-
-            }
-
-            if (filterBy.price) {
-                mails = mails.filter((mail) => {
-                    const { listPrice: { amount } } = mail
-                    const mailPrice = parseFloat(amount)
-                    return mailPrice <= filterBy.price
-                })
-
-            }
-            if (filterBy.date) {
-                mails = mails.filter((mail) => {
-                    const { publishedDate } = mail
-                    const mailDate = parseFloat(publishedDate)
-                    return mailDate <= filterBy.date
+                mails = mails.filter(mail => {
+                    return regExp.test(mail.subject) ||
+                        regExp.test(mail.body) ||
+                        regExp.test(mail.from)
                 })
 
             }
 
-            if (filterBy.authors) {
-                const regExp = new RegExp(filterBy.authors, 'i')
+            if (filterBy.isRead) {
+                mails = mails.filter((mail) => {
+                    mail.isRead === true
+                })
+                if (filterBy.isStared) {
+                    mails = mails.filter((mail) => {
+                        mail.isStared === true
+                    })
 
-                mails = mails.filter(mail => regExp.test(mail.authors))
+                }
+                if (filterBy.date) {
+                    mails = mails.filter((mail) => {
+                        const { sentAt } = mail
+                        const mailDate = parseFloat(sentAt)
+                        return mailDate === filterBy.date
+                    })
+
+                }
+
+                if (filterBy.authors) {
+                    const regExp = new RegExp(filterBy.authors, 'i')
+
+                    mails = mails.filter(mail => regExp.test(mail.authors))
+                }
             }
             return mails
         })
@@ -95,10 +93,14 @@ function save(mail) {
 }
 
 
-function getDefaultFilter(filterBy = { title: '', price: 0, date: 0, authors: '' }) {
+function getDefaultFilter(filterBy = { txt: '', isRead: false, date: 0, isStared: false, status: 'inbox', lables: [] }) {
     return {
-        title: filterBy.title, price: filterBy.price,
-        date: filterBy.date, authors: filterBy.authors
+        txt: filterBy.txt,
+        isRead: filterBy.isRead,
+        date: filterBy.date,
+        isStared: filterBy.isStared,
+        status: filterBy.status,
+        labels: filterBy.lables
     }
 }
 
@@ -109,7 +111,7 @@ function _setNextPrevMailId(mail) {
         const prevMail = mails[mailIdx - 1] ? mails[mailIdx - 1] : mails[mails.length - 1]
         mail.nextMailId = nextMail.id
         mail.prevMailId = prevMail.id
-        returnmail
+        return mail // Corrected return statement
     })
 }
 

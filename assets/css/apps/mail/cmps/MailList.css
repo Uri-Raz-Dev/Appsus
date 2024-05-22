@@ -10,9 +10,43 @@
 
  .mail-list li {
      display: flex;
-     justify-content: space-between;
+     /* justify-content: space-between; */
      align-items: center;
-     text-align: center;
      /* gap: 20px; */
-     width: 80%;
+     width: 100%;
+     line-height: 1.25rem;
+     margin-block: .625rem;
+
+     /* border-bottom: 1px solid; */
+
+ }
+
+ .mail-list li.unread {
+     background-color: var(--email-color-unread);
+ }
+
+ .mail-list li:hover {
+     box-shadow:
+         1px 0px 0px 0px rgb(218, 220, 224) inset,
+         -1px 0px 0px 0px rgb(218, 220, 224) inset,
+         0px 1px 2px 0px rgba(60, 64, 67, 0.3),
+         0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+     cursor: pointer;
+ }
+
+ .mail-from {
+     padding-inline-end: 10em;
+     padding-inline-start: 2em;
+ }
+
+ .mail-body {
+     flex-grow: 1;
+ }
+
+ .mail-date {
+     margin-inline-end: 2em;
+ }
+
+ .mail-list li.read {
+     background-color: var(--email-color-read);
  }

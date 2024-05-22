@@ -1,37 +1,41 @@
 // import { storageService } from "../../../services/async-storage.service.js"
 // import { utilService } from "../../../services/util.service.js"
 import { EmailList } from "../cmps/EmailList.jsx"
+import { EmailFolderList } from "../cmps/EmailFolderList.jsx"
+import { EmailFilter } from "../cmps/EmailFilter.jsx"
 import { mailService } from "../services/mail.service.js"
-
 const { useState, useEffect, useRef } = React
 
-const inbox = <box-icon type='solid' name='inbox'></box-icon>
-const starred = <box-icon name='star' ></box-icon>
-const starFav = <box-icon name='star' type='solid' color='#f4b400' ></box-icon>
-const sent = <box-icon name='send'></box-icon>
-const drafts = <box-icon name='file-blank'></box-icon>
-const trash = <box-icon name='trash' ></box-icon>
-const compose = <box-icon name='pencil' ></box-icon>
-const arrow = <box-icon name='chevron-up' ></box-icon>
 
-const emailNav = [inbox, starred, sent, drafts, trash]
 
 export function EmailIndex() {
 
     const [mails, setMails] = useState([])
+    const [filterBy, setFilterBy] = useState(mailService.getDefaultFilter())
+    const [selectedFilter, setSelectedFilter] = useState('txt')
+
 
     useEffect(() => {
-        mailService.query()
+        mailService.query(filterBy)
             .then(mails => setMails(mails))
-    }, [])
+    }, [filterBy])
+
+
+    function onSetFilterBy(newFilter) {
+        setFilterBy(newFilter)
+    }
+    function onSetSelectedFilter(newFilter) {
+        setSelectedFilter(newFilter)
+    }
 
 
 
-
-
-    return <section className="email-layout">
+    return <section className="email-layout grid">
+        < EmailFilter filterBy={filterBy} onFilter={onSetFilterBy}
+            selectedFilter={selectedFilter} onSelectFilter={onSetSelectedFilter} />
+        <EmailFolderList />
         <EmailList mails={mails} />
 
     </section>
 }
-// console.log(mailService.email)
+
