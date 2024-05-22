@@ -1,1 +1,6 @@
  /* note list */
+
+ .list {
+     display: flex;
+     gap: 16px;
+ }

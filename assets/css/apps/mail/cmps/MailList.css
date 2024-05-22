@@ -4,8 +4,8 @@
      flex-direction: column;
      justify-content: space-between;
      align-items: center;
-     list-style: none;
-     padding: 0;
+     /* list-style: none;
+     padding: 0; */
  }
 
  .mail-list li {

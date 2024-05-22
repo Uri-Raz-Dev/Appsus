@@ -10,4 +10,22 @@
     --email-header-color: #F6F8FC;
     --email-menu-color: #F6F8FC;
     --email-font-color: #202124;
+
+    /* keep vars*/
+
+    /*colors*/
+
+    --keep-logo: #5f6368;
+
+    --keep-action: rgb(26, 115, 232);
+
+    --keep-light-txt: rgb(95, 99, 104);
+    --keep-dark-txt: #202124;
+
+    --keep-note-border: #e0e0e0;
+
+    /* font sizes*/
+    --keep-note-font-regular: 18px;
+    --keep-note-font-small: 14px;
+
 }
