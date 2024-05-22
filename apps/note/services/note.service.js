@@ -92,13 +92,13 @@ function _createNotes() {
             type: 'NoteTxt',
             isPinned: true,
             style: { backgroundColor: '#00d' },
-            info: { txt: 'Fullstack Me Baby!' }
+            info: { txt: 'Fullstack Me Baby!', title: 'Bobi and Me' }
         },
         {
             id: 'n102',
             type: 'NoteImg',
             isPinned: false,
-            info: { url: 'http://some-img/me', title: 'Bobi and Me' },
+            info: { url: 'http://some-img/me', title: 'Bobi and Me', txt: 'Fullstack Me Baby!' },
             style: { backgroundColor: '#00d' }
         },
         {
@@ -107,6 +107,7 @@ function _createNotes() {
             isPinned: false,
             info: {
                 title: 'Get my stuff together',
+                txt: 'Fullstack Me Baby!',
                 todos: [
                     { txt: 'Driving license', doneAt: null },
                     { txt: 'Coding power', doneAt: 187111111 }]

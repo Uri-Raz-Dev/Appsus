@@ -6,7 +6,9 @@ import { noteService } from '../services/note.service.js'
 
 export function NoteEdit() {
 
-    const [note, setNote] = useState('a' /*noteService.getEmptyNote()*/)
+    const [note, setNote] = useState(
+        { txt: '', title: '' }
+    )
 
     const params = useParams()
     const navigate = useNavigate()
@@ -47,7 +49,12 @@ export function NoteEdit() {
                 value = target.checked
                 break;
         }
-        setNote(prevNote => ({ ...prevNote, [prop]: value }))
+        setNote(prevNote => {
+            console.log('prop', prop)
+            console.log('name', name)
+            const newInfo = { ...prevNote.info, [prop]: value }
+            return { ...prevNote, info: newInfo }
+        })
     }
 
     // * DEMO
@@ -63,17 +70,17 @@ export function NoteEdit() {
             <h1>{params.noteId ? 'Edit note' : 'Add note'}</h1>
 
             <form onSubmit={onSave}>
-                <label htmlFor="info.title">Vendor</label>
+                <label htmlFor="title">Vendor</label>
                 <input
-                    onChange={handleChange} value={note.info.title}
-                    id="info.title" name="info.title"
-                    type="text" placeholder="vendor" />
+                    onChange={handleChange} value={(note.info) ? note.info.title : note.title}
+                    id="title" name="title"
+                    type="text" placeholder="title" />
 
-                <label htmlFor="info.txt">Speed</label>
+                <label htmlFor="txt">Speed</label>
                 <input
-                    onChange={handleChange} value={note.info.txt}
-                    id="info.txt" name="info.txt"
-                    type="text" placeholder="speed" />
+                    onChange={handleChange} value={(note.info) ? note.info.txt : note.txt}
+                    id="txt" name="txt"
+                    type="text" placeholder="txt" />
 
                 <button>Save</button>
             </form>
