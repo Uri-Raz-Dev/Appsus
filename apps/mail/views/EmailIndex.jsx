@@ -1,8 +1,8 @@
 // import { storageService } from "../../../services/async-storage.service.js"
 // import { utilService } from "../../../services/util.service.js"
 import { EmailList } from "../cmps/EmailList.jsx"
-import { SideFilter } from "../cmps/SideFilter.jsx"
-import { TopFilter } from "../cmps/TopFilter.jsx"
+import { EmailFolderList } from "../cmps/EmailFolderList.jsx"
+import { EmailFilter } from "../cmps/EmailFilter.jsx"
 import { mailService } from "../services/mail.service.js"
 const { useState, useEffect, useRef } = React
 
@@ -11,19 +11,29 @@ const { useState, useEffect, useRef } = React
 export function EmailIndex() {
 
     const [mails, setMails] = useState([])
+    const [filterBy, setFilterBy] = useState(mailService.getDefaultFilter())
+    const [selectedFilter, setSelectedFilter] = useState('txt')
+
 
     useEffect(() => {
-        mailService.query()
+        mailService.query(filterBy)
             .then(mails => setMails(mails))
-    }, [])
+    }, [filterBy])
 
 
+    function onSetFilterBy(newFilter) {
+        setFilterBy(newFilter)
+    }
+    function onSetSelectedFilter(newFilter) {
+        setSelectedFilter(newFilter)
+    }
 
 
 
     return <section className="email-layout grid">
-        <TopFilter />
-        <SideFilter />
+        < EmailFilter filterBy={filterBy} onFilter={onSetFilterBy}
+            selectedFilter={selectedFilter} onSelectFilter={onSetSelectedFilter} />
+        <EmailFolderList />
         <EmailList mails={mails} />
 
     </section>

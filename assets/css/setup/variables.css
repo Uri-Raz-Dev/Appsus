@@ -3,8 +3,8 @@
     --main-bg-color: lightblue;
     /* email vars */
     --email-color: #FFFFFF;
-    --email-color-noread: #F2F6FC;
-    --email-color-read: #C2DBFF;
+    --email-color-unread: #FFFFFF;
+    --email-color-read: #f2f6fc;
     --email-searchbox-color: #EAF1FB;
     --email-compose-color: #C2E7FF;
     --email-header-color: #F6F8FC;

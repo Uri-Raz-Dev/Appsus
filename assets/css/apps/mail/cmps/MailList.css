@@ -10,7 +10,6 @@
 
  .mail-list li {
      display: flex;
-     background-color: var(--email-color);
      /* justify-content: space-between; */
      align-items: center;
      /* gap: 20px; */
@@ -20,6 +19,10 @@
 
      /* border-bottom: 1px solid; */
 
+ }
+
+ .mail-list li.unread {
+     background-color: var(--email-color-unread);
  }
 
  .mail-list li:hover {
@@ -42,4 +45,8 @@
 
  .mail-date {
      margin-inline-end: 2em;
+ }
+
+ .mail-list li.read {
+     background-color: var(--email-color-read);
  }
