@@ -36,6 +36,7 @@ export function EmailFilter({ filterBy, onFilter }) {
         let sortByTitle = filterByToEdit.sortByTitle
         let sortByDate = filterByToEdit.sortByDate
         let txt = filterByToEdit.txt
+        let isRead = filterByToEdit.isRead
 
         if (name === 'sortByTitle') {
             sortByTitle = (value === '1') ? 1 : (value === '-1') ? -1 : 0
@@ -43,13 +44,16 @@ export function EmailFilter({ filterBy, onFilter }) {
             sortByDate = (value === '1') ? 1 : (value === '-1') ? -1 : 0
         } else if (name === 'txt') {
             txt = value
+        } else if (name === 'read') {
+            isRead = (value === 'true') ? true : (value === 'false') ? false : 0
         }
 
         setFilterByToEdit(prevFilterBy => ({
             ...prevFilterBy,
             sortByTitle,
             sortByDate,
-            txt // Include txt in the updated state
+            txt,
+            isRead
         }))
     }
     return <section className="mail-filter">
@@ -65,6 +69,11 @@ export function EmailFilter({ filterBy, onFilter }) {
             <option value="0">No Date Sorting</option>
             <option value="1">Newest First</option>
             <option value="-1">Oldest First</option>
+        </select>
+        <select name="read" value={filterByToEdit.isRead} onChange={handleChange}>
+            <option value="0">No sort</option>
+            <option value="false">Unread</option>
+            <option value="true">Read</option>
         </select>
 
     </section>

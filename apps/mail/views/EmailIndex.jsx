@@ -11,7 +11,7 @@ const { useState, useEffect, useRef } = React
 export function EmailIndex() {
 
     const [mails, setMails] = useState([])
-    const [filterBy, setFilterBy] = useState(mailService.getDefaultFilter())
+    const [filterBy, setFilterBy] = useState(mailService.getDefaultEmailFilter())
 
 
     useEffect(() => {

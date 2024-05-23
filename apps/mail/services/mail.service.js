@@ -13,7 +13,8 @@ export const mailService = {
     get,
     remove,
     save,
-    getDefaultFilter,
+    getDefaultEmailFilter,
+    getDefaultFolderFilter
 }
 
 
@@ -27,64 +28,8 @@ const loggedinUser = {
 window.ms = mailService
 function query(filterBy = {}) {
     return storageService.query(MAIL_KEY)
-        .then(mails => {
-            if (filterBy.txt) {
-                const regExp = new RegExp(filterBy.txt, 'i')
-
-                mails = mails.filter(mail => {
-                    return regExp.test(mail.subject) ||
-                        regExp.test(mail.body) ||
-                        regExp.test(mail.from)
-                })
-
-            }
-
-            if (filterBy.isRead) {
-                mails = mails.filter((mail) => {
-                    mail.isRead === true
-                })
-            }
-
-            if (filterBy.isStared) {
-                mails = mails.filter((mail) => {
-                    mail.isStared === true
-                })
-
-            }
-
-            if (filterBy.sortByTitle) {
-                if (filterBy.sortByTitle === 1) {
-                    return mails = mails.sort((mail1, mail2) => mail1.subject.localeCompare(mail2.subject))
-                } else if (filterBy.sortByTitle === -1) {
-                    return mails = mails.sort((mail1, mail2) => mail2.subject.localeCompare(mail1.subject))
-                } else {
-                    return mails
-                }
-            }
-
-
-            if (filterBy.sortByDate) {
-                mails = mails.sort((mail1, mail2) => {
-                    const date1 = new Date(mail1.sentAt);
-                    const date2 = new Date(mail2.sentAt);
-
-                    if (filterBy.sortByDate === 1) {
-                        // Sort by date in descending order (newest first)
-                        return date2 - date1;
-                    } else if (filterBy.sortByDate === -1) {
-                        // Sort by date in ascending order (oldest first)
-                        return date1 - date2;
-                    } else {
-                        // If sortByDate is not 1 or -1, return mails unmodified
-                        return 0;
-                    }
-                });
-            }
-            return mails
-        })
+        .then(mails => _filterList(filterBy, mails))
 }
-
-
 
 
 function get(mailId) {
@@ -109,15 +54,20 @@ function save(mail) {
 }
 
 
-function getDefaultFilter(filterBy = { txt: '', isRead: false, date: 0, isStared: false, status: 'inbox', lables: [], title: 0 }) {
+function getDefaultEmailFilter(filterBy = { txt: '', isRead: 0, date: 0, title: 0 }) {
     return {
         txt: filterBy.txt,
         isRead: filterBy.isRead,
-        isStared: filterBy.isStared,
-        status: filterBy.status,
-        labels: filterBy.lables,
         date: filterBy.sortByDate,
         title: filterBy.sortByTitle
+    }
+}
+
+function getDefaultFolderFilter(filterBy = { isStarred: false, status: 'inbox', lables: [] }) {
+    return {
+        isStarred: filterBy.isStarred,
+        status: filterBy.status,
+        labels: filterBy.lables,
     }
 }
 
@@ -128,10 +78,69 @@ function _setNextPrevMailId(mail) {
         const prevMail = mails[mailIdx - 1] ? mails[mailIdx - 1] : mails[mails.length - 1]
         mail.nextMailId = nextMail.id
         mail.prevMailId = prevMail.id
-        return mail // Corrected return statement
+        return mail
     })
 }
 
+function _filterList(filterBy, mails) {
+
+    // EmailFilter
+
+    if (filterBy.txt) {
+        const regExp = new RegExp(filterBy.txt, 'i')
+
+        mails = mails.filter(mail => {
+            return regExp.test(mail.subject) ||
+                regExp.test(mail.body) ||
+                regExp.test(mail.from)
+        })
+
+    }
+
+    if (filterBy.isRead === true) {
+
+        mails = mails.filter(mail => mail.isRead === true);
+    } else if (filterBy.isRead === false) {
+        mails = mails.filter(mail => mail.isRead === false);
+    }
+
+
+    if (filterBy.sortByTitle) {
+        if (filterBy.sortByTitle === 1) {
+            return mails = mails.sort((mail1, mail2) => mail1.subject.localeCompare(mail2.subject))
+        } else if (filterBy.sortByTitle === -1) {
+            return mails = mails.sort((mail1, mail2) => mail2.subject.localeCompare(mail1.subject))
+        } else {
+            return mails
+        }
+    }
+
+
+    if (filterBy.sortByDate) {
+        mails = mails.sort((mail1, mail2) => {
+            const date1 = new Date(mail1.sentAt);
+            const date2 = new Date(mail2.sentAt);
+
+            if (filterBy.sortByDate === 1) {
+                return date2 - date1
+            } else if (filterBy.sortByDate === -1) {
+                return date1 - date2
+            } else {
+                return 0
+            }
+        })
+    }
+
+    // Folder List
+
+    if (filterBy.isStarred) {
+        mails = mails.filter((mail) => {
+            mail.isStarred === true
+        })
+
+    }
+    return mails
+}
 
 function _createMails() {
     let mailList = utilService.loadFromStorage(MAIL_KEY)
