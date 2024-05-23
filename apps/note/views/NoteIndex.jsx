@@ -1,8 +1,8 @@
 import { noteService } from "../services/note.service.js"
 
-
 import { NoteList } from "../cmps/NoteList.jsx"
 
+const { Outlet } = ReactRouterDOM
 const { useState, useEffect } = React
 
 export function NoteIndex() {
@@ -38,6 +38,7 @@ export function NoteIndex() {
         {/* <CreateNote /> */}
         {/* <div className="create">Take a note</div> */}
         note app
+        <Outlet />
         <NoteList notes={notes} onRemove={removeNote} />
     </main>
 }
