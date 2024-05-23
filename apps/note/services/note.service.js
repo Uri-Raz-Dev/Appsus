@@ -15,7 +15,7 @@ export const noteService = {
     getDefaultFilter,
 }
 
-window.ms = noteService
+window.ns = noteService
 
 function query(filterBy = {}) {
     return storageService.query(NOTE_KEY)

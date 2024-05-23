@@ -2,9 +2,10 @@ const { useState, useEffect } = React
 const { useParams, useNavigate } = ReactRouter
 
 import { noteService } from '../services/note.service.js'
+import { eventBusService } from "../../../services/event-bus.service.js"
 // import { showErrorMsg } from '../services/event-bus.service.js'
 
-export function NoteEdit() {
+export function NoteEdit({ onEdit }) {
 
     const [note, setNote] = useState(
         { txt: '', title: '' }
@@ -27,8 +28,10 @@ export function NoteEdit() {
 
     function onSave(ev) {
         ev.preventDefault()
+        eventBusService.emit('save', note)
         noteService.save(note)
             .then(() => navigate('/note'))
+            // .then(onEdit(true))
             .catch(() => {
                 showErrorMsg('Couldnt save')
                 navigate('/note')
