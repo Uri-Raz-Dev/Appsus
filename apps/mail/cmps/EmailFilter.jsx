@@ -12,15 +12,12 @@ export function EmailFilter({ filterBy, onFilter, selectedFilter, onSelectFilter
 
     }, [filterByToEdit, selectedFilterToEdit])
 
-    useEffect(() => {
-        setFilterByToEdit(prevFilterBy => ({
-            ...prevFilterBy,
-            txt: '',
-            isRead: false,
-            isStared: false,
-            labels: []
-        }))
-    }, [selectedFilterToEdit])
+    // useEffect(() => {
+    //     setFilterByToEdit(prevFilterBy => ({
+    //         ...prevFilterBy,
+    //         title:''
+    //     }))
+    // }, [selectedFilterToEdit])
 
 
 
@@ -38,7 +35,7 @@ export function EmailFilter({ filterBy, onFilter, selectedFilter, onSelectFilter
 
         setFilterByToEdit(prevFilterBy => ({
             ...prevFilterBy,
-            [name]: name === 'price' || name === 'date' ? +value : value
+            [name]: name === 'date' ? +new Date(value) : value
         }))
     }
 
@@ -47,6 +44,13 @@ export function EmailFilter({ filterBy, onFilter, selectedFilter, onSelectFilter
         <input type="text" className="email-search" name="txt" onChange={handleChange} value={filterByToEdit.txt}
             placeholder="" />
         <button className="clear-search" onClick={onClearSearch}>reset</button>
+        <label htmlFor="">
+            <select value={selectedFilterToEdit} onChange={e => setSelectedFilterToEdit(e.target.value)}>
+
+                <option value="newest">Newest</option>
+                <option value="oldest">Oldest</option>
+            </select>
+        </label>
 
     </section>
 }

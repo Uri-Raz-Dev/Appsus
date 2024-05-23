@@ -49,19 +49,18 @@ function query(filterBy = {}) {
                     })
 
                 }
-                if (filterBy.date) {
-                    mails = mails.filter((mail) => {
-                        const { sentAt } = mail
-                        const mailDate = parseFloat(sentAt)
-                        return mailDate === filterBy.date
+
+
+
+                if (filterBy.sortByDate) {
+                    mails = mails.sort((mail1, mail2) => {
+                        const date1 = new Date(mail1.sentAt)
+                        const date2 = new Date(mail2.sentAt)
+                        return filterBy.sortByDate === 'newest' ? date2 - date1 : date1 - date2;
                     })
-
                 }
-
-                if (filterBy.authors) {
-                    const regExp = new RegExp(filterBy.authors, 'i')
-
-                    mails = mails.filter(mail => regExp.test(mail.authors))
+                if (filterBy.sortByTitle) {
+                    mails = mails.sort((mail1, mail2) => mail1.subject.localeCompare(mail2.subject))
                 }
             }
             return mails
@@ -93,14 +92,15 @@ function save(mail) {
 }
 
 
-function getDefaultFilter(filterBy = { txt: '', isRead: false, date: 0, isStared: false, status: 'inbox', lables: [] }) {
+function getDefaultFilter(filterBy = { txt: '', isRead: false, date: null, isStared: false, status: 'inbox', lables: [], title: '' }) {
     return {
         txt: filterBy.txt,
         isRead: filterBy.isRead,
-        date: filterBy.date,
         isStared: filterBy.isStared,
         status: filterBy.status,
-        labels: filterBy.lables
+        labels: filterBy.lables,
+        date: filterBy.sortByDate,
+        title: filterBy.sortByTitle
     }
 }
 
