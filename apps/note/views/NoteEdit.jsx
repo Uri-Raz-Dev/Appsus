@@ -5,7 +5,7 @@ import { noteService } from '../services/note.service.js'
 import { eventBusService } from "../../../services/event-bus.service.js"
 // import { showErrorMsg } from '../services/event-bus.service.js'
 
-export function NoteEdit({ onEdit }) {
+export function NoteEdit() {
 
     const [note, setNote] = useState(
         { txt: '', title: '' }
@@ -31,7 +31,6 @@ export function NoteEdit({ onEdit }) {
         eventBusService.emit('save', note)
         noteService.save(note)
             .then(() => navigate('/note'))
-            // .then(onEdit(true))
             .catch(() => {
                 showErrorMsg('Couldnt save')
                 navigate('/note')
