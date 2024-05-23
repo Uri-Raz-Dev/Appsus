@@ -6,7 +6,7 @@ export function EmailFilter({ filterBy, onFilter }) {
     const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
 
     useEffect(() => {
-        onFilter(filterByToEdit);
+        onFilter(filterByToEdit)
 
     }, [filterByToEdit])
 
@@ -32,14 +32,24 @@ export function EmailFilter({ filterBy, onFilter }) {
 
     function handleChange({ target }) {
         const { name, value } = target
-        const sortByTitle = (value === '1') ? 1 : (value === '-1') ? -1 : 0
-        const sortByDate = (value === '1') ? 1 : (value === '-1') ? -1 : 0
-        // (value === 'true') ? true : (value === 'false') ? false : value
+
+        let sortByTitle = filterByToEdit.sortByTitle
+        let sortByDate = filterByToEdit.sortByDate
+        let txt = filterByToEdit.txt
+
+        if (name === 'sortByTitle') {
+            sortByTitle = (value === '1') ? 1 : (value === '-1') ? -1 : 0
+        } else if (name === 'sortByDate') {
+            sortByDate = (value === '1') ? 1 : (value === '-1') ? -1 : 0
+        } else if (name === 'txt') {
+            txt = value
+        }
 
         setFilterByToEdit(prevFilterBy => ({
             ...prevFilterBy,
-            [name]: sortByTitle,
-            [name]: sortByDate
+            sortByTitle,
+            sortByDate,
+            txt // Include txt in the updated state
         }))
     }
     return <section className="mail-filter">
