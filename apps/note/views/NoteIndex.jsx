@@ -2,6 +2,7 @@ import { noteService } from "../services/note.service.js"
 import { eventBusService } from "../../../services/event-bus.service.js"
 
 import { NoteList } from "../cmps/NoteList.jsx"
+import { NewNote } from "../cmps/NewNote.jsx"
 
 const { Outlet } = ReactRouterDOM
 const { useState, useEffect } = React
@@ -49,11 +50,22 @@ export function NoteIndex() {
         // .finally(() => setIsLoading(false))
     }
 
+    // function addNotes(notes) {
+    //     console.log('notes', notes)
+    //     setNotes(notes)
+    // }
+
+    function addNotes(note) {
+        console.log('notes', notes)
+        setNotes(notes => [note, ...notes])
+    }
+
     return <main className="note-index">
         {/* <CreateNote /> */}
         {/* <div className="create">Take a note</div> */}
         note app
         <Outlet />
+        <NewNote notes={notes} makeNewNotes={addNotes} />
         <NoteList notes={notes} onRemove={removeNote} />
     </main>
 }

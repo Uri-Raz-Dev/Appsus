@@ -13,6 +13,7 @@ export const noteService = {
     remove,
     save,
     getDefaultFilter,
+    getEmptyNote,
 }
 
 window.ns = noteService
@@ -84,23 +85,18 @@ function getDefaultFilter(filterBy = { title: '', price: 0, date: 0, authors: ''
         date: filterBy.date, authors: filterBy.authors
     }
 }
+
+function getEmptyNote() {
+    return {
+        createdAt: '',
+        type: 'NoteTxt',
+        isPinned: false,
+        info: { txt: '', title: '' }
+    }
+}
+
 function _createNotes() {
     const notes = [
-        {
-            id: 'n101',
-            createdAt: 1112222,
-            type: 'NoteTxt',
-            isPinned: true,
-            style: { backgroundColor: '#00d' },
-            info: { txt: 'Fullstack Me Baby!', title: 'Bobi and Me' }
-        },
-        {
-            id: 'n102',
-            type: 'NoteImg',
-            isPinned: false,
-            info: { url: 'http://some-img/me', title: 'Bobi and Me', txt: 'Fullstack Me Baby!' },
-            style: { backgroundColor: '#00d' }
-        },
         {
             id: 'n103',
             type: 'NoteTodos',
@@ -112,7 +108,23 @@ function _createNotes() {
                     { txt: 'Driving license', doneAt: null },
                     { txt: 'Coding power', doneAt: 187111111 }]
             }
-        }]
+        },
+        {
+            id: 'n102',
+            type: 'NoteImg',
+            isPinned: false,
+            info: { url: 'http://some-img/me', title: 'Bobi and Me', txt: 'Fullstack Me Baby!' },
+            style: { backgroundColor: '#00d' }
+        },
+        {
+            id: 'n101',
+            createdAt: 1112222,
+            type: 'NoteTxt',
+            isPinned: true,
+            style: { backgroundColor: '#00d' },
+            info: { txt: 'Fullstack Me Baby!', title: 'Bobi and Me' }
+        },
+    ]
     console.log('notes', notes)
     utilService.saveToStorage(NOTE_KEY, notes)
     return notes
