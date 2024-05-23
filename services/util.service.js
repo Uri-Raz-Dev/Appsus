@@ -9,7 +9,8 @@ export const utilService = {
     saveToStorage,
     loadFromStorage,
     makeName,
-    getFormattedDate
+    getFormattedTimestamp,
+    getRandomTimestamp
 }
 
 function makeId(length = 6) {
@@ -83,9 +84,29 @@ function loadFromStorage(key) {
     var val = localStorage.getItem(key)
     return JSON.parse(val)
 }
-function getFormattedDate(date, locale) {
-    date = new Date(date)
-    const monthName = getMonthName(date)
-    const day = date.getDate()
-    return `${monthName} ${day}`
+function getFormattedTimestamp(timestamp) {
+    const date = new Date(timestamp)
+    const today = new Date()
+    const year = date.getFullYear()
+    const monthIndex = date.getMonth()
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    const monthName = monthNames[monthIndex]
+    const day = date.getDate().toString()
+
+    if (date.toDateString() === today.toDateString()) {
+        const hours = date.getHours()
+        const minutes = date.getMinutes().toString().padStart(2, '0')
+        const ampm = hours >= 12 ? 'pm' : 'am'
+        const formattedHours = hours % 12 === 0 ? 12 : hours % 12
+        return `${formattedHours}:${minutes}${ampm}`
+    } else if (year === today.getFullYear()) {
+        return `${monthName} ${day}`
+    } else {
+        const month = (monthIndex + 1).toString().padStart(2, '0')
+        return `${month}/${day.padStart(2, '0')}/${year}`
+    }
+}
+
+function getRandomTimestamp(start, end) {
+    return Math.floor(Math.random() * (end - start + 1)) + start
 }

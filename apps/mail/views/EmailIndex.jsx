@@ -12,7 +12,6 @@ export function EmailIndex() {
 
     const [mails, setMails] = useState([])
     const [filterBy, setFilterBy] = useState(mailService.getDefaultFilter())
-    const [selectedFilter, setSelectedFilter] = useState('newest')
 
 
     useEffect(() => {
@@ -24,18 +23,11 @@ export function EmailIndex() {
     function onSetFilterBy(newFilter) {
         setFilterBy(newFilter)
     }
-    function onSetSelectedFilter(newFilter) {
-        setSelectedFilter(newFilter);
-        setFilterBy(prevFilterBy => ({
-            ...prevFilterBy,
-            sortByDate: newFilter
-        }))
-    }
 
 
     return <section className="email-layout grid">
         < EmailFilter filterBy={filterBy} onFilter={onSetFilterBy}
-            selectedFilter={selectedFilter} onSelectFilter={onSetSelectedFilter} />
+        />
         <EmailFolderList />
         <EmailList mails={mails} />
 

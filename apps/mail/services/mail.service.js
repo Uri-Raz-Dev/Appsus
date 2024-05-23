@@ -43,25 +43,42 @@ function query(filterBy = {}) {
                 mails = mails.filter((mail) => {
                     mail.isRead === true
                 })
-                if (filterBy.isStared) {
-                    mails = mails.filter((mail) => {
-                        mail.isStared === true
-                    })
+            }
 
+            if (filterBy.isStared) {
+                mails = mails.filter((mail) => {
+                    mail.isStared === true
+                })
+
+            }
+
+            if (filterBy.sortByTitle) {
+                if (filterBy.sortByTitle === 1) {
+                    return mails = mails.sort((mail1, mail2) => mail1.subject.localeCompare(mail2.subject))
+                } else if (filterBy.sortByTitle === -1) {
+                    return mails = mails.sort((mail1, mail2) => mail2.subject.localeCompare(mail1.subject))
+                } else {
+                    return mails
                 }
+            }
 
 
+            if (filterBy.sortByDate) {
+                mails = mails.sort((mail1, mail2) => {
+                    const date1 = new Date(mail1.sentAt);
+                    const date2 = new Date(mail2.sentAt);
 
-                if (filterBy.sortByDate) {
-                    mails = mails.sort((mail1, mail2) => {
-                        const date1 = new Date(mail1.sentAt)
-                        const date2 = new Date(mail2.sentAt)
-                        return filterBy.sortByDate === 'newest' ? date2 - date1 : date1 - date2;
-                    })
-                }
-                if (filterBy.sortByTitle) {
-                    mails = mails.sort((mail1, mail2) => mail1.subject.localeCompare(mail2.subject))
-                }
+                    if (filterBy.sortByDate === 1) {
+                        // Sort by date in descending order (newest first)
+                        return date2 - date1;
+                    } else if (filterBy.sortByDate === -1) {
+                        // Sort by date in ascending order (oldest first)
+                        return date1 - date2;
+                    } else {
+                        // If sortByDate is not 1 or -1, return mails unmodified
+                        return 0;
+                    }
+                });
             }
             return mails
         })
@@ -92,7 +109,7 @@ function save(mail) {
 }
 
 
-function getDefaultFilter(filterBy = { txt: '', isRead: false, date: null, isStared: false, status: 'inbox', lables: [], title: '' }) {
+function getDefaultFilter(filterBy = { txt: '', isRead: false, date: 0, isStared: false, status: 'inbox', lables: [], title: 0 }) {
     return {
         txt: filterBy.txt,
         isRead: filterBy.isRead,
@@ -115,6 +132,7 @@ function _setNextPrevMailId(mail) {
     })
 }
 
+
 function _createMails() {
     let mailList = utilService.loadFromStorage(MAIL_KEY)
 
@@ -126,14 +144,18 @@ function _createMails() {
             const year = utilService.getRandomIntInclusive(2020, 2024)
             const month = utilService.getRandomIntInclusive(1, 12)
             const day = utilService.getRandomIntInclusive(1, 30)
-            const date = new Date(`${year}-${utilService.padNum(month)}-${utilService.padNum(day)}`)
+            // const date = new Date(`${year}-${utilService.padNum(month)}-${utilService.padNum(day)}`)
+            const startDate = new Date('2020-01-01').getTime();
+            const endDate = new Date('2024-12-31').getTime();
+            const randomTimestamp = utilService.getRandomTimestamp(startDate, endDate);
+
 
             const email = {
                 id: utilService.makeId(),
                 subject: subject.charAt(0).toUpperCase() + subject.slice(1),
                 body: body.charAt(0).toUpperCase() + body.slice(1),
                 isRead: false,
-                sentAt: utilService.getFormattedDate(date, 'en-US'),
+                sentAt: randomTimestamp,
                 removedAt: null,
                 from: `${utilService.makeName(4).toLowerCase()}@${utilService.makeName(5).toLowerCase()}.com`,
                 to: 'user@appsus.com'

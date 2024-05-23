@@ -1,5 +1,6 @@
 
 
+import { utilService } from "../../../services/util.service.js"
 import { mailService } from "../services/mail.service.js"
 import { EmailIcons } from "./EmailIcons.jsx"
 const { useState, useEffect, useRef } = React
@@ -28,7 +29,7 @@ export function EmailPreview({ mail }) {
         <p className="mail-from">{from}</p>
         <p className="mail-body">{subject} - {body.slice(0, body.length / 5)}</p>
 
-        <p className="mail-date">{sentAt}</p>
+        <p className="mail-date">{utilService.getFormattedTimestamp(sentAt)}</p>
     </li>
 
 }
