@@ -63,11 +63,11 @@ function getDefaultEmailFilter(filterBy = { txt: '', isRead: 0, date: 0, title: 
     }
 }
 
-function getDefaultFolderFilter(filterBy = { isStarred: false, status: 'inbox', lables: [] }) {
+function getDefaultFolderFilter(filterBy = { isStarred: 0, status: 'inbox', labels: [] }) {
     return {
         isStarred: filterBy.isStarred,
         status: filterBy.status,
-        labels: filterBy.lables,
+        labels: filterBy.labels,
     }
 }
 
@@ -99,9 +99,9 @@ function _filterList(filterBy, mails) {
 
     if (filterBy.isRead === true) {
 
-        mails = mails.filter(mail => mail.isRead === true);
+        mails = mails.filter(mail => mail.isRead === true)
     } else if (filterBy.isRead === false) {
-        mails = mails.filter(mail => mail.isRead === false);
+        mails = mails.filter(mail => mail.isRead === false)
     }
 
 
@@ -131,14 +131,34 @@ function _filterList(filterBy, mails) {
         })
     }
 
-    // Folder List
+    // Folder List Filter
 
-    if (filterBy.isStarred) {
-        mails = mails.filter((mail) => {
-            mail.isStarred === true
-        })
+    if (filterBy.isStarred === true) {
 
+        mails = mails.filter(mail => mail.isStarred === true)
+    } else if (filterBy.isStarred === false) {
+        mails = mails.filter(mail => mail.isStarred === false)
     }
+
+    if (filterBy.status) {
+        switch (filterBy.status) {
+            case 'inbox':
+                mails = mails.filter(mail => mail.from !== loggedinUser.email && !mail.removedAt)
+                break
+            case 'sent':
+                mails = mails.filter(mail => mail.from === loggedinUser.email && !mail.removedAt)
+                break
+            // case 'trash':
+            //     mails = mails.filter(mail => mail.removedAt)
+            //     break
+            // case 'draft':
+            //     mails = mails.filter(mail => mail.isDraft)
+            //     break
+            default:
+                break
+        }
+    }
+
     return mails
 }
 
@@ -147,7 +167,7 @@ function _createMails() {
 
     if (!mailList || mailList.length === 0) {
         mailList = []
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 30; i++) {
             const subject = utilService.makeLorem(4)
             const body = utilService.makeLorem(30)
             const year = utilService.getRandomIntInclusive(2020, 2024)
@@ -156,18 +176,26 @@ function _createMails() {
             // const date = new Date(`${year}-${utilService.padNum(month)}-${utilService.padNum(day)}`)
             const startDate = new Date('2020-01-01').getTime();
             const endDate = new Date('2024-12-31').getTime();
-            const randomTimestamp = utilService.getRandomTimestamp(startDate, endDate);
+            const randomTimestamp = utilService.getRandomTimestamp(startDate, endDate)
+            const mailTo = Math.random() >= 0.5 ? `${utilService.makeName(4).toLowerCase()}@${utilService.makeName(5).toLowerCase()}.com` : 'user@appsus.com'
+
+            const mailFrom = Math.random() >= 0.5 ? `${utilService.makeName(4).toLowerCase()}@${utilService.makeName(5).toLowerCase()}.com` : 'user@appsus.com'
+
+
+
 
 
             const email = {
                 id: utilService.makeId(),
                 subject: subject.charAt(0).toUpperCase() + subject.slice(1),
                 body: body.charAt(0).toUpperCase() + body.slice(1),
+                isStarred: false,
                 isRead: false,
                 sentAt: randomTimestamp,
                 removedAt: null,
-                from: `${utilService.makeName(4).toLowerCase()}@${utilService.makeName(5).toLowerCase()}.com`,
-                to: 'user@appsus.com'
+                from: mailFrom,
+                to: mailTo,
+                folder: mailFrom === 'user@appsus.com' ? 'sent' : 'inbox'
             }
             mailList.push(email)
             utilService.saveToStorage(MAIL_KEY, mailList)

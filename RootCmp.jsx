@@ -1,4 +1,5 @@
-const { Route, Routes } = ReactRouterDOM
+const { Route, Routes, Navigate } = ReactRouterDOM
+
 const Router = ReactRouterDOM.HashRouter
 
 import { AppHeader } from "./cmps/AppHeader.jsx"
@@ -7,7 +8,11 @@ import { Home } from "./views/Home.jsx"
 import { EmailIndex } from "./apps/mail/views/EmailIndex.jsx"
 import { NoteIndex } from "./apps/note/views/NoteIndex.jsx"
 
-
+const mailFolders = {
+    inbox: 'inbox',
+    sent: 'sent',
+    starred: 'starred',
+}
 
 export function App() {
     return <Router>
@@ -16,7 +21,9 @@ export function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
-                <Route path="/mail" element={<EmailIndex />} />
+                <Route path="/mail/inbox" element={<EmailIndex folder={mailFolders.inbox} />} />
+                <Route path="/mail/sent" element={<EmailIndex folder={mailFolders.sent} />} />
+                <Route path="/mail/starred" element={<EmailIndex folder={mailFolders.starred} />} />
                 <Route path="/note" element={<NoteIndex />} />
             </Routes>
         </section>
