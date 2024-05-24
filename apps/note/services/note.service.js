@@ -104,6 +104,8 @@ function _createNotes() {
             info: {
                 title: 'Get my stuff together',
                 txt: 'Fullstack Me Baby!',
+                txtLineBreaks: 1,
+                titleLineBreaks: 1,
                 todos: [
                     { txt: 'Driving license', doneAt: null },
                     { txt: 'Coding power', doneAt: 187111111 }]
@@ -113,7 +115,11 @@ function _createNotes() {
             id: 'n102',
             type: 'NoteImg',
             isPinned: false,
-            info: { url: 'https://source.unsplash.com/random', title: 'Bobi and Me', txt: 'Fullstack Me Baby!' },
+            info: {
+                url: 'https://source.unsplash.com/random', title: 'Bobi and Me', txt: 'Fullstack Me Baby!',
+                txtLineBreaks: 1,
+                titleLineBreaks: 1,
+            },
             style: { backgroundColor: '#00d' }
         },
         {
@@ -122,7 +128,11 @@ function _createNotes() {
             type: 'NoteTxt',
             isPinned: true,
             style: { backgroundColor: '#00d' },
-            info: { txt: 'Fullstack Me Baby!', title: 'Bobi and Me' }
+            info: {
+                txt: 'Fullstack Me Baby!', title: 'Bobi and Me',
+                txtLineBreaks: 1,
+                titleLineBreaks: 1,
+            }
         },
     ]
     console.log('notes', notes)

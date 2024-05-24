@@ -3,18 +3,18 @@ const { useParams, useNavigate } = ReactRouter
 
 import { noteService } from '../services/note.service.js'
 import { eventBusService } from "../../../services/event-bus.service.js"
-// import { showErrorMsg } from '../services/event-bus.service.js'
+import { showErrorMsg } from '../../../services/event-bus.service.js'
 
 import { TextArea } from "../cmps/TextArea.jsx";
 
 export function NoteEdit() {
-    // let lineBreakCount = 0
-    const [lineBreakCount, setlineBreakCount] = useState(1)
-
 
     const [note, setNote] = useState(
-        { txt: '', title: '' }
+        { txt: '', title: '', txtLineBreaks: 1 }
     )
+    const [countLineBreakEv, setcountLineBreakEv] = useState(1)
+    const [textArea, setTextArea] = useState(1)
+
 
     const params = useParams()
     const navigate = useNavigate()
@@ -28,8 +28,17 @@ export function NoteEdit() {
             .then(note => {
                 console.log('note', note)
                 setNote(note)
+                setTextArea(note.txtLineBreaks)
+
             })
     }, [])
+
+    // useEffect(() => {
+    //     console.log('setting text area', note.txtLineBreaks);
+    //     setTextArea(note.txtLineBreaks)
+    // }, [note])
+
+
 
     function onSave(ev) {
         ev.preventDefault()
@@ -45,8 +54,14 @@ export function NoteEdit() {
     function handleChange({ target }) {
         console.log('event', event)
         if (event.inputType === 'insertLineBreak') {
-            setlineBreakCount(prevLineBreak => prevLineBreak + 1)
-            console.log('lineBreakCount', lineBreakCount)
+            setcountLineBreakEv(prev => prev + 1)
+            setNote(prevNote => {
+                console.log('prop', prop)
+                console.log('name', name)
+                console.log('prevNote', prevNote)
+                let newInfo = { ...prevNote.info, txtLineBreaks: prevNote.info.txtLineBreaks + 1 }
+                return { ...prevNote, info: newInfo }
+            })
         }
         const { type, name: prop } = target
         let { value } = target
@@ -64,7 +79,7 @@ export function NoteEdit() {
         setNote(prevNote => {
             console.log('prop', prop)
             console.log('name', name)
-            const newInfo = { ...prevNote.info, [prop]: value }
+            let newInfo = { ...prevNote.info, [prop]: value }
             return { ...prevNote, info: newInfo }
         })
     }
@@ -82,7 +97,7 @@ export function NoteEdit() {
 
                 <label htmlFor="txt"></label>
                 <TextArea note={note} onChange={handleChange}
-                    lineBreakCount={lineBreakCount} />
+                    lineBreakCount={countLineBreakEv} />
                 {/* <textarea
                     name='txt'
                     id="txt"
