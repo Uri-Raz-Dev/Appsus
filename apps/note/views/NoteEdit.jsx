@@ -5,7 +5,12 @@ import { noteService } from '../services/note.service.js'
 import { eventBusService } from "../../../services/event-bus.service.js"
 // import { showErrorMsg } from '../services/event-bus.service.js'
 
+import { TextArea } from "../cmps/TextArea.jsx";
+
 export function NoteEdit() {
+    // let lineBreakCount = 0
+    const [lineBreakCount, setlineBreakCount] = useState(1)
+
 
     const [note, setNote] = useState(
         { txt: '', title: '' }
@@ -38,6 +43,11 @@ export function NoteEdit() {
     }
 
     function handleChange({ target }) {
+        console.log('event', event)
+        if (event.inputType === 'insertLineBreak') {
+            setlineBreakCount(prevLineBreak => prevLineBreak + 1)
+            console.log('lineBreakCount', lineBreakCount)
+        }
         const { type, name: prop } = target
         let { value } = target
 
@@ -71,8 +81,9 @@ export function NoteEdit() {
                     type="text" placeholder="Title" />
 
                 <label htmlFor="txt"></label>
-                {/* <TextArea /> */}
-                <textarea
+                <TextArea note={note} onChange={handleChange}
+                    lineBreakCount={lineBreakCount} />
+                {/* <textarea
                     name='txt'
                     id="txt"
                     cols='46'
@@ -81,7 +92,7 @@ export function NoteEdit() {
                     placeholder="Note"
                     value={(note.info) ? note.info.txt : note.txt}
                     onChange={handleChange}
-                ></textarea>
+                ></textarea> */}
                 {/* 
                 <label htmlFor="txt">Speed</label>
                 <input

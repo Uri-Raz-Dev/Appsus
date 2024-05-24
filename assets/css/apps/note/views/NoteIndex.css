@@ -9,6 +9,10 @@
 
  textarea {
      resize: none;
+     display: block;
+     width: 100%;
+     border-color: transparent;
+     font-size: 22px;
  }
 
  .note-index {

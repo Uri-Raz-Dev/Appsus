@@ -21,6 +21,9 @@
     padding: 16px 15px;
 }
 
+/* this is double code with textarea: */
+
+
 .note-edit form>* {
     /* margin-block: 1px; */
 
