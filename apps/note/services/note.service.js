@@ -113,7 +113,7 @@ function _createNotes() {
             id: 'n102',
             type: 'NoteImg',
             isPinned: false,
-            info: { url: 'http://some-img/me', title: 'Bobi and Me', txt: 'Fullstack Me Baby!' },
+            info: { url: 'https://source.unsplash.com/random', title: 'Bobi and Me', txt: 'Fullstack Me Baby!' },
             style: { backgroundColor: '#00d' }
         },
         {

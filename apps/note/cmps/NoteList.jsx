@@ -10,7 +10,7 @@ export function NoteList({ notes, onRemove }) {
                 <li key={note.id} >
                     <Link to={`/note/edit/${note.id}`}>
                         <article className="note">
-
+                            {(note.info.url) && <img src={note.info.url} />}
                             <NotePreview note={note} />
                             <Buttons note={note} onRemove={onRemove} />
 
