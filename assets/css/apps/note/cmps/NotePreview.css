@@ -3,7 +3,9 @@
 
     /* margin: 0; */
 
-    overflow: hidden;
+    /* overflow: visible; */
+    word-break: break-word;
+    word-wrap: break-word;
     font-size: var(--keep-note-font-small);
     /* font-family: "Google Sans", Roboto, Arial, sans-serif; */
     /* font-size: 1.125rem; */

@@ -59,33 +59,26 @@ export function NoteEdit() {
         })
     }
 
-    // * DEMO
-    // function addNoteReview(review) {
-    //     setNote(prevNote => ({
-    //         ...prevNote,
-    //         reviews: [...prevNote.reviews, review]
-    //     }))
-    // }
-
     return (
         <section className="note-edit">
-            <h1>{params.noteId ? 'Edit note' : 'Add note'}</h1>
+            {/* <h1>{params.noteId ? 'Edit note' : 'Add note'}</h1> */}
 
             <form onSubmit={onSave}>
                 <label htmlFor="title"></label>
                 <input
                     onChange={handleChange} value={(note.info) ? note.info.title : note.title}
                     id="title" name="title"
-                    type="text" placeholder="title" />
+                    type="text" placeholder="Title" />
 
                 <label htmlFor="txt"></label>
+                {/* <TextArea /> */}
                 <textarea
                     name='txt'
                     id="txt"
                     cols='46'
-                    rows='10'
+                    rows='1'
                     wrap="hard"
-                    placeholder="Text"
+                    placeholder="Note"
                     value={(note.info) ? note.info.txt : note.txt}
                     onChange={handleChange}
                 ></textarea>

@@ -1,16 +1,31 @@
 .note-edit {
-    /* width:  50vw; */
+    position: fixed;
+    z-index: 10;
+    width: 100dvw;
+    height: 100dvh;
+    background-color: #00000087;
+    /* background-color: var(--keep-dark-txt); */
+    /* opacity: 0.6; */
 }
 
 .note-edit form {
+    background-color: white;
     position: fixed;
-    top: 50%;
+    width: 70dvw;
+    /* opacity: 1; */
+    /* z-index: 11; */
+    top: calc(93px + 125px);
     right: 50%;
     transform: translate(50%, -50%);
+    border-radius: 8px;
+    padding: 16px 15px;
 }
 
 .note-edit form>* {
+    /* margin-block: 1px; */
+
     display: block;
-    border: none;
+    width: 100%;
+    border-color: transparent;
     font-size: 22px;
 }

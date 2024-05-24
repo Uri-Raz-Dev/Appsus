@@ -1,5 +1,16 @@
  /* note index */
 
+ input:focus,
+ select:focus,
+ textarea:focus,
+ button:focus {
+     outline: none;
+ }
+
+ textarea {
+     resize: none;
+ }
+
  .note-index {
      color: var(--keep-light-txt);
  }
