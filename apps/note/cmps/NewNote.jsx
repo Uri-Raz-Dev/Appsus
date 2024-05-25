@@ -1,4 +1,5 @@
 import { noteService } from '../services/note.service.js'
+import { eventBusService } from "../../../services/event-bus.service.js"
 
 import { TextArea } from "./TextArea.jsx";
 
@@ -8,6 +9,8 @@ const { useParams, useNavigate } = ReactRouter
 export function NewNote({ notes, makeNewNotes }) {
     const [newNote, setNewNote] = useState(noteService.getEmptyNote())
     const [isOpen, setisOpen] = useState(false)
+    const [clickCount, setclickCount] = useState(0)
+
     // const [newNotes, setNewNotes] = useState(notes)
 
     useEffect(() => {
@@ -16,6 +19,12 @@ export function NewNote({ notes, makeNewNotes }) {
             return { ...prevNote, info: newInfo }
         })
     }, [newNote.info.txt])
+
+    // useEffect(() => {
+    //     if (inputRef.current) {
+    //         inputRef.current.focus()
+    //     }
+    // }, [])
 
     // useEffect((newNotes) => {
     //     console.log('newNotes', newNotes)
@@ -29,11 +38,12 @@ export function NewNote({ notes, makeNewNotes }) {
     // }, [])
 
 
-    // useEffect(() => {
-    //     // console.log('newNotes', newNotes)
-    //     // makeNewNotes(newNotes)
-    //     makeNewNotes(newNote)
-    // }, [newNote])
+    useEffect(() => {
+        if (clickCount === 1) eventBusService.emit('focus', true)
+    }, [clickCount])
+
+
+
 
     function onSave(ev) {
         ev.preventDefault()
@@ -52,7 +62,10 @@ export function NewNote({ notes, makeNewNotes }) {
                 // showErrorMsg('Couldnt save')
                 // navigate('/note')
             })
-            .finally(() => setisOpen(false))
+            .finally(() => {
+                setclickCount(0)
+                setisOpen(false)
+            })
     }
 
     function handleChange({ target }) {
@@ -78,12 +91,11 @@ export function NewNote({ notes, makeNewNotes }) {
             })
     }
 
-    function handleClick() {
-
-    }
-
     return (
-        <section className="note-add" onClick={() => setisOpen(true)}>
+        <section className="note-add" onClick={() => {
+            setclickCount(prev => prev + 1)
+            setisOpen(true)
+        }}>
             <form onSubmit={onSave}>
                 {isOpen && <label >
                     <input
@@ -93,7 +105,8 @@ export function NewNote({ notes, makeNewNotes }) {
                 </label>}
 
                 <label htmlFor="txt"></label>
-                <TextArea note={newNote} onChange={handleChange} placeHolder={'Take a note...'} />
+                <TextArea note={newNote} onChange={handleChange} placeHolder={'Take a note...'}
+                />
                 {/* <textarea
                     name='txt'
                     id="txt"
