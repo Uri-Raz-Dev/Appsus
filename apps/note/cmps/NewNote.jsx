@@ -9,6 +9,13 @@ export function NewNote({ notes, makeNewNotes }) {
     const [newNote, setNewNote] = useState(noteService.getEmptyNote())
     // const [newNotes, setNewNotes] = useState(notes)
 
+    useEffect(() => {
+        setNewNote(prevNote => {
+            let newInfo = { ...prevNote.info, txtLineCount: (prevNote.info.txt.match(/\n/g) || []).length + 1 }
+            return { ...prevNote, info: newInfo }
+        })
+    }, [newNote.info.txt])
+
     // useEffect((newNotes) => {
     //     console.log('newNotes', newNotes)
     //     // makeNewNotes(newNotes)

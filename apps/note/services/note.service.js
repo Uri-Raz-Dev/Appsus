@@ -91,7 +91,7 @@ function getEmptyNote() {
         createdAt: '',
         type: 'NoteTxt',
         isPinned: false,
-        info: { txt: '', title: '' }
+        info: { txt: '', title: '', txtLineCount: 1, titleLineCount: 1 }
     }
 }
 
