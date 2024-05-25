@@ -1,4 +1,4 @@
-export function TextArea({ note, onChange }) {
+export function TextArea({ note, onChange, placeHolder }) {
     return <label >
         <textarea
             name='txt'
@@ -6,7 +6,7 @@ export function TextArea({ note, onChange }) {
             cols='46'
             rows={note.info.txtLineCount + ''}
             wrap="hard"
-            placeholder="Note"
+            placeholder={placeHolder || "Note"}
             value={note.info.txt}
             onChange={onChange}
         />

@@ -1,5 +1,7 @@
 import { noteService } from '../services/note.service.js'
 
+import { TextArea } from "./TextArea.jsx";
+
 const { useState, useEffect } = React
 const { useParams, useNavigate } = ReactRouter
 
@@ -30,9 +32,8 @@ export function NewNote({ notes, makeNewNotes }) {
         // eventBusService.emit('save', note)
         noteService.save(newNote)
             .then(makeNewNotes)
-            // .then(note => {
-            //     console.log('note', note)
-            //     setNewNote(note)
+            .then(() =>
+                setNewNote(noteService.getEmptyNote()))
             //     // setNewNotes(prevNotes => {
             //     //     console.log('prevNotes', [note, ...prevNotes])
             //     //     return [note, ...prevNotes]
@@ -70,17 +71,16 @@ export function NewNote({ notes, makeNewNotes }) {
 
     return (
         <section className="note-add">
-            {/* <h1>{params.noteId ? 'Edit note' : 'Add note'}</h1> */}
-
             <form onSubmit={onSave}>
                 <label htmlFor="title"></label>
                 <input
                     onChange={handleChange} value={newNote.info.title}
                     id="title" name="title"
-                    type="text" placeholder="title" />
+                    type="text" placeholder="Title" />
 
                 <label htmlFor="txt"></label>
-                <textarea
+                <TextArea note={newNote} onChange={handleChange} placeHolder={'Take a note...'} />
+                {/* <textarea
                     name='txt'
                     id="txt"
                     cols='46'
@@ -89,7 +89,7 @@ export function NewNote({ notes, makeNewNotes }) {
                     placeholder="Text"
                     value={newNote.info.title}
                     onChange={handleChange}
-                ></textarea>
+                ></textarea> */}
                 {/* 
                 <label htmlFor="txt">Speed</label>
                 <input
@@ -97,7 +97,7 @@ export function NewNote({ notes, makeNewNotes }) {
                     id="txt" name="txt"
                     type="text" placeholder="txt" /> */}
 
-                <button>Save</button>
+                <button>Close</button>
             </form>
         </section>
     )

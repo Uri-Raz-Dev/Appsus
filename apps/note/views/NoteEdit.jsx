@@ -74,7 +74,7 @@ export function NoteEdit() {
 
                 <label htmlFor="txt"></label>
                 <TextArea note={note} onChange={handleChange} />
-                <button>Save</button>
+                <button>Close</button>
             </form>
         </section>
     )
