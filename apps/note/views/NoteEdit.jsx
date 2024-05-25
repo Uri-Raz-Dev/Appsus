@@ -10,10 +10,10 @@ import { TextArea } from "../cmps/TextArea.jsx";
 export function NoteEdit() {
     // var count = (temp.match(/\n/g) || []).length; 
     const [note, setNote] = useState(
-        { txt: '', title: '', txtLineBreaks: 1 }
+        { info: { txt: '', title: '', txtLineCount: 1 } }
     )
-    const [countLineBreakEv, setcountLineBreakEv] = useState(1)
-    const [textArea, setTextArea] = useState(1)
+    // const [countLineBreakEv, setcountLineBreakEv] = useState(1)
+    // const [textArea, setTextArea] = useState(1)
 
 
     const params = useParams()
@@ -28,15 +28,21 @@ export function NoteEdit() {
             .then(note => {
                 console.log('note', note)
                 setNote(note)
-                setTextArea(note.txtLineBreaks)
+                // setTextArea(note.txtLineCount)
 
             })
     }, [])
 
-    // useEffect(() => {
-    //     console.log('setting text area', note.txtLineBreaks);
-    //     setTextArea(note.txtLineBreaks)
-    // }, [note])
+    useEffect(() => {
+        setNote(prevNote => {
+            // console.log('prop', prop)
+            // console.log('name', name)
+            console.log('prevNote', prevNote)
+            let newInfo = { ...prevNote.info, txtLineCount: (prevNote.info.txt.match(/\n/g) || []).length + 1 }
+            console.log('prevNote.info.txt.match(/\n/g) || []).length', (prevNote.info.txt.match(/\n/g) || []).length)
+            return { ...prevNote, info: newInfo }
+        })
+    }, [note.info.txt])
 
 
 
@@ -44,25 +50,24 @@ export function NoteEdit() {
         ev.preventDefault()
         eventBusService.emit('save', note)
         noteService.save(note)
-            .then(() => navigate('/note'))
             .catch(() => {
                 showErrorMsg('Couldnt save')
-                navigate('/note')
             })
+            .finally(() => navigate('/note'))
     }
 
     function handleChange({ target }) {
         console.log('event', event)
-        if (event.inputType === 'insertLineBreak') {
-            setcountLineBreakEv(prev => prev + 1)
-            setNote(prevNote => {
-                console.log('prop', prop)
-                console.log('name', name)
-                console.log('prevNote', prevNote)
-                let newInfo = { ...prevNote.info, txtLineBreaks: prevNote.info.txtLineBreaks + 1 }
-                return { ...prevNote, info: newInfo }
-            })
-        }
+        // if (event.inputType === 'insertLineBreak') {
+        //     // setcountLineBreakEv(prev => prev + 1)
+        //     setNote(prevNote => {
+        //         console.log('prop', prop)
+        //         console.log('name', name)
+        //         console.log('prevNote', prevNote)
+        //         let newInfo = { ...prevNote.info, txtLineCount: prevNote.info.txtLineCount + 1 }
+        //         return { ...prevNote, info: newInfo }
+        //     })
+        // }
         const { type, name: prop } = target
         let { value } = target
 
@@ -97,7 +102,7 @@ export function NoteEdit() {
 
                 <label htmlFor="txt"></label>
                 <TextArea note={note} onChange={handleChange}
-                    lineBreakCount={countLineBreakEv} />
+                    /*lineBreakCount={countLineBreakEv}*/ />
                 {/* <textarea
                     name='txt'
                     id="txt"

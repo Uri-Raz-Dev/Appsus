@@ -104,8 +104,8 @@ function _createNotes() {
             info: {
                 title: 'Get my stuff together',
                 txt: 'Fullstack Me Baby!',
-                txtLineBreaks: 1,
-                titleLineBreaks: 1,
+                txtLineCount: 1,
+                titleLineCount: 1,
                 todos: [
                     { txt: 'Driving license', doneAt: null },
                     { txt: 'Coding power', doneAt: 187111111 }]
@@ -117,8 +117,8 @@ function _createNotes() {
             isPinned: false,
             info: {
                 url: 'https://source.unsplash.com/random', title: 'Bobi and Me', txt: 'Fullstack Me Baby!',
-                txtLineBreaks: 1,
-                titleLineBreaks: 1,
+                txtLineCount: 1,
+                titleLineCount: 1,
             },
             style: { backgroundColor: '#00d' }
         },
@@ -130,8 +130,8 @@ function _createNotes() {
             style: { backgroundColor: '#00d' },
             info: {
                 txt: 'Fullstack Me Baby!', title: 'Bobi and Me',
-                txtLineBreaks: 1,
-                titleLineBreaks: 1,
+                txtLineCount: 1,
+                titleLineCount: 1,
             }
         },
     ]
