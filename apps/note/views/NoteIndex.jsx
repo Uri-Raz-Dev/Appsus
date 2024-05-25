@@ -63,7 +63,6 @@ export function NoteIndex() {
     return <main className="note-index">
         {/* <CreateNote /> */}
         {/* <div className="create">Take a note</div> */}
-        note app
         <Outlet />
         <NewNote notes={notes} makeNewNotes={addNotes} />
         <NoteList notes={notes} onRemove={removeNote} />

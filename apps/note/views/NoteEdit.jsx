@@ -8,7 +8,7 @@ import { showErrorMsg } from '../../../services/event-bus.service.js'
 import { TextArea } from "../cmps/TextArea.jsx";
 
 export function NoteEdit() {
-
+    // var count = (temp.match(/\n/g) || []).length; 
     const [note, setNote] = useState(
         { txt: '', title: '', txtLineBreaks: 1 }
     )
