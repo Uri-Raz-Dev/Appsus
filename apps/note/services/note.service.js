@@ -71,7 +71,7 @@ function remove(noteId) {
 
 
 function save(note) {
-    if (!(note.info.txt || note.info.title)) return Promise.reject()
+    // if (!(note.info.txt || note.info.title)) return Promise.reject()
     if (note.id) {
         return storageService.put(NOTE_KEY, note)
     } else {
