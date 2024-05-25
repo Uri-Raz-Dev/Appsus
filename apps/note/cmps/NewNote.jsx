@@ -7,6 +7,7 @@ const { useParams, useNavigate } = ReactRouter
 
 export function NewNote({ notes, makeNewNotes }) {
     const [newNote, setNewNote] = useState(noteService.getEmptyNote())
+    const [isOpen, setisOpen] = useState(false)
     // const [newNotes, setNewNotes] = useState(notes)
 
     useEffect(() => {
@@ -51,6 +52,7 @@ export function NewNote({ notes, makeNewNotes }) {
                 // showErrorMsg('Couldnt save')
                 // navigate('/note')
             })
+            .finally(() => setisOpen(false))
     }
 
     function handleChange({ target }) {
@@ -76,14 +78,19 @@ export function NewNote({ notes, makeNewNotes }) {
             })
     }
 
+    function handleClick() {
+
+    }
+
     return (
-        <section className="note-add">
+        <section className="note-add" onClick={() => setisOpen(true)}>
             <form onSubmit={onSave}>
-                <label htmlFor="title"></label>
-                <input
-                    onChange={handleChange} value={newNote.info.title}
-                    id="title" name="title"
-                    type="text" placeholder="Title" />
+                {isOpen && <label >
+                    <input
+                        onChange={handleChange} value={newNote.info.title}
+                        id="title" name="title"
+                        type="text" placeholder="Title" />
+                </label>}
 
                 <label htmlFor="txt"></label>
                 <TextArea note={newNote} onChange={handleChange} placeHolder={'Take a note...'} />
@@ -104,7 +111,7 @@ export function NewNote({ notes, makeNewNotes }) {
                     id="txt" name="txt"
                     type="text" placeholder="txt" /> */}
 
-                <button>Close</button>
+                {isOpen && <button>Close</button>}
             </form>
         </section>
     )

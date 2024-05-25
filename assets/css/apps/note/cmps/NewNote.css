@@ -34,7 +34,7 @@
 /* this is double code with textarea: */
 
 
-.note-add form>* {
+.note-add form * {
     /* margin-block: 1px; */
 
     display: block;
