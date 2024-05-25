@@ -38,6 +38,13 @@ export function NoteEdit() {
         eventBusService.emit('save', note)
         noteService.save(note)
             .catch(() => {
+                // if (note.id) {
+                //     console.log('note.id', note.id)
+                //     setNote(prevNote => {
+                //         let newInfo = { ...prevNote.info, txt: 'EMPTY NOTE' }
+                //         return { ...prevNote, info: newInfo }
+                //     })
+                // } else 
                 showErrorMsg('Couldnt save')
             })
             .finally(() => navigate('/note'))

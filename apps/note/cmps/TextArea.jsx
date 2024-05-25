@@ -1,10 +1,13 @@
 import { eventBusService } from "../../../services/event-bus.service.js"
-const { useRef } = React
+const { useRef, useEffect } = React
 
 export function TextArea({ note, onChange, placeHolder }) {
     const inputRef = useRef(null)
-
-    eventBusService.on('focus', () => inputRef.current.focus())
+    // useEffect(() => {
+    eventBusService.on('focus', () => {
+        if (inputRef.current) inputRef.current.focus()
+    })
+    // }, [])
 
     return <label >
         <textarea
