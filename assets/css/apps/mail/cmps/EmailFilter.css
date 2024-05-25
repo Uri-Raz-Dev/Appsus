@@ -1,0 +1,112 @@
+.mail-filter {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-column: 2/-1;
+}
+
+/* .mail-filter button,
+select,
+input {
+    width: min-content;
+    height: min-content;
+} */
+
+.search-wrapper {
+    grid-column: 1/3;
+    max-width: 42rem;
+    height: 3rem;
+    border-radius: 1.5rem;
+    background-color: var(--email-searchbox-color);
+    align-items: center;
+    padding-block-end: 0.5em;
+
+    /* justify-content: space-between; */
+}
+
+.filter-select-wrapper {
+    gap: .625rem;
+    padding-block-start: 2em;
+
+}
+
+.filter-select-wrapper>* {
+    /* flex: 1; */
+}
+
+.filter-select-wrapper select {
+
+    /* appearance: none; */
+    /* Hide default arrow icon */
+    /* width: 100%; */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: white;
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    font-size: 14px;
+    font-family: 'Product Sans', Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+}
+
+.filter-select-wrapper select:focus {
+    outline: none;
+    border-color: #4d90fe;
+    background-color: #F0F1F1;
+    /* Highlight border on focus */
+    box-shadow: 0 0 0 2px rgba(77, 144, 254, 0.2);
+    /* Highlight border on focus */
+}
+
+.filter-select-wrapper select option {
+    padding: 10px;
+}
+
+.email-search {
+    display: inline-block;
+    align-self: center;
+    /* flex-grow: 1; */
+    background-color: inherit;
+    width: 36.25rem;
+    height: 38px;
+    border: none;
+    padding-inline-start: 1em;
+    font-size: 16px;
+    font-family: 'Product Sans', Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+}
+
+
+
+.search-icon {
+    padding-inline-start: 1em;
+    padding-block-start: 0.5em;
+}
+
+.email-search {
+    padding-block-start: 0.5em;
+}
+
+.search-wrapper:focus-within {
+    background-color: var(--email-searchbox-color-focus);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1),
+        /* More prominent bottom shadow on focus */
+        0 -4px 6px rgba(0, 0, 0, 0.08),
+        /* More prominent top shadow on focus */
+        0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.email-search:focus {
+    background-color: var(--email-searchbox-color-focus);
+    border: none;
+    outline: none;
+}
+
+.clear-search {
+    margin-block-start: 5px;
+}

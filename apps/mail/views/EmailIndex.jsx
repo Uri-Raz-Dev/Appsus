@@ -17,7 +17,7 @@ export function EmailIndex({ folder }) {
     useEffect(() => {
         mailService.query(filterBy)
             .then(mails => setMails(mails))
-    }, [filterBy])
+    }, [filterBy, folder])
 
 
     function onSetFilterBy(newFilter) {
@@ -32,6 +32,7 @@ export function EmailIndex({ folder }) {
         < EmailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
         <EmailFolderList filterByFolders={filterByFolders} onFilterFolders={onSetFilterByFolders} />
         {<EmailList mails={mails} folder={folder} />}
+        <div className="compose">Compose</div>
 
     </section>
 }

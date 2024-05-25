@@ -7,7 +7,9 @@ export function EmailList({ mails, folder }) {
         {mails.map(mail => (
             mail.folder === 'inbox' && folder === 'inbox' && <EmailPreview key={mail.id} mail={mail} /> ||
             mail.folder === 'sent' && folder === 'sent' && <EmailPreview key={mail.id} mail={mail} /> ||
-            mail.isStarred && folder === 'starred' && <EmailPreview key={mail.id} mail={mail} />
+            mail.isStarred && folder === 'starred' && <EmailPreview key={mail.id} mail={mail} /> ||
+            mail.removedAt && folder === 'draft' && <EmailPreview key={mail.id} mail={mail} /> ||
+            mail.removedAt && folder === 'trash' && <EmailPreview key={mail.id} mail={mail} />
 
 
         ))}

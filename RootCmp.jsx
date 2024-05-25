@@ -12,6 +12,8 @@ const mailFolders = {
     inbox: 'inbox',
     sent: 'sent',
     starred: 'starred',
+    draft: 'draft',
+    trash: 'trash'
 }
 
 export function App() {
@@ -24,6 +26,8 @@ export function App() {
                 <Route path="/mail/inbox" element={<EmailIndex folder={mailFolders.inbox} />} />
                 <Route path="/mail/sent" element={<EmailIndex folder={mailFolders.sent} />} />
                 <Route path="/mail/starred" element={<EmailIndex folder={mailFolders.starred} />} />
+                <Route path="/mail/draft" element={<EmailIndex folder={mailFolders.draft} />} />
+                <Route path="/mail/trash" element={<EmailIndex folder={mailFolders.trash} />} />
                 <Route path="/note" element={<NoteIndex />} />
             </Routes>
         </section>

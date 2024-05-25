@@ -1,9 +1,10 @@
 const { useState, useEffect, useRef } = React
-
+import { EmailIcons } from "./EmailIcons.jsx"
 export function EmailFilter({ filterBy, onFilter }) {
 
 
     const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
+
 
     useEffect(() => {
         onFilter(filterByToEdit)
@@ -22,9 +23,9 @@ export function EmailFilter({ filterBy, onFilter }) {
     function onClearSearch() {
         setFilterByToEdit({
             txt: '',
-            isRead: false,
-            isStared: false,
-            labels: [],
+            // isRead: false,
+            // isStared: false,
+            // labels: [],
             sortByDate: 0,
             sortByTitle: 0
         })
@@ -32,7 +33,6 @@ export function EmailFilter({ filterBy, onFilter }) {
 
     function handleChange({ target }) {
         const { name, value } = target
-
         let sortByTitle = filterByToEdit.sortByTitle
         let sortByDate = filterByToEdit.sortByDate
         let txt = filterByToEdit.txt
@@ -56,25 +56,29 @@ export function EmailFilter({ filterBy, onFilter }) {
             isRead
         }))
     }
-    return <section className="mail-filter">
-        <input type="text" className="email-search" name="txt" onChange={handleChange} value={filterByToEdit.txt}
-            placeholder="" />
-        <button className="clear-search" onClick={onClearSearch}>reset</button>
-        <select name="sortByTitle" value={filterByToEdit.sortByTitle} onChange={handleChange}>
-            <option value="0">No Sorting</option>
-            <option value="1">Sort A-Z</option>
-            <option value="-1">Sort Z-A</option>
-        </select>
-        <select name="sortByDate" value={filterByToEdit.sortByDate} onChange={handleChange}>
-            <option value="0">No Date Sorting</option>
-            <option value="1">Newest First</option>
-            <option value="-1">Oldest First</option>
-        </select>
-        <select name="read" value={filterByToEdit.isRead} onChange={handleChange}>
-            <option value="0">No sort</option>
-            <option value="false">Unread</option>
-            <option value="true">Read</option>
-        </select>
-
+    const handleResetIcon = filterByToEdit.txt === '' ? '' : EmailIcons('reset')
+    return <section className="mail-filter grid">
+        <div className="search-wrapper flex" >
+            <span className="search-icon">{EmailIcons('search')}</span> <input type="text" className="email-search" name="txt" onChange={handleChange} value={filterByToEdit.txt}
+                placeholder="Search mail" />
+            <span className="clear-search" onClick={onClearSearch}>{handleResetIcon}</span>
+        </div>
+        <div className="filter-select-wrapper flex">
+            <select name="sortByTitle" value={filterByToEdit.sortByTitle} onChange={handleChange}>
+                <option value="0">Sort by name</option>
+                <option value="1">Sort A-Z</option>
+                <option value="-1">Sort Z-A</option>
+            </select>
+            <select name="sortByDate" value={filterByToEdit.sortByDate} onChange={handleChange}>
+                <option value="0">Sort by date</option>
+                <option value="1">Newest First</option>
+                <option value="-1">Oldest First</option>
+            </select>
+            <select name="read" value={filterByToEdit.isRead} onChange={handleChange}>
+                <option value="0">Sort by read</option>
+                <option value="false">Unread</option>
+                <option value="true">Read</option>
+            </select>
+        </div>
     </section>
 }   

@@ -21,11 +21,19 @@
      grid-column: 1 / -1;
  }
 
- .top-filter {
-     grid-column: 2;
- }
 
- .side-filter {
+ .email-folder-List {
      grid-column: 1;
      grid-row: 2;
+ }
+
+ .email-folder-List ul,
+ li {
+     list-style: none;
+     padding: 0;
+ }
+
+ .compose {
+     grid-column: 1;
+     grid-row: 1;
  }

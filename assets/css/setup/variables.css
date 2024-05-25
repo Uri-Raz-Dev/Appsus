@@ -5,7 +5,8 @@
     --email-color: #FFFFFF;
     --email-color-unread: #FFFFFF;
     --email-color-read: #f2f6fc;
-    --email-searchbox-color: #EAF1FB;
+    --email-searchbox-color: #eaf1fb;
+    --email-searchbox-color-focus: #FFFFFF;
     --email-compose-color: #C2E7FF;
     --email-header-color: #F6F8FC;
     --email-menu-color: #F6F8FC;
