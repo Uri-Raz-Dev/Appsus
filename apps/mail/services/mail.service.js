@@ -143,17 +143,18 @@ function _filterList(filterBy, mails) {
     if (filterBy.status) {
         switch (filterBy.status) {
             case 'inbox':
-                mails = mails.filter(mail => mail.from !== loggedinUser.email && !mail.removedAt)
+                mails = mails.filter(mail => mail.folder === 'inbox')
                 break
             case 'sent':
-                mails = mails.filter(mail => mail.from === loggedinUser.email && !mail.removedAt)
+                mails = mails.filter(mail => mail.folder === 'sent')
                 break
-            // case 'trash':
-            //     mails = mails.filter(mail => mail.removedAt)
-            //     break
-            // case 'draft':
-            //     mails = mails.filter(mail => mail.isDraft)
-            //     break
+            case 'trash':
+                mails = mails.filter(mail => mail.folder === 'trash')
+                break
+            case 'draft':
+                mails = mails.filter(mail => mail.folder === 'draft')
+                break
+
             default:
                 break
         }

@@ -75,7 +75,7 @@ export function EmailFilter({ filterBy, onFilter }) {
                 <option value="-1">Oldest First</option>
             </select>
             <select name="read" value={filterByToEdit.isRead} onChange={handleChange}>
-                <option value="0">Sort by read</option>
+                <option value="0">All</option>
                 <option value="false">Unread</option>
                 <option value="true">Read</option>
             </select>

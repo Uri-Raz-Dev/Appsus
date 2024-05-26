@@ -2,12 +2,19 @@ import { utilService } from "../../../services/util.service.js"
 import { mailService } from "../services/mail.service.js"
 import { EmailIcons } from "./EmailIcons.jsx"
 const { useState, useEffect, useRef } = React
-export function EmailPreview({ mail, folder }) {
+export function EmailPreview({ mail, folder, removeMail }) {
     const { subject, body, from, sentAt, to, isRead, removedAt, isStarred, id } = mail
     const [isReadState, setIsReadState] = useState(isRead)
     const [isStarredState, setIsStarredState] = useState(isStarred)
     const [remove, setRemove] = useState(removedAt)
-    const [mailFolder, setMailFolder] = useState(mail.folder)
+    // const [mailFolder, setMailFolder] = useState(mail.folder)
+    // useEffect(() => {
+    //     mailService.get(id)
+    //         .then((email) => {
+
+    //         })
+    // }, [])
+
     function toggleRead() {
         const newIsRead = !isReadState
 
@@ -38,30 +45,37 @@ export function EmailPreview({ mail, folder }) {
             console.error('Failed to update star status:', err)
         })
     }
-
-    function removeMail(ev) {
-        ev.stopPropagation()
-        const currentTime = Date.now()
-        const formattedCurrentTime = utilService.getFormattedTimestamp(currentTime)
+    function removeMailByFilter(ev) {
+        ev.stopPropagation();
+        const currentTime = Date.now();
 
         mailService.get(id).then(email => {
-            email.removedAt = currentTime
-            email.folder = 'trash'
-            return mailService.save(email)
-        }).then(() => {
-            setRemove(currentTime)
+            if (email.folder === 'trash') {
+                // If mail is already in the trash, remove it permanently
+                return mailService.remove(id).then(() => {
+                    removeMail(id)
+                    setRemove(null); // Set remove state to null
+                });
+            } else {
+                // Move mail to the trash
+                email.removedAt = currentTime;
+                email.folder = 'trash';
+                email.isStarred = false;
+                return mailService.save(email).then(() => {
+                    removeMail(id)
+                    setRemove(currentTime);
+                });
+            }
         }).catch(err => {
-            console.error('Failed to remove mail:', err)
-        })
+            console.error('Failed to remove mail:', err);
+        });
     }
-
-
     return <li onClick={toggleRead} className={isReadState ? "read" : "unread"}>
-        <span onClick={toggleStar}>{isStarredState ? EmailIcons('starFav') : EmailIcons('starred')}</span>
+        {folder !== 'trash' ? <span onClick={toggleStar}>{isStarredState ? EmailIcons('starFav') : EmailIcons('starred')}</span> : ''}
         {mail.folder === 'inbox' ? <p className="mail-from">{from}</p> : <p className="mail-from">To: {to}</p>}
         <p className="mail-body">{subject} - {body.slice(0, body.length / 5)}</p>
 
-        <span onClick={removeMail}>{EmailIcons('trash')}</span>
+        <span onClick={removeMailByFilter}>{EmailIcons('trash')}</span>
         {folder !== 'trash' ? <p className="mail-date">{utilService.getFormattedTimestamp(sentAt)}</p> : <p className="mail-date">{utilService.getFormattedTimestamp(removedAt)}</p>}
     </li>
 

@@ -16,23 +16,27 @@ export function EmailIndex({ folder }) {
     const [filterByFolders, setFilterByFolders] = useState(mailService.getDefaultFolderFilter())
 
     useEffect(() => {
-        mailService.query(filterBy)
-            .then(mails => setMails(mails))
-    }, [filterBy, folder])
+        const combinedFilter = { ...filterBy, ...filterByFolders, status: folder }
+        mailService.query(combinedFilter).then(mails => setMails(mails))
+    }, [filterBy, filterByFolders, folder])
 
 
     function onSetFilterBy(newFilter) {
-        setFilterBy(newFilter)
-    }
-    function onSetFilterByFolders(newFilter) {
-        setFilterByFolders(newFilter)
+        setFilterBy(prevFilter => ({ ...prevFilter, ...newFilter }))
     }
 
+    function onSetFilterByFolders(newFilter) {
+        setFilterByFolders(prevFilter => ({ ...prevFilter, ...newFilter }))
+    }
+
+    function removeMail(mailId) {
+        setMails(prevMails => prevMails.filter(mail => mail.id !== mailId))
+    }
 
     return <section className="email-layout grid">
         < EmailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
         <EmailFolderList filterByFolders={filterByFolders} onFilterFolders={onSetFilterByFolders} folder={folder} />
-        {<EmailList mails={mails} folder={folder} />}
+        {<EmailList mails={mails} folder={folder} removeMail={removeMail} />}
         <div className="compose-wrapper flex">
             <span className="compose-icon">{EmailIcons('compose')}</span>
             <div className="compose"> Compose</div>
