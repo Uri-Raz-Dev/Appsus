@@ -170,36 +170,45 @@ function _createMails() {
         for (let i = 0; i < 30; i++) {
             const subject = utilService.makeLorem(4)
             const body = utilService.makeLorem(30)
-            const year = utilService.getRandomIntInclusive(2020, 2024)
-            const month = utilService.getRandomIntInclusive(1, 12)
-            const day = utilService.getRandomIntInclusive(1, 30)
-            // const date = new Date(`${year}-${utilService.padNum(month)}-${utilService.padNum(day)}`)
-            const startDate = new Date('2020-01-01').getTime();
-            const endDate = new Date('2024-12-31').getTime();
+            const startDate = new Date('2020-01-01').getTime()
+            const endDate = new Date('2024-12-31').getTime()
             const randomTimestamp = utilService.getRandomTimestamp(startDate, endDate)
             const mailTo = Math.random() >= 0.5 ? `${utilService.makeName(4).toLowerCase()}@${utilService.makeName(5).toLowerCase()}.com` : 'user@appsus.com'
-
             const mailFrom = Math.random() >= 0.5 ? `${utilService.makeName(4).toLowerCase()}@${utilService.makeName(5).toLowerCase()}.com` : 'user@appsus.com'
-
-
-
-
-
+            const isDraft = false
+            const removedAt = null
+            const isStarred = false
             const email = {
                 id: utilService.makeId(),
                 subject: subject.charAt(0).toUpperCase() + subject.slice(1),
                 body: body.charAt(0).toUpperCase() + body.slice(1),
-                isStarred: false,
+                isStarred: isStarred,
                 isRead: false,
                 sentAt: randomTimestamp,
-                removedAt: null,
+                removedAt: removedAt,
+                isDraft: isDraft,
                 from: mailFrom,
                 to: mailTo,
-                folder: mailFrom === 'user@appsus.com' ? 'sent' : 'inbox'
-            }
+                folder: setFolder(mailFrom, randomTimestamp, removedAt, isDraft, isStarred)
+            };
+
             mailList.push(email)
-            utilService.saveToStorage(MAIL_KEY, mailList)
         }
+        utilService.saveToStorage(MAIL_KEY, mailList)
         console.log('mails', mailList)
+    }
+
+    function setFolder(from, sentAt, removedAt, isDraft, isStarred) {
+        if (from !== 'user@appsus.com' && !removedAt && !isDraft) {
+            return 'inbox'
+        } else if (from === 'user@appsus.com' && !removedAt && !isDraft) {
+            return 'sent'
+        } else if (!sentAt && removedAt && !isDraft) {
+            return 'trash'
+        } else if (isDraft) {
+            return 'draft'
+        } else if (isStarred) {
+            return 'starred'
+        }
     }
 }
