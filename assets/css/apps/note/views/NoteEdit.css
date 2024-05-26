@@ -6,7 +6,7 @@
     min-height: 100vh;
     background-color: #00000087;
     padding-top: 125px;
-    overflow: auto;
+    /* overflow: auto; */
     margin-bottom: 50px;
 
     /* padding-bottom: 125px; */
@@ -17,7 +17,7 @@
 .note-edit form {
     background-color: white;
     position: absolute;
-    width: 70dvw;
+    width: 600px;
     /* opacity: 1; */
     /* z-index: 11; */
     /* margin-top: calc(93px + 125px); */
@@ -35,9 +35,24 @@
 
 .note-edit form>* {
     /* margin-block: 1px; */
-
+    font-family: GoogleSans;
+    font-weight: 200;
     display: block;
     width: 100%;
     border-color: transparent;
-    font-size: 22px;
+    /* font-size: 22px; */
+    color: var(--keep-dark-txt);
+
+}
+
+.note-edit input {
+    margin-bottom: 12px;
+    font-size: 1.375rem;
+}
+
+.note-edit textarea {
+    font-family: Roboto;
+    font-size: 16px;
+    /* color: var(--keep-dark-txt); */
+
 }
