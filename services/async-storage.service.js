@@ -22,8 +22,10 @@ function get(entityType, entityId) {
 function post(entityType, newEntity) {
     newEntity = { ...newEntity }
     newEntity.id = _makeId()
+
+    // newEntity.id = (entityType === 'noteDB') ? _makeIdForNotes() : _makeId()
     return query(entityType).then(entities => {
-        entities.push(newEntity)
+        entities.unshift(newEntity)
         _save(entityType, entities)
         return newEntity
     })
@@ -61,4 +63,16 @@ function _makeId(length = 5) {
         text += possible.charAt(Math.floor(Math.random() * possible.length))
     }
     return text
+}
+
+function _makeIdForNotes() {
+    let id = ''
+    return query()
+        .then(notes => {
+            if (notes && notes.length) {
+                id = 'n' + (+(notes[0].id).slice(1) + 1)
+            } else id = 'n101'
+            return id
+        }
+        )
 }
