@@ -4,38 +4,39 @@ import { EmailList } from "../cmps/EmailList.jsx"
 import { EmailFolderList } from "../cmps/EmailFolderList.jsx"
 import { EmailFilter } from "../cmps/EmailFilter.jsx"
 import { mailService } from "../services/mail.service.js"
+import { EmailIcons } from "../cmps/EmailIcons.jsx"
+
 const { useState, useEffect, useRef } = React
 
 
 
-export function EmailIndex() {
-
+export function EmailIndex({ folder }) {
     const [mails, setMails] = useState([])
-    const [filterBy, setFilterBy] = useState(mailService.getDefaultFilter())
-    const [selectedFilter, setSelectedFilter] = useState('txt')
-
+    const [filterBy, setFilterBy] = useState(mailService.getDefaultEmailFilter())
+    const [filterByFolders, setFilterByFolders] = useState(mailService.getDefaultFolderFilter())
 
     useEffect(() => {
         mailService.query(filterBy)
             .then(mails => setMails(mails))
-    }, [filterBy])
+    }, [filterBy, folder])
 
 
     function onSetFilterBy(newFilter) {
         setFilterBy(newFilter)
     }
-    function onSetSelectedFilter(newFilter) {
-        setSelectedFilter(newFilter)
+    function onSetFilterByFolders(newFilter) {
+        setFilterByFolders(newFilter)
     }
 
 
-
     return <section className="email-layout grid">
-        < EmailFilter filterBy={filterBy} onFilter={onSetFilterBy}
-            selectedFilter={selectedFilter} onSelectFilter={onSetSelectedFilter} />
-        <EmailFolderList />
-        <EmailList mails={mails} />
-
+        < EmailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
+        <EmailFolderList filterByFolders={filterByFolders} onFilterFolders={onSetFilterByFolders} folder={folder} />
+        {<EmailList mails={mails} folder={folder} />}
+        <div className="compose-wrapper flex">
+            <span className="compose-icon">{EmailIcons('compose')}</span>
+            <div className="compose"> Compose</div>
+        </div>
     </section>
 }
 
