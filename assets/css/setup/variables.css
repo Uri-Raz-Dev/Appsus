@@ -7,8 +7,11 @@
     --email-color-read: #f2f6fc;
     --email-searchbox-color: #eaf1fb;
     --email-searchbox-color-focus: #FFFFFF;
-    --email-compose-color: #C2E7FF;
+    --email-compose-color: #c2e7ff;
+    --email-compose-font-color: #001d35;
     --email-header-color: #F6F8FC;
     --email-menu-color: #F6F8FC;
     --email-font-color: #202124;
+    --email-folder-color: #d3e3fd;
+    --email-folder-font-color: #001d35;
 }

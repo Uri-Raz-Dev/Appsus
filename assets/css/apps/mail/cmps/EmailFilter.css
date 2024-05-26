@@ -2,6 +2,7 @@
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     grid-column: 2/-1;
+    /* padding-block-start: 1em; */
 }
 
 /* .mail-filter button,
@@ -18,20 +19,18 @@ input {
     border-radius: 1.5rem;
     background-color: var(--email-searchbox-color);
     align-items: center;
-    padding-block-end: 0.5em;
-
+    /* padding-block-end: 0.5em; */
+    margin-block-start: 10px;
     /* justify-content: space-between; */
 }
 
 .filter-select-wrapper {
     gap: .625rem;
-    padding-block-start: 2em;
+    padding-block-start: 1em;
 
 }
 
-.filter-select-wrapper>* {
-    /* flex: 1; */
-}
+
 
 .filter-select-wrapper select {
 

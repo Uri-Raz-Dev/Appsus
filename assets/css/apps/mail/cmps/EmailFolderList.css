@@ -1,0 +1,28 @@
+.links-wrapper {
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    padding: 0;
+}
+
+.links-wrapper li {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    max-width: 15rem;
+    margin-block-end: 1px;
+    border-radius: 1rem;
+    padding-inline-start: 20px;
+    height: 32px;
+    font-size: 14px;
+    color: var(--email-folder-font-color);
+}
+
+.folder-icon {
+    margin-inline-end: 20px;
+}
+
+.links-wrapper li.active {
+    background-color: var(--email-folder-color);
+}

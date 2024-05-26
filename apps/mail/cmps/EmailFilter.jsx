@@ -65,7 +65,7 @@ export function EmailFilter({ filterBy, onFilter }) {
         </div>
         <div className="filter-select-wrapper flex">
             <select name="sortByTitle" value={filterByToEdit.sortByTitle} onChange={handleChange}>
-                <option value="0">Sort by name</option>
+                <option value="0">Sort by Subject</option>
                 <option value="1">Sort A-Z</option>
                 <option value="-1">Sort Z-A</option>
             </select>

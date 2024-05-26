@@ -4,6 +4,7 @@ import { EmailList } from "../cmps/EmailList.jsx"
 import { EmailFolderList } from "../cmps/EmailFolderList.jsx"
 import { EmailFilter } from "../cmps/EmailFilter.jsx"
 import { mailService } from "../services/mail.service.js"
+import { EmailIcons } from "../cmps/EmailIcons.jsx"
 
 const { useState, useEffect, useRef } = React
 
@@ -30,10 +31,12 @@ export function EmailIndex({ folder }) {
 
     return <section className="email-layout grid">
         < EmailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
-        <EmailFolderList filterByFolders={filterByFolders} onFilterFolders={onSetFilterByFolders} />
+        <EmailFolderList filterByFolders={filterByFolders} onFilterFolders={onSetFilterByFolders} folder={folder} />
         {<EmailList mails={mails} folder={folder} />}
-        <div className="compose">Compose</div>
-
+        <div className="compose-wrapper flex">
+            <span className="compose-icon">{EmailIcons('compose')}</span>
+            <div className="compose"> Compose</div>
+        </div>
     </section>
 }
 
