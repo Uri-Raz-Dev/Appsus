@@ -14,6 +14,8 @@ export const noteService = {
     save,
     getDefaultFilter,
     getEmptyNote,
+    getPinnedNotes,
+    getNonPinnedNotes,
 }
 
 window.ns = noteService
@@ -65,6 +67,14 @@ function get(noteId) {
         })
 }
 
+function getPinnedNotes(notes) {
+    return notes.filter(note => note.isPinned)
+}
+
+function getNonPinnedNotes(notes) {
+    return notes.filter(note => !note.isPinned)
+}
+
 function remove(noteId) {
     return storageService.remove(NOTE_KEY, noteId)
 }
@@ -82,8 +92,10 @@ function save(note) {
 
 function getDefaultFilter(filterBy = { title: '', price: 0, date: 0, authors: '' }) {
     return {
-        title: filterBy.title, price: filterBy.price,
-        date: filterBy.date, authors: filterBy.authors
+        title: filterBy.title,
+        price: filterBy.price,
+        date: filterBy.date,
+        authors: filterBy.authors
     }
 }
 

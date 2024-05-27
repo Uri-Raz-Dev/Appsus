@@ -2,17 +2,18 @@
 
  .notes {
      display: grid;
-     justify-content: center;
+     /* justify-content: center; */
+     margin-inline-start: calc(25500vw / 1902);
  }
 
 
 
- .list {
+ .notes>.list {
      width: 100%;
      display: flex;
      gap: 16px;
      flex-wrap: wrap;
-     justify-items: center;
+     /* justify-items: left; */
      /* justify-content: space-around; */
      /* visibility: collapse; */
 
@@ -24,7 +25,7 @@
      /* columns: 3 240px; */
      /* column-rule: 1px solid lightgray; */
      /* column-gap: 16px; */
-
+     margin-block: 0;
 
  }
 
@@ -32,4 +33,14 @@
      break-inside: avoid;
      margin-block-end: 1em;
      position: relative;
+ }
+
+ .notes>p {
+     margin-block: 0 10px;
+     font-family: Roboto, Arial, sans-serif;
+     letter-spacing: 0.8px;
+     text-transform: uppercase;
+     font-weight: 600;
+     color: var(--keep-logo);
+     font-size: .6875rem;
  }
