@@ -5,7 +5,12 @@ import { utilService } from "../../../services/util.service.js"
 
 
 const MAIL_KEY = 'mailDB'
+const loggedinUser = {
+    email: 'user@appsus.com',
+    fullname: 'Mahatma Appsus'
+}
 _createMails()
+
 
 
 export const mailService = {
@@ -14,15 +19,13 @@ export const mailService = {
     remove,
     save,
     getDefaultEmailFilter,
-    getDefaultFolderFilter
+    getDefaultFolderFilter,
+    composeMail,
+    addSentMail
 }
 
 
 
-const loggedinUser = {
-    email: 'user@appsus.com',
-    fullname: 'Mahatma Appsus'
-}
 
 
 window.ms = mailService
@@ -42,6 +45,15 @@ function get(mailId) {
 
 function remove(mailId) {
     return storageService.remove(MAIL_KEY, mailId)
+}
+
+function saveSentMail(mail) {
+    return storageService.post(MAIL_KEY, mail)
+}
+
+function addSentMail(mailId) {
+    return storageService.get(MAIL_KEY, mailId)
+        .then((mail) => { saveSentMail(mail) })
 }
 
 
@@ -163,24 +175,48 @@ function _filterList(filterBy, mails) {
     return mails
 }
 
+function composeMail() {
+
+    const sentTime = Date.now()
+    const draftMail = null
+
+    return {
+        userName: loggedinUser.fullname,
+        userMail: loggedinUser.email,
+        subject: '',
+        body: '',
+        isStarred: false,
+        isRead: false,
+        sentAt: sentTime,
+        removedAt: null,
+        isDraft: draftMail,
+        from: loggedinUser.email,
+        to: '',
+        folder: !draftMail ? 'sent' : 'draft'
+    }
+}
+
 function _createMails() {
     let mailList = utilService.loadFromStorage(MAIL_KEY)
 
     if (!mailList || mailList.length === 0) {
         mailList = []
         for (let i = 0; i < 30; i++) {
+
             const subject = utilService.makeLorem(4)
             const body = utilService.makeLorem(30)
             const startDate = new Date('2020-01-01').getTime()
             const endDate = new Date('2024-12-31').getTime()
             const randomTimestamp = utilService.getRandomTimestamp(startDate, endDate)
-            const mailTo = Math.random() >= 0.5 ? `${utilService.makeName(4).toLowerCase()}@${utilService.makeName(5).toLowerCase()}.com` : 'user@appsus.com'
-            const mailFrom = Math.random() >= 0.5 ? `${utilService.makeName(4).toLowerCase()}@${utilService.makeName(5).toLowerCase()}.com` : 'user@appsus.com'
+            const mailTo = Math.random() >= 0.5 ? `${utilService.makeName(4).toLowerCase()}@${utilService.makeName(5).toLowerCase()}.com` : loggedinUser.email
+            const mailFrom = Math.random() >= 0.5 ? `${utilService.makeName(4).toLowerCase()}@${utilService.makeName(5).toLowerCase()}.com` : loggedinUser.email
             const isDraft = false
             const removedAt = null
             const isStarred = false
             const email = {
                 id: utilService.makeId(),
+                userName: loggedinUser.fullname,
+                userMail: loggedinUser.email,
                 subject: subject.charAt(0).toUpperCase() + subject.slice(1),
                 body: body.charAt(0).toUpperCase() + body.slice(1),
                 isStarred: isStarred,
@@ -200,9 +236,9 @@ function _createMails() {
     }
 
     function setFolder(from, sentAt, removedAt, isDraft, isStarred) {
-        if (from !== 'user@appsus.com' && !removedAt && !isDraft) {
+        if (from !== loggedinUser.email && !removedAt && !isDraft) {
             return 'inbox'
-        } else if (from === 'user@appsus.com' && !removedAt && !isDraft) {
+        } else if (from === loggedinUser.email && !removedAt && !isDraft) {
             return 'sent'
         } else if (!sentAt && removedAt && !isDraft) {
             return 'trash'

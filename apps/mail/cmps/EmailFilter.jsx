@@ -65,12 +65,12 @@ export function EmailFilter({ filterBy, onFilter }) {
         </div>
         <div className="filter-select-wrapper flex">
             <select name="sortByTitle" value={filterByToEdit.sortByTitle} onChange={handleChange}>
-                <option value="0">Sort by Subject</option>
+                <option value="0">All subjects</option>
                 <option value="1">Sort A-Z</option>
                 <option value="-1">Sort Z-A</option>
             </select>
             <select name="sortByDate" value={filterByToEdit.sortByDate} onChange={handleChange}>
-                <option value="0">Sort by date</option>
+                <option value="0">Any time</option>
                 <option value="1">Newest First</option>
                 <option value="-1">Oldest First</option>
             </select>

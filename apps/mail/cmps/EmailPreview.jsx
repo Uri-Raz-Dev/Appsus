@@ -46,29 +46,28 @@ export function EmailPreview({ mail, folder, removeMail }) {
         })
     }
     function removeMailByFilter(ev) {
-        ev.stopPropagation();
-        const currentTime = Date.now();
+        ev.stopPropagation()
+        const currentTime = Date.now()
 
         mailService.get(id).then(email => {
             if (email.folder === 'trash') {
-                // If mail is already in the trash, remove it permanently
                 return mailService.remove(id).then(() => {
                     removeMail(id)
-                    setRemove(null); // Set remove state to null
-                });
+                    setRemove(null)
+                })
             } else {
-                // Move mail to the trash
-                email.removedAt = currentTime;
-                email.folder = 'trash';
-                email.isStarred = false;
+
+                email.removedAt = currentTime
+                email.folder = 'trash'
+                email.isStarred = false
                 return mailService.save(email).then(() => {
                     removeMail(id)
-                    setRemove(currentTime);
-                });
+                    setRemove(currentTime)
+                })
             }
         }).catch(err => {
-            console.error('Failed to remove mail:', err);
-        });
+            console.error('Failed to remove mail:', err)
+        })
     }
     return <li onClick={toggleRead} className={isReadState ? "read" : "unread"}>
         {folder !== 'trash' ? <span onClick={toggleStar}>{isStarredState ? EmailIcons('starFav') : EmailIcons('starred')}</span> : ''}

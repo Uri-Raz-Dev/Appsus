@@ -6,6 +6,8 @@
      align-items: center;
      /* list-style: none;
      padding: 0; */
+     overflow-y: auto;
+     max-height: 800px;
  }
 
  .mail-list li {
