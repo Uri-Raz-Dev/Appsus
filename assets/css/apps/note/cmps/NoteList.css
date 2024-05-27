@@ -1,18 +1,27 @@
  /* note list */
 
+ .notes {
+     display: grid;
+     justify-content: center;
+ }
+
+
+
  .list {
+     width: 100%;
      display: flex;
      gap: 16px;
      flex-wrap: wrap;
-     justify-content: center;
+     justify-items: center;
+     /* justify-content: space-around; */
      /* visibility: collapse; */
 
      /* display: grid; */
      /* padding-inline: 100px; */
-     /* grid-template-columns: repeat(auto-fill, 240px); */
+     /* grid-template-columns: repeat(auto-fit, 240px); */
      /* grid-template-rows: min-content; */
      /* grid-auto-flow: dense; */
-     /* columns: 3 220px; */
+     /* columns: 3 240px; */
      /* column-rule: 1px solid lightgray; */
      /* column-gap: 16px; */
 
@@ -21,6 +30,6 @@
 
  .list li {
      break-inside: avoid;
-     /* margin-block-end: 1em; */
+     margin-block-end: 1em;
      position: relative;
  }
