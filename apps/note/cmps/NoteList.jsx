@@ -4,7 +4,8 @@ import { Buttons } from './Buttons.jsx'
 const { Link } = ReactRouterDOM
 
 export function NoteList({ notes, onRemove }) {
-    return (<section className="notes"/*style={{ opacity: isLoading ? 0.5 : 1 }}*/ >
+
+    if (notes && notes.length) return (<section className="notes"/*style={{ opacity: isLoading ? 0.5 : 1 }}*/ >
         <ul className="list">
             {notes.map(note =>
                 <li key={note.id} >
@@ -23,4 +24,7 @@ export function NoteList({ notes, onRemove }) {
         </ul>
     </section>
     )
+    else return (<section className="notes"/*style={{ opacity: isLoading ? 0.5 : 1 }}*/ >
+        <div className="empty-notes">Notes you add appear here</div>
+    </section>)
 }

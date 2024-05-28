@@ -7,17 +7,22 @@
      outline: none;
  }
 
- textarea {
-     resize: none;
-     display: block;
-     width: 100%;
-     border-color: transparent;
-     font-size: 22px;
- }
+
 
  .note-index {
-     color: var(--keep-light-txt);
+     font-family: GoogleSans, Roboto, Arial, Helvetica, sans-serif;
+     font-size: 1.125rem;
+     color: var(--keep-dark-txt);
+     /* font-weight: 400;
+     letter-spacing: 0;
+     line-height: 1.5rem; */
  }
+
+
+
+ /* .note-index p {
+    font-size: 1rem;
+} */
 
  .note {
      width: 240px;
@@ -38,4 +43,26 @@
      background-color: transparent;
      border: transparent;
      border-radius: 50%;
+ }
+
+ textarea,
+ form input {
+     letter-spacing: .01428571em;
+     font-family: Roboto, Arial, sans-serif;
+     font-size: .875rem;
+     font-weight: 400;
+     line-height: 1.25rem;
+     resize: none;
+     display: block;
+     width: 100%;
+     border-color: transparent;
+ }
+
+ textarea::placeholder,
+ form input::placeholder,
+ textarea::-moz-placeholder,
+ form input::-moz-placeholder {
+     font-family: GoogleSansMedium, Roboto, Arial, sans-serif;
+     color: black;
+     font-size: 1.125em;
  }
