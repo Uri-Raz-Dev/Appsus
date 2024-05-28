@@ -33,7 +33,7 @@
          0px 1px 2px 0px rgba(60, 64, 67, 0.3),
          0px 1px 3px 1px rgba(60, 64, 67, 0.15);
      cursor: pointer;
-     overflow: hidden;
+     padding-block: 0.1px;
  }
 
  .mail-from {
@@ -64,10 +64,11 @@
      align-items: center;
      justify-content: center;
      column-gap: 20px;
+     margin-inline-end: 10px;
  }
 
  .mail-list li:hover .mail-date {
-     display: none;
+     visibility: hidden;
  }
 
  .mail-list li:hover .mail-body {
