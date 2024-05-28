@@ -1,6 +1,6 @@
 import { eventBusService } from "../../../services/event-bus.service.js"
 
-import { Icons } from "./Icons.jsx";
+import { Icons } from "./Icons.jsx"
 
 export function Buttons({ note, onRemove }) {
     return <section className="note-buttons">
@@ -9,6 +9,17 @@ export function Buttons({ note, onRemove }) {
             onRemove(note.id)
         }}>
             <Icons type='trash' />
+        </button>
+    </section>
+}
+
+export function AddButtons({ note, onClick }) {
+    return <section className="add-buttons">
+        <button onClick={(ev) => {
+            ev.preventDefault()
+            // onRemove(note.id)
+        }}>
+            <Icons type='image' />
         </button>
     </section>
 }

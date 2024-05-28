@@ -57,11 +57,13 @@
  }
 
 
- .note button:hover {
+ .note button:hover,
+ .note-add button:hover {
      background-color: var(--keep-note-border);
  }
 
- .note button {
+ .note button,
+ .note-add button {
 
      background-color: transparent;
      border: transparent;
