@@ -67,8 +67,12 @@
 
      background-color: transparent;
      border: transparent;
-     border-radius: 50%;
      transition: background-color 0.218s ease-in-out;
+ }
+
+ .note button:not(.close),
+ .note-add button:not(.close) {
+     border-radius: 50%;
  }
 
  .pin {

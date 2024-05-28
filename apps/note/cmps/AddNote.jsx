@@ -98,7 +98,7 @@ export function AddNote({ notes, makeNewNotes }) {
             setisOpen(true)
         }}>
             <form onSubmit={onSave}>
-                <AddButtons />
+                <AddButtons isOpen={isOpen} />
                 {isOpen && <label >
                     <input
                         onChange={handleChange} value={newNote.info.title}
@@ -109,7 +109,7 @@ export function AddNote({ notes, makeNewNotes }) {
                 <label htmlFor="txt"></label>
                 <TextArea note={newNote} onChange={handleChange} placeHolder={'Take a note...'}
                 />
-                {isOpen && <button>Close</button>}
+                {isOpen && <button className="close">Close</button>}
             </form>
         </section>
     )
