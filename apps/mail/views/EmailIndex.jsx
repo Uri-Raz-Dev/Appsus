@@ -1,6 +1,6 @@
 // import { storageService } from "../../../services/async-storage.service.js"
 // import { utilService } from "../../../services/util.service.js"
-const { Link, Outlet } = ReactRouterDOM
+const { Link } = ReactRouterDOM
 
 import { EmailList } from "../cmps/EmailList.jsx"
 import { EmailFolderList } from "../cmps/EmailFolderList.jsx"
@@ -10,7 +10,7 @@ import { EmailIcons } from "../cmps/EmailIcons.jsx"
 import { EmailCompose } from "../cmps/EmailCompose.jsx"
 import { utilService } from "../../../services/util.service.js"
 
-const { useState, useEffect, useRef } = React
+const { useState, useEffect } = React
 
 
 
@@ -24,7 +24,6 @@ export function EmailIndex({ folder }) {
         mailService.query(combinedFilter).then(mails => setMails(mails))
     }, [filterBy, filterByFolders, folder, isComposeOpen])
 
-    console.log(mails);
     function onSetFilterBy(newFilter) {
         setFilterBy(prevFilter => ({ ...prevFilter, ...newFilter }))
     }
@@ -55,10 +54,10 @@ export function EmailIndex({ folder }) {
         {<EmailList mails={mails} folder={folder} removeMail={removeMail} />}
         <div className="compose-wrapper flex">
             <span className="compose-icon">{EmailIcons('compose')}</span>
-            <Link replace to={`compose`}>
+            <Link replace to={'compose'}>
                 <div onClick={openCompose} className="compose">Compose</div>
-                {isComposeOpen && <EmailCompose onClose={closeCompose} onSendMail={onSendMail} />}
             </Link>
+            <Link replace to={''}>{isComposeOpen && <EmailCompose onClose={closeCompose} onSendMail={onSendMail} />}</Link>
         </div>
         {/* <Outlet /> */}
     </section>

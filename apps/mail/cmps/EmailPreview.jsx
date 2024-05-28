@@ -69,7 +69,8 @@ export function EmailPreview({ mail, folder, removeMail }) {
             console.error('Failed to remove mail:', err)
         })
     }
-    return <li onClick={toggleRead} className={isReadState ? "read" : "unread"}>
+    // onClick = { toggleRead } 
+    return <li className={isReadState ? "read" : "unread"}>
         {folder !== 'trash' ? <span onClick={toggleStar}>{isStarredState ? EmailIcons('starFav') : EmailIcons('starred')}</span> : ''}
         {mail.folder === 'inbox' ? <p className="mail-from">{from}</p> : <p className="mail-from">To: {to}</p>}
         <p className="mail-body">{subject} - {body.slice(0, body.length / 5)}</p>

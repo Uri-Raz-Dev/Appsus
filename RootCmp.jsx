@@ -9,6 +9,7 @@ import { EmailIndex } from "./apps/mail/views/EmailIndex.jsx"
 import { NoteIndex } from "./apps/note/views/NoteIndex.jsx"
 import { NoteEdit } from "./apps/note/views/NoteEdit.jsx"
 import { EmailCompose } from "./apps/mail/cmps/EmailCompose.jsx"
+import { EmailDetails } from "./apps/mail/views/EmailDetails.jsx"
 
 const mailFolders = {
     inbox: 'inbox',
@@ -26,22 +27,15 @@ export function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/mail">
-                    <Route path="inbox" element={<EmailIndex folder={mailFolders.inbox} />}>
-                        <Route path="compose" element={<EmailCompose />} />
-                    </Route>
-                    <Route path="sent" element={<EmailIndex folder={mailFolders.sent} />}>
-                        <Route path="compose" element={<EmailCompose />} />
-                    </Route>
-                    <Route path="starred" element={<EmailIndex folder={mailFolders.starred} />}>
-                        <Route path="compose" element={<EmailCompose />} />
-                    </Route>
-                    <Route path="draft" element={<EmailIndex folder={mailFolders.draft} />}>
-                        <Route path="compose" element={<EmailCompose />} />
-                    </Route>
-                    <Route path="trash" element={<EmailIndex folder={mailFolders.trash} />}>
-                        <Route path="compose" element={<EmailCompose />} />
-                    </Route>
+                    {Object.keys(mailFolders).map((folder) => (
+                        <Route key={folder} path={folder} element={<EmailIndex folder={mailFolders[folder]} />}>
+                            <Route path="compose" element={<EmailCompose />} />
+                        </Route>
+                    ))}
                 </Route>
+
+                <Route path="/mail/:folder/:mailId" element={<EmailDetails />} />
+
 
                 <Route path="/note" element={<NoteIndex />} >
                     {/* <Route path="/note/edit/" element={<NoteEdit />} /> */}
