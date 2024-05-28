@@ -1,4 +1,5 @@
 import { EmailPreview } from "./EmailPreview.jsx"
+
 export function EmailList({ mails, folder, removeMail }) {
 
     return (

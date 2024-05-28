@@ -1,6 +1,8 @@
 import { utilService } from "../../../services/util.service.js"
 import { mailService } from "../services/mail.service.js"
 import { EmailIcons } from "./EmailIcons.jsx"
+const { Link } = ReactRouterDOM
+
 const { useState, useEffect, useRef } = React
 export function EmailPreview({ mail, folder, removeMail }) {
     const { subject, body, from, sentAt, to, isRead, removedAt, isStarred, id } = mail
@@ -15,12 +17,20 @@ export function EmailPreview({ mail, folder, removeMail }) {
     //         })
     // }, [])
 
-    function toggleRead() {
+    function toggleRead(ev) {
+        ev.stopPropagation()
+
         const newIsRead = !isReadState
 
         setIsReadState(newIsRead)
         updateReadStatusInStorage(id, newIsRead)
     }
+    function onOpenMail() {
+
+        setIsReadState(true)
+        updateReadStatusInStorage(id, true)
+    }
+
     function toggleStar(ev) {
         ev.stopPropagation()
         const newIsStarred = !isStarredState
@@ -69,14 +79,21 @@ export function EmailPreview({ mail, folder, removeMail }) {
             console.error('Failed to remove mail:', err)
         })
     }
-    // onClick = { toggleRead } 
-    return <li className={isReadState ? "read" : "unread"}>
-        {folder !== 'trash' ? <span onClick={toggleStar}>{isStarredState ? EmailIcons('starFav') : EmailIcons('starred')}</span> : ''}
-        {mail.folder === 'inbox' ? <p className="mail-from">{from}</p> : <p className="mail-from">To: {to}</p>}
-        <p className="mail-body">{subject} - {body.slice(0, body.length / 5)}</p>
+    return <li onClick={onOpenMail} className={isReadState ? "read" : "unread"}>
 
-        <span onClick={removeMailByFilter}>{EmailIcons('trash')}</span>
+        {folder !== 'trash' ? <span onClick={toggleStar}>{isStarredState ? EmailIcons('starFav') : EmailIcons('starred')}</span> : ''}
+
+        {mail.folder === 'inbox' ? <Link className="mail-from" to={`/mail/${folder}/${mail.id}`}>{from}</Link> :
+            <Link
+                to={`/mail/${folder}/${mail.id}`} className="mail-from">To: {to}</Link>}
+        <Link
+            to={`/mail/${folder}/${mail.id}`} className="mail-body">{subject} - {body.slice(0, body.length / 5)}</Link>
         {folder !== 'trash' ? <p className="mail-date">{utilService.getFormattedTimestamp(sentAt)}</p> : <p className="mail-date">{utilService.getFormattedTimestamp(removedAt)}</p>}
+        <div className="preview-icons">
+            <span onClick={removeMailByFilter}>{EmailIcons('trash')}</span>
+
+            <span onClick={toggleRead}>{isReadState ? EmailIcons('read') : EmailIcons('unread')}</span>
+        </div>
     </li>
 
 }
