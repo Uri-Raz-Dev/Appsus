@@ -5,11 +5,11 @@ const { NavLink, Link } = ReactRouterDOM
 import { EmailIcons } from "./EmailIcons.jsx";
 
 
-export function EmailFolderList({ folder }) {
+export function EmailFolderList({ folder, unreadInboxCount }) {
     return (
         <nav className="email-folder-list flex">
             <ul className="links-wrapper">
-                <li className={`${folder === 'inbox' ? 'active' : ''}`}>  <span className={`folder-icon`}>{EmailIcons('inbox')}</span><Link to="/mail/inbox">Inbox</Link></li>
+                <li className={`${folder === 'inbox' ? 'active' : ''}`}>  <span className={`folder-icon`}>{EmailIcons('inbox')}</span><Link to="/mail/inbox">Inbox</Link><span>{unreadInboxCount}</span></li>
 
                 <li className={`${folder === 'starred' ? 'active' : ''}`}> <span className={`folder-icon`}>{EmailIcons('starred')}</span><Link to="/mail/starred">Starred</Link></li>
 
