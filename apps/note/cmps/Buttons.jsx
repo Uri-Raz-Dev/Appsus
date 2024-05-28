@@ -1,3 +1,5 @@
+import { eventBusService } from "../../../services/event-bus.service.js"
+
 import { Icons } from "./Icons.jsx";
 
 export function Buttons({ note, onRemove }) {
@@ -7,6 +9,17 @@ export function Buttons({ note, onRemove }) {
             onRemove(note.id)
         }}>
             <Icons type='trash' />
+        </button>
+    </section>
+}
+
+export function Pin({ note }) {
+    return <section className="pin" >
+        <button onClick={(ev) => {
+            ev.preventDefault()
+            eventBusService.emit('save', { ...note, isPinned: !note.isPinned })
+        }}>
+            <Icons type={(note.isPinned) ? 'pinChecked' : 'pin'} />
         </button>
     </section>
 }
