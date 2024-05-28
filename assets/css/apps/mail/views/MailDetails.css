@@ -34,6 +34,7 @@
     display: flex;
     justify-content: flex-end;
     margin-top: 20px;
+    column-gap: 10px;
 }
 
 .email-actions button {
@@ -44,6 +45,7 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+
 }
 
 .email-actions button:hover {
