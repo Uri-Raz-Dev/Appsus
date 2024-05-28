@@ -1,17 +1,13 @@
-import { EmailPreview } from "./EmailPreview.jsx";
-export function EmailList({ mails, folder }) {
-    const mailInfo = mails.map(mail => mail)
+import { EmailPreview } from "./EmailPreview.jsx"
 
-    return <ul className="mail-list flex">
+export function EmailList({ mails, folder, removeMail }) {
 
-        {mails.map(mail => (
-            mail.folder === 'inbox' && folder === 'inbox' && <EmailPreview key={mail.id} mail={mail} /> ||
-            mail.folder === 'sent' && folder === 'sent' && <EmailPreview key={mail.id} mail={mail} /> ||
-            mail.isStarred && folder === 'starred' && <EmailPreview key={mail.id} mail={mail} /> ||
-            mail.removedAt && folder === 'draft' && <EmailPreview key={mail.id} mail={mail} /> ||
-            mail.removedAt && folder === 'trash' && <EmailPreview key={mail.id} mail={mail} />
-
-
-        ))}
-    </ul>
+    return (
+        <ul className="mail-list flex">
+            {mails.map(mail => (
+                (mail.folder === folder || (folder === 'starred' && mail.isStarred) || (folder === 'draft' && mail.isDraft) || (folder === 'trash' && mail.folder === 'trash')) &&
+                <EmailPreview key={mail.id} mail={mail} folder={folder} removeMail={removeMail} />
+            ))}
+        </ul>
+    )
 }

@@ -12,7 +12,9 @@ export function EmailIcons(name) {
         compose: <box-icon name='pencil'></box-icon>,
         arrow: <box-icon name='chevron-up'></box-icon>,
         search: <box-icon name='search-alt-2' ></box-icon>,
-        reset: <box-icon name='x' color='#575a5b' ></box-icon>
+        reset: <box-icon name='x' color='#575a5b' ></box-icon>,
+        read: <box-icon name='envelope'></box-icon>,
+        unread: <box-icon name='envelope-open' ></box-icon>
     }
 
     return iconsMap[name] || null

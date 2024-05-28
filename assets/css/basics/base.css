@@ -2,7 +2,11 @@
     box-sizing: border-box;
 }
 
-body,
+body {
+    position: relative;
+    margin: 0;
+}
+
 html {
     margin: 0;
 }
