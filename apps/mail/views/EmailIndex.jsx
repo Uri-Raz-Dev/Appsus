@@ -81,13 +81,10 @@ export function EmailIndex({ folder }) {
     console.log(unreadInboxCount)
     return <section className="email-layout grid">
         <EmailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
-        <EmailFolderList filterByFolders={filterByFolders} onFilterFolders={onSetFilterByFolders} folder={folder} unreadInboxCount={unreadInboxCount} onClose={closeCompose} onSendMail={onSendMail} />
+        <EmailFolderList filterByFolders={filterByFolders} onFilterFolders={onSetFilterByFolders} folder={folder} unreadInboxCount={unreadInboxCount} closeCompose={closeCompose} onSendMail={onSendMail} openCompose={openCompose}
+            isComposeOpen={isComposeOpen} />
         <EmailList mails={mails} folder={folder} removeMail={removeMail} toggleReadStatus={toggleReadStatus} />
-        <Link onClick={openCompose} className="compose-wrapper flex" to="compose">
-            <span className="compose-icon">{EmailIcons('compose')}</span>
-            <div className="compose">Compose</div>
-        </Link>
-        <Link replace to={''}>{isComposeOpen && <EmailCompose onClose={closeCompose} onSendMail={onSendMail} />}</Link>
+
     </section>
 }
-// test
+

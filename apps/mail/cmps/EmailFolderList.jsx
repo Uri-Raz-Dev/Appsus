@@ -5,9 +5,14 @@ const { NavLink, Link } = ReactRouterDOM
 import { EmailIcons } from "./EmailIcons.jsx";
 
 
-export function EmailFolderList({ folder, unreadInboxCount }) {
+export function EmailFolderList({ folder, unreadInboxCount, closeCompose, onSendMail, openCompose, isComposeOpen }) {
     return (
         <nav className="email-folder-list flex">
+            <Link onClick={openCompose} className="compose-wrapper flex" to="compose">
+                <span className="compose-icon">{EmailIcons('compose')}</span>
+                <div className="compose">Compose</div>
+            </Link>
+            <Link replace to={''}>{isComposeOpen && <EmailCompose closeCompose={closeCompose} onSendMail={onSendMail} />}</Link>
             <ul className="links-wrapper">
                 <li className={`${folder === 'inbox' ? 'active' : ''}`}>  <span className={`folder-icon`}>{EmailIcons('inbox')}</span><Link to="/mail/inbox">Inbox</Link><span>{unreadInboxCount}</span></li>
 
@@ -20,5 +25,5 @@ export function EmailFolderList({ folder, unreadInboxCount }) {
                 <li className={`${folder === 'trash' ? 'active' : ''}`}><span className={`folder-icon`}>{EmailIcons('trash')}</span><Link to="/mail/trash">Trash</Link></li>
             </ul>
         </nav>
-    )
+    );
 }
