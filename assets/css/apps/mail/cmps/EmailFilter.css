@@ -2,6 +2,7 @@
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     grid-column: 2/-1;
+    /* background-color: var(--email-header-color); */
     /* padding-block-start: 1em; */
 }
 

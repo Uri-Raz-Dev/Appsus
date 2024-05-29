@@ -1,25 +1,44 @@
 header {
-
-    background: lightcyan;
-    border-bottom: 2px solid white;
+    background-color: #1a1a1a;
+    border-bottom: 2px solid #5a5a5a;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 .app-header {
     display: flex;
     justify-content: space-between;
-    padding: 20px 0;
+    align-items: center;
+    padding: 20px 5%;
 }
 
-nav a {
-    margin: .5em;
+.main-header a {
+    margin: 0 1em;
+    text-decoration: none;
+    color: #c0c0c0;
+    transition: color 0.3s, border-bottom 0.3s;
+    padding-bottom: 5px;
+    height: fit-content;
 }
 
-nav a:active {
-    color: purple;
+.main-header a:hover {
+    color: #87a1b6;
+    border-bottom: 2px solid #87a1b6;
 }
 
-nav a.active {
-    color: darkblue;
+.main-header a:active {
+    color: #6c8da6;
+}
+
+.main-header a.active {
+    color: #87a1b6;
     font-weight: bold;
-    text-decoration: overline;
+    border-bottom: 2px solid #87a1b6;
+}
+
+.logo {
+    margin: 0;
+    font-size: 1.5em;
+    background: linear-gradient(90deg, #87a1b6 50%, #ffffff 50%);
+    background-clip: text;
+    color: transparent;
 }

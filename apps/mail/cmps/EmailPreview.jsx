@@ -4,7 +4,7 @@ import { EmailIcons } from "./EmailIcons.jsx"
 const { Link } = ReactRouterDOM
 
 const { useState, useEffect, useRef } = React
-export function EmailPreview({ mail, folder, removeMail }) {
+export function EmailPreview({ mail, folder, removeMail, toggleReadStatus }) {
     const { subject, body, from, sentAt, to, isRead, removedAt, isStarred, id } = mail
     const [isReadState, setIsReadState] = useState(isRead)
     const [isStarredState, setIsStarredState] = useState(isStarred)
@@ -17,18 +17,21 @@ export function EmailPreview({ mail, folder, removeMail }) {
     //         })
     // }, [])
 
+
+
     function toggleRead(ev) {
-        ev.stopPropagation()
+        ev.stopPropagation();
+        const newIsRead = !isReadState;
+        toggleReadStatus(id)
+        setIsReadState(newIsRead);
 
-        const newIsRead = !isReadState
-
-        setIsReadState(newIsRead)
-        updateReadStatusInStorage(id, newIsRead)
+        updateReadStatusInStorage(id, newIsRead);
     }
     function onOpenMail() {
-
+        toggleReadStatus(id)
         setIsReadState(true)
         updateReadStatusInStorage(id, true)
+
     }
 
     function toggleStar(ev) {
@@ -40,12 +43,15 @@ export function EmailPreview({ mail, folder, removeMail }) {
     }
 
     function updateReadStatusInStorage(mailId, isReadStatus) {
-        mailService.get(mailId).then(email => {
-            email.isRead = isReadStatus
-            return mailService.save(email)
-        }).catch(err => {
-            console.error('Failed to update read status:', err)
-        })
+        mailService.get(mailId)
+            .then(email => {
+                email.isRead = isReadStatus;
+
+                return mailService.save(email);
+            })
+            .catch(err => {
+                console.error('Failed to update read status:', err);
+            });
     }
     function updateStarredStatusInStorage(mailId, isStarredStatus) {
         mailService.get(mailId).then(email => {
@@ -92,7 +98,8 @@ export function EmailPreview({ mail, folder, removeMail }) {
         <div className="preview-icons">
             <span onClick={removeMailByFilter}>{EmailIcons('trash')}</span>
 
-            <span onClick={toggleRead}>{isReadState ? EmailIcons('read') : EmailIcons('unread')}</span>
+            <span onClick={toggleRead}>{mail.isRead ? EmailIcons('read') : EmailIcons('unread')}</span>
+
         </div>
     </li>
 
