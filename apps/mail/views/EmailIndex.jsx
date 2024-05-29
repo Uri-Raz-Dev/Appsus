@@ -90,4 +90,4 @@ export function EmailIndex({ folder }) {
         <Link replace to={''}>{isComposeOpen && <EmailCompose onClose={closeCompose} onSendMail={onSendMail} />}</Link>
     </section>
 }
-
+// test
