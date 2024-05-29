@@ -78,12 +78,7 @@ export function AddNote({ notes, makeNewNotes }) {
             // setIsButton(false)
         }}>
             <form onSubmit={onSave}>
-                <AddButtons isOpen={isOpen} setIsButton={setIsButton} note={newNote} setNewNote={setNewNote}
-
-                /*onClick={ev => {
-                    ev.preventDefault()
-                    setIsButton(true)
-                }}*/ />
+                <AddButtons isOpen={isOpen} setIsButton={setIsButton} note={newNote} setNewNote={setNewNote} />
 
                 {/* {isOpen && <label >
                     <input

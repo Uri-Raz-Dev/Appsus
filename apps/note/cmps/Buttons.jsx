@@ -10,6 +10,12 @@ export function Buttons({ note, onRemove }) {
         }}>
             <Icons type='trash' />
         </button>
+        {(note.info.txt || note.info.title) && note.type === 'NoteTxt' && <button onClick={(ev) => {
+            ev.preventDefault()
+            // onRemove(note.id)
+        }}>
+            <Icons type='mail' />
+        </button>}
     </section>
 }
 
