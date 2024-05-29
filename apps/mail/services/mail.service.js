@@ -66,6 +66,7 @@ function save(mail) {
 }
 
 
+
 function getDefaultEmailFilter(filterBy = { txt: '', isRead: 0, date: 0, title: 0 }) {
     return {
         txt: filterBy.txt,
@@ -174,6 +175,8 @@ function _filterList(filterBy, mails) {
 
     return mails
 }
+
+
 
 function composeMail() {
 

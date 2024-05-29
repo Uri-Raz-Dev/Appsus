@@ -14,7 +14,11 @@ export function EmailIcons(name) {
         search: <box-icon name='search-alt-2' ></box-icon>,
         reset: <box-icon name='x' color='#575a5b' ></box-icon>,
         read: <box-icon name='envelope'></box-icon>,
-        unread: <box-icon name='envelope-open' ></box-icon>
+        unread: <box-icon name='envelope-open' ></box-icon>,
+        headmail: <box-icon name='envelope' type='solid' color='#6c8da6' ></box-icon>,
+        headkeep: <box-icon name='pin' type='solid' color='#6c8da6' ></box-icon>,
+        headhome: <box-icon name='home-alt-2' type='solid' color='#6c8da6' ></box-icon>,
+        headabout: <box-icon name='user' type='solid' color='#6c8da6' ></box-icon>
     }
 
     return iconsMap[name] || null

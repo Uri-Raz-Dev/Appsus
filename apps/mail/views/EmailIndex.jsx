@@ -18,15 +18,17 @@ export function EmailIndex({ folder }) {
     const [filterBy, setFilterBy] = useState(mailService.getDefaultEmailFilter())
     const [filterByFolders, setFilterByFolders] = useState(mailService.getDefaultFolderFilter())
     const [isComposeOpen, setIsComposeOpen] = useState(false)
-    const [unreadInboxCount, setUnreadInboxCount] = useState(0)
+    const [unreadInboxCount, setUnreadInboxCount] = useState('')
 
     useEffect(() => {
         const combinedFilter = { ...filterBy, ...filterByFolders, status: folder }
         mailService.query(combinedFilter).then(mails => {
             setMails(mails)
+            if (folder === 'sent' || folder === 'trash' || folder === 'draft') setUnreadInboxCount(prevCount => setUnreadInboxCount(prevCount))
             setUnreadInboxCount(mails.filter(mail => mail.folder === 'inbox' && !mail.isRead).length)
         })
     }, [filterBy, filterByFolders, folder, isComposeOpen])
+
 
     function onSetFilterBy(newFilter) {
         setFilterBy(prevFilter => ({ ...prevFilter, ...newFilter }))
@@ -53,6 +55,7 @@ export function EmailIndex({ folder }) {
     }
 
     function toggleReadStatus(mailId) {
+        if (folder === 'sent' || folder === 'trash' || folder === 'draft') setUnreadInboxCount('')
         setMails(prevMails => {
             const updatedMails = prevMails.map(mail => {
                 if (mail.id === mailId) {
@@ -60,19 +63,25 @@ export function EmailIndex({ folder }) {
                 }
                 return mail
             })
+            if (folder === 'sent' || folder === 'trash' || folder === 'draft') {
+                setUnreadInboxCount(prevCount => setUnreadInboxCount(prevCount))
+            }
             updateUnreadInboxCount(updatedMails)
             return updatedMails
         })
     }
 
     function updateUnreadInboxCount(mails) {
-        setUnreadInboxCount(mails.filter(mail => mail.folder === 'inbox' && !mail.isRead).length)
+
+
+        const unreadMessages = mails.filter(mail => mail.folder === 'inbox' && !mail.isRead).length;
+        setUnreadInboxCount(unreadMessages);
     }
 
     console.log(unreadInboxCount)
     return <section className="email-layout grid">
         <EmailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
-        <EmailFolderList filterByFolders={filterByFolders} onFilterFolders={onSetFilterByFolders} folder={folder} unreadInboxCount={unreadInboxCount} />
+        <EmailFolderList filterByFolders={filterByFolders} onFilterFolders={onSetFilterByFolders} folder={folder} unreadInboxCount={unreadInboxCount} onClose={closeCompose} onSendMail={onSendMail} />
         <EmailList mails={mails} folder={folder} removeMail={removeMail} toggleReadStatus={toggleReadStatus} />
         <Link onClick={openCompose} className="compose-wrapper flex" to="compose">
             <span className="compose-icon">{EmailIcons('compose')}</span>

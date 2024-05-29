@@ -23,16 +23,15 @@ export function EmailPreview({ mail, folder, removeMail, toggleReadStatus }) {
         ev.stopPropagation();
         const newIsRead = !isReadState;
         toggleReadStatus(id)
-        // Update the state immediately for better responsiveness
         setIsReadState(newIsRead);
 
-        // Update the read status in storage
         updateReadStatusInStorage(id, newIsRead);
     }
     function onOpenMail() {
         toggleReadStatus(id)
         setIsReadState(true)
         updateReadStatusInStorage(id, true)
+
     }
 
     function toggleStar(ev) {
@@ -46,10 +45,8 @@ export function EmailPreview({ mail, folder, removeMail, toggleReadStatus }) {
     function updateReadStatusInStorage(mailId, isReadStatus) {
         mailService.get(mailId)
             .then(email => {
-                // Update the read status of the email
                 email.isRead = isReadStatus;
 
-                // Save the updated email to the storage
                 return mailService.save(email);
             })
             .catch(err => {

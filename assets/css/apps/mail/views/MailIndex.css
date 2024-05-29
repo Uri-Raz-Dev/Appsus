@@ -24,33 +24,10 @@
 
  .email-folder-List {
      grid-column: 1;
-     grid-row: 2;
  }
 
  .email-folder-List ul,
  li {
      list-style: none;
      padding: 0;
- }
-
- .compose-wrapper {
-     grid-column: 1;
-     grid-row: 1;
-     align-items: center;
-     justify-content: center;
-     width: 142px;
-     height: 56px;
-     margin-block-start: 0.6rem;
-     border-radius: 1rem;
-     margin-inline-start: 1em;
-     background-color: var(--email-compose-color);
-     color: var(--email-compose-font-color);
- }
-
- .compose-icon {
-     margin-inline-end: 1rem;
- }
-
- .compose-wrapper:hover {
-     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3)
  }

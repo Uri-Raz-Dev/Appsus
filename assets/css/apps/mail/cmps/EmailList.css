@@ -44,10 +44,14 @@
 
  .mail-body {
      flex-grow: 1;
+     white-space: nowrap;
+     overflow: hidden;
+     text-overflow: ellipsis;
  }
 
  .mail-date {
      margin-inline-end: 2em;
+     text-wrap: nowrap;
  }
 
  .mail-list li.read {

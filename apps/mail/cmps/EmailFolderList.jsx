@@ -20,5 +20,5 @@ export function EmailFolderList({ folder, unreadInboxCount }) {
                 <li className={`${folder === 'trash' ? 'active' : ''}`}><span className={`folder-icon`}>{EmailIcons('trash')}</span><Link to="/mail/trash">Trash</Link></li>
             </ul>
         </nav>
-    );
+    )
 }
