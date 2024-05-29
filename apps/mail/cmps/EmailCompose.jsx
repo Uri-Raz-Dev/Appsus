@@ -1,10 +1,11 @@
 import { mailService } from "../services/mail.service.js"
-
+const { useNavigate } = ReactRouterDOM
 const { useState, useEffect, useRef } = React
 export function EmailCompose({ closeCompose, onSendMail }) {
 
     const [form, setForm] = useState(mailService.composeMail)
     const [emailError, setEmailError] = useState("")
+    const navigate = useNavigate()
     function handleChange(event) {
         const { name, value } = event.target;
         setForm(prevForm => ({
@@ -13,23 +14,22 @@ export function EmailCompose({ closeCompose, onSendMail }) {
         }));
     }
 
-    function isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    }
 
-    function sendEmail() {
-        if (!isValidEmail(form.to)) {
-            setEmailError("Please enter a valid email address.");
-            return;
-        }
-        setEmailError("")
+
+    function sendEmail(ev) {
+        ev.preventDefault()
+        // if (!isValidEmail(form.to)) {
+        //     setEmailError("Please enter a valid email address.");
+        //     return;
+        // }
+        // setEmailError("")
         const emailToSend = { ...form, folder: 'sent' }
         mailService.save(emailToSend)
             .then(() => {
                 setForm(mailService.composeMail())
                 onSendMail(emailToSend)
                 closeCompose()
+
             })
             .catch(err => {
                 console.error('Failed to send email:', err)
@@ -42,7 +42,7 @@ export function EmailCompose({ closeCompose, onSendMail }) {
                 <span>New Message</span>
                 <span className="close-btn" onClick={closeCompose}>×</span>
             </div>
-            <div className="compose-body">
+            <form onSubmit={sendEmail} className="compose-body">
                 <input
                     type="email"
                     name="to"
@@ -65,11 +65,11 @@ export function EmailCompose({ closeCompose, onSendMail }) {
                     value={form.body}
                     onChange={handleChange}
                 />
-            </div>
-            <div className="compose-footer">
-                <button onClick={sendEmail}>Send</button>
-                {/* <button className="discard-btn" onClick={discardEmail}>Discard</button> */}
-            </div>
+                <div className="compose-footer">
+                    <button>Send</button>
+                    {/* <button className="discard-btn" onClick={discardEmail}>Discard</button> */}
+                </div>
+            </form>
         </div>
     );
 

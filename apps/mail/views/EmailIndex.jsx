@@ -1,6 +1,6 @@
 // import { storageService } from "../../../services/async-storage.service.js"
 // import { utilService } from "../../../services/util.service.js"
-const { Link } = ReactRouterDOM
+const { useParams, useNavigate, Outlet, useOutletContext } = ReactRouterDOM
 
 import { EmailList } from "../cmps/EmailList.jsx"
 import { EmailFolderList } from "../cmps/EmailFolderList.jsx"
@@ -19,7 +19,7 @@ export function EmailIndex({ folder }) {
     const [filterByFolders, setFilterByFolders] = useState(mailService.getDefaultFolderFilter())
     const [isComposeOpen, setIsComposeOpen] = useState(false)
     const [unreadInboxCount, setUnreadInboxCount] = useState('')
-
+    const navigate = useNavigate()
     useEffect(() => {
         const combinedFilter = { ...filterBy, ...filterByFolders, status: folder }
         mailService.query(combinedFilter).then(mails => {
@@ -47,13 +47,14 @@ export function EmailIndex({ folder }) {
     }
 
     function openCompose() {
+        navigate(`/mail/${folder}/compose`)
         setIsComposeOpen(true)
     }
 
     function closeCompose() {
+        navigate(`/mail/${folder}`)
         setIsComposeOpen(false)
     }
-
     function toggleReadStatus(mailId) {
         if (folder === 'sent' || folder === 'trash' || folder === 'draft') setUnreadInboxCount('')
         setMails(prevMails => {
@@ -78,12 +79,12 @@ export function EmailIndex({ folder }) {
         setUnreadInboxCount(unreadMessages);
     }
 
-    console.log(unreadInboxCount)
     return <section className="email-layout grid">
+        {/* <Outlet /> */}
         <EmailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
+        <EmailList mails={mails} folder={folder} removeMail={removeMail} toggleReadStatus={toggleReadStatus} />
         <EmailFolderList filterByFolders={filterByFolders} onFilterFolders={onSetFilterByFolders} folder={folder} unreadInboxCount={unreadInboxCount} closeCompose={closeCompose} onSendMail={onSendMail} openCompose={openCompose}
             isComposeOpen={isComposeOpen} />
-        <EmailList mails={mails} folder={folder} removeMail={removeMail} toggleReadStatus={toggleReadStatus} />
 
     </section>
 }

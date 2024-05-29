@@ -1,5 +1,5 @@
 
-const { Link } = ReactRouterDOM
+const { Link, Outlet } = ReactRouterDOM
 import { EmailIcons } from "./EmailIcons.jsx"
 import { EmailCompose } from "./EmailCompose.jsx"
 
@@ -11,7 +11,6 @@ export function EmailFolderList({ folder, unreadInboxCount, closeCompose, onSend
                 <div className="compose">Compose</div>
             </Link>
             <Link replace to={''}>{isComposeOpen && <EmailCompose closeCompose={closeCompose} onSendMail={onSendMail} />}</Link>
-
             <ul className="links-wrapper">
                 <li className={`${folder === 'inbox' ? 'active' : ''}`}>
                     <span className={`folder-icon`}>{EmailIcons('inbox')}</span>

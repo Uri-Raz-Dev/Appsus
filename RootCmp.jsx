@@ -34,7 +34,11 @@ export function App() {
                     ))}
                 </Route>
 
-                <Route path="/mail/:folder/:mailId" element={<EmailDetails />} />
+                <Route path="/mail/inbox/:mailId" element={<EmailDetails />} />
+                <Route path="/mail/sent/:mailId" element={<EmailDetails />} />
+                <Route path="/mail/starred/:mailId" element={<EmailDetails />} />
+                <Route path="/mail/draft/:mailId" element={<EmailDetails />} />
+                <Route path="/mail/trash/:mailId" element={<EmailDetails />} />
 
 
                 <Route path="/note" element={<NoteIndex />} >
