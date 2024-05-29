@@ -23,7 +23,7 @@
 @import './cmps/UserMsg.css';
 @import './cmps/AppHeader.css';
 
-@import './apps/note/cmps/NewNote.css';
+@import './apps/note/cmps/AddNote.css';
 @import './apps/note/cmps/NoteList.css';
 @import './apps/note/cmps/NotePreview.css';
 

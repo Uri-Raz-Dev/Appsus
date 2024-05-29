@@ -2,13 +2,15 @@ import { noteService } from "../services/note.service.js"
 import { eventBusService } from "../../../services/event-bus.service.js"
 
 import { NoteList } from "../cmps/NoteList.jsx"
-import { NewNote } from "../cmps/NewNote.jsx"
+import { AddNote } from "../cmps/AddNote.jsx"
 
 const { Outlet } = ReactRouterDOM
 const { useState, useEffect } = React
 
 export function NoteIndex() {
     const [notes, setNotes] = useState([])
+    const [pinned, setPinned] = useState([])
+    const [nonPinned, setNonPinned] = useState([])
 
     eventBusService.on('save', note => {
         setNotes(prevNotes => {
@@ -30,9 +32,26 @@ export function NoteIndex() {
         //     console.log('notesFromService', notesFromService)
         //     notesFromService
         // })
+        console.log('currently pinned', pinned)
+
         noteService.query(/*filterBy*/)
             .then(setNotes)
+        // .then(setPinned(notes => {
+        //     console.log('notes', notes)
+        //     return [...noteService.getPinnedNotes(notes)]
+        // }))
+        // .then((pinned) => console.log('currently pinned', pinned))
     }, [/*filterBy*/])
+
+    useEffect(() => {
+        setPinned(() => {
+            return [...noteService.getPinnedNotes(notes)]
+        })
+        setNonPinned(() => {
+            console.log('There was a change in notes', notes)
+            return [...noteService.getNonPinnedNotes(notes)]
+        })
+    }, [notes])
 
     function removeNote(noteId) {
         // setIsLoading(true)
@@ -60,11 +79,19 @@ export function NoteIndex() {
         setNotes(notes => [note, ...notes])
     }
 
+    const isPinned = pinned.length > 0
+    const isNonPinned = nonPinned.length > 0
+
     return <main className="note-index">
         {/* <CreateNote /> */}
         {/* <div className="create">Take a note</div> */}
         <Outlet />
-        <NewNote notes={notes} makeNewNotes={addNotes} />
-        <NoteList notes={notes} onRemove={removeNote} />
+        <AddNote notes={notes} makeNewNotes={addNotes} />
+        {isPinned && < NoteList notes={pinned} onRemove={removeNote} showSectionTitle={isPinned && isNonPinned && <p>Pinned</p>} />}
+        {isNonPinned && < NoteList notes={nonPinned} onRemove={removeNote}
+            showSectionTitle={isPinned && isNonPinned && <p>Others</p>} />}
+        {!isPinned && !isNonPinned && <section className="notes"/*style={{ opacity: isLoading ? 0.5 : 1 }}*/ >
+            <div className="empty-notes">Notes you add appear here</div>
+        </section>}
     </main>
 }

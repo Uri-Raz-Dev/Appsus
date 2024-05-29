@@ -14,6 +14,8 @@ export const noteService = {
     save,
     getDefaultFilter,
     getEmptyNote,
+    getPinnedNotes,
+    getNonPinnedNotes,
 }
 
 window.ns = noteService
@@ -65,6 +67,14 @@ function get(noteId) {
         })
 }
 
+function getPinnedNotes(notes) {
+    return notes.filter(note => note.isPinned)
+}
+
+function getNonPinnedNotes(notes) {
+    return notes.filter(note => !note.isPinned)
+}
+
 function remove(noteId) {
     return storageService.remove(NOTE_KEY, noteId)
 }
@@ -82,8 +92,10 @@ function save(note) {
 
 function getDefaultFilter(filterBy = { title: '', price: 0, date: 0, authors: '' }) {
     return {
-        title: filterBy.title, price: filterBy.price,
-        date: filterBy.date, authors: filterBy.authors
+        title: filterBy.title,
+        price: filterBy.price,
+        date: filterBy.date,
+        authors: filterBy.authors
     }
 }
 
@@ -104,12 +116,17 @@ function _createNotes() {
             isPinned: false,
             info: {
                 title: 'Get my stuff together',
-                txt: 'Fullstack Me Baby!',
+                // txt: 'Fullstack Me Baby!',
                 txtLineCount: 1,
                 titleLineCount: 1,
                 todos: [
                     { txt: 'Driving license', doneAt: null },
-                    { txt: 'Coding power', doneAt: 187111111 }]
+                    { txt: 'Coding power', doneAt: 187111111 },
+                    // { txt: 'Driving license', doneAt: null },
+                    // { txt: 'Driving license', doneAt: null },
+                    // { txt: 'Driving license', doneAt: null },
+
+                ]
             }
         },
         {
@@ -117,7 +134,7 @@ function _createNotes() {
             type: 'NoteImg',
             isPinned: false,
             info: {
-                url: 'https://source.unsplash.com/random', title: 'Bobi and Me', txt: 'Fullstack Me Baby!',
+                url: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fanimalsadda.com%2Fwp-content%2Fuploads%2F2015%2F03%2FGrumpy-Cat-6.jpg&f=1&nofb=1&ipt=fdeff2dad4abd41a7125730ad0466cfe79e4e1c876f6eb793789141f7590ea8e&ipo=images', title: 'Bobi and Me', txt: 'Fullstack Me Baby!',
                 txtLineCount: 1,
                 titleLineCount: 1,
             },

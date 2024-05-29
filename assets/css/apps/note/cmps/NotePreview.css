@@ -28,3 +28,19 @@
     white-space: pre-wrap;
     /* margin-top: 12px; */
 }
+
+.todos {
+    font-family: Roboto, Arial, sans-serif;
+    /* font-size: calc(14em / 16); */
+    font-size: 14px;
+}
+
+.box-checked svg,
+.checkbox svg {
+    position: relative;
+    top: 7px;
+}
+
+.box-checked {
+    text-decoration: line-through;
+}

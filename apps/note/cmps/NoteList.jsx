@@ -1,16 +1,18 @@
 import { NotePreview } from './NotePreview.jsx'
-import { Buttons } from './Buttons.jsx'
+import { Buttons, Pin } from './Buttons.jsx'
 
 const { Link } = ReactRouterDOM
 
-export function NoteList({ notes, onRemove }) {
-
+export function NoteList({ notes, onRemove, showSectionTitle }) {
+    console.log('notes', notes)
     if (notes && notes.length) return (<section className="notes"/*style={{ opacity: isLoading ? 0.5 : 1 }}*/ >
+        {showSectionTitle}
         <ul className="list">
             {notes.map(note =>
                 <li key={note.id} >
                     <Link to={`/note/edit/${note.id}`}>
                         <article className="note">
+                            <Pin note={note} />
                             {(note.info.url) && <img src={note.info.url} />}
                             <NotePreview note={note} />
                             <Buttons note={note} onRemove={onRemove} />

@@ -1,12 +1,13 @@
 import { noteService } from '../services/note.service.js'
 import { eventBusService } from "../../../services/event-bus.service.js"
 
-import { TextArea } from "./TextArea.jsx";
+import { TextArea } from "./TextArea.jsx"
+import { AddButtons } from "./Buttons.jsx"
 
 const { useState, useEffect } = React
 const { useParams, useNavigate } = ReactRouter
 
-export function NewNote({ notes, makeNewNotes }) {
+export function AddNote({ notes, makeNewNotes }) {
     const [newNote, setNewNote] = useState(noteService.getEmptyNote())
     const [isOpen, setisOpen] = useState(false)
     const [clickCount, setclickCount] = useState(0)
@@ -97,6 +98,7 @@ export function NewNote({ notes, makeNewNotes }) {
             setisOpen(true)
         }}>
             <form onSubmit={onSave}>
+                <AddButtons isOpen={isOpen} />
                 {isOpen && <label >
                     <input
                         onChange={handleChange} value={newNote.info.title}
@@ -107,24 +109,7 @@ export function NewNote({ notes, makeNewNotes }) {
                 <label htmlFor="txt"></label>
                 <TextArea note={newNote} onChange={handleChange} placeHolder={'Take a note...'}
                 />
-                {/* <textarea
-                    name='txt'
-                    id="txt"
-                    cols='46'
-                    rows='10'
-                    wrap="hard"
-                    placeholder="Text"
-                    value={newNote.info.title}
-                    onChange={handleChange}
-                ></textarea> */}
-                {/* 
-                <label htmlFor="txt">Speed</label>
-                <input
-                    onChange={handleChange} value={(note.info) ? note.info.txt : note.txt}
-                    id="txt" name="txt"
-                    type="text" placeholder="txt" /> */}
-
-                {isOpen && <button>Close</button>}
+                {isOpen && <button className="close">Close</button>}
             </form>
         </section>
     )
