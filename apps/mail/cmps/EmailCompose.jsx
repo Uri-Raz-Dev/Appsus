@@ -1,7 +1,7 @@
 import { mailService } from "../services/mail.service.js"
 
 const { useState, useEffect, useRef } = React
-export function EmailCompose({ onClose, onSendMail }) {
+export function EmailCompose({ closeCompose, onSendMail }) {
 
     const [form, setForm] = useState(mailService.composeMail)
     const [emailError, setEmailError] = useState("")
@@ -29,7 +29,7 @@ export function EmailCompose({ onClose, onSendMail }) {
             .then(() => {
                 setForm(mailService.composeMail())
                 onSendMail(emailToSend)
-                onClose()
+                closeCompose()
             })
             .catch(err => {
                 console.error('Failed to send email:', err)
@@ -40,7 +40,7 @@ export function EmailCompose({ onClose, onSendMail }) {
         <div className="compose-email-modal">
             <div className="compose-header">
                 <span>New Message</span>
-                <span className="close-btn" onClick={onClose}>×</span>
+                <span className="close-btn" onClick={closeCompose}>×</span>
             </div>
             <div className="compose-body">
                 <input
