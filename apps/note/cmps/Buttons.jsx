@@ -13,15 +13,16 @@ export function Buttons({ note, onRemove }) {
     </section>
 }
 
-export function AddButtons({ note, onClick, isOpen }) {
+export function AddButtons({ note, setNewNote, onClick, isOpen, setIsButton }) {
     return <section className="add-buttons" style={/*isOpen &&*/ { display: isOpen && "none" }}>
         <button onClick={(ev) => {
             ev.preventDefault()
-            // onRemove(note.id)
+            setIsButton('image')
+            setNewNote(note => ({ ...note, type: 'NoteImg' }))
         }}>
             <Icons type='image' />
         </button>
-    </section>
+    </section >
 }
 
 export function Pin({ note }) {

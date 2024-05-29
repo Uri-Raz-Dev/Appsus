@@ -8,11 +8,10 @@ const { useState, useEffect } = React
 const { useParams, useNavigate } = ReactRouter
 
 export function AddNote({ notes, makeNewNotes }) {
-    const [newNote, setNewNote] = useState(noteService.getEmptyNote())
-    const [isOpen, setisOpen] = useState(false)
+    const [isOpen, setIsOpen] = useState(false)
+    const [isButton, setIsButton] = useState('')
     const [clickCount, setclickCount] = useState(0)
-
-    // const [newNotes, setNewNotes] = useState(notes)
+    const [newNote, setNewNote] = useState(noteService.getEmptyNote(isButton))
 
     useEffect(() => {
         setNewNote(prevNote => {
@@ -21,30 +20,9 @@ export function AddNote({ notes, makeNewNotes }) {
         })
     }, [newNote.info.txt])
 
-    // useEffect(() => {
-    //     if (inputRef.current) {
-    //         inputRef.current.focus()
-    //     }
-    // }, [])
-
-    // useEffect((newNotes) => {
-    //     console.log('newNotes', newNotes)
-    //     // makeNewNotes(newNotes)
-    // }, [newNotes])
-
-    // useEffect(() => {
-    //     console.log('newNotes', newNotes)
-    //     // makeNewNotes(newNotes)
-    //     setNewNotes(notes)
-    // }, [])
-
-
     useEffect(() => {
         if (clickCount === 1) eventBusService.emit('focus', true)
     }, [clickCount])
-
-
-
 
     function onSave(ev) {
         ev.preventDefault()
@@ -65,7 +43,7 @@ export function AddNote({ notes, makeNewNotes }) {
             })
             .finally(() => {
                 setclickCount(0)
-                setisOpen(false)
+                setIsOpen(false)
             })
     }
 
@@ -86,8 +64,9 @@ export function AddNote({ notes, makeNewNotes }) {
         setNewNote(
             prevNewNote => {
                 console.log('prop', prop)
-                console.log('name', name)
+                console.log('value', value)
                 const newInfo = { ...prevNewNote.info, [prop]: value }
+                console.log('newInfo', newInfo)
                 return { ...prevNewNote, info: newInfo }
             })
     }
@@ -95,11 +74,25 @@ export function AddNote({ notes, makeNewNotes }) {
     return (
         <section className="note-add" onClick={() => {
             setclickCount(prev => prev + 1)
-            setisOpen(true)
+            setIsOpen(true)
+            // setIsButton(false)
         }}>
             <form onSubmit={onSave}>
-                <AddButtons isOpen={isOpen} />
-                {isOpen && <label >
+                <AddButtons isOpen={isOpen} setIsButton={setIsButton} note={newNote} setNewNote={setNewNote}
+
+                /*onClick={ev => {
+                    ev.preventDefault()
+                    setIsButton(true)
+                }}*/ />
+
+                {/* {isOpen && <label >
+                    <input
+                        onChange={handleChange} value={newNote.info.title}
+                        id="image-url" name="image-url"
+                        type="text" placeholder="Enter image URL" />
+                </label>} */}
+
+                {isOpen && !isButton && <label >
                     <input
                         onChange={handleChange} value={newNote.info.title}
                         id="title" name="title"
@@ -107,9 +100,11 @@ export function AddNote({ notes, makeNewNotes }) {
                 </label>}
 
                 <label htmlFor="txt"></label>
-                <TextArea note={newNote} onChange={handleChange} placeHolder={'Take a note...'}
+                <TextArea note={newNote} onChange={handleChange} placeHolder={(isButton === 'image') ? 'Enter image URL' : 'Take a note...'} isButton={isButton}
                 />
-                {isOpen && <button className="close">Close</button>}
+                {isOpen && <button className="close" onClick={() => {
+                    setIsButton('')
+                }}>Close</button>}
             </form>
         </section>
     )
