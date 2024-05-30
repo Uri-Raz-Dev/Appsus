@@ -14,6 +14,9 @@ export const noteService = {
     save,
     getDefaultFilter,
     getEmptyNote,
+    getEmptyTodoNote,
+    getEmptyTodos,
+    getEmptyTodo,
     getPinnedNotes,
     getNonPinnedNotes,
 }
@@ -67,6 +70,14 @@ function get(noteId) {
         })
 }
 
+function getToDo(toDoId) {
+    return storageService.get(NOTE_KEY, noteId)
+        .then(note => {
+            // note = _setNextPrevNoteId(note)
+            return note
+        })
+}
+
 function getPinnedNotes(notes) {
     return notes.filter(note => note.isPinned)
 }
@@ -79,15 +90,27 @@ function remove(noteId) {
     return storageService.remove(NOTE_KEY, noteId)
 }
 
-
 function save(note) {
     if (!(note.info.txt || note.info.title || note.info.url) && !note.id) return Promise.reject()
-    if (note.id) {
+    else if (!note.info.todos && note.id)
+        return Promise.reject()
+    else if (note.info.todos)
+        return storageService.post(NOTE_KEY, note)
+    else if (note.id) {
         return storageService.put(NOTE_KEY, note)
     } else {
         return storageService.post(NOTE_KEY, note)
     }
 }
+
+// function save(note) {
+//     if (!(note.info.txt || note.info.title || note.info.url || note.info.todos) && !note.id) return Promise.reject()
+//     if (note.id) {
+//         return storageService.put(NOTE_KEY, note)
+//     } else {
+//         return storageService.post(NOTE_KEY, note)
+//     }
+// }
 
 
 function getDefaultFilter(filterBy = { title: '', price: 0, date: 0, authors: '' }) {
@@ -104,7 +127,36 @@ function getEmptyNote(type = 'NoteTxt') {
         createdAt: '',
         type,
         isPinned: false,
-        info: { url: '', txt: '', title: '', txtLineCount: 1, titleLineCount: 1 },
+        info: { todos: [{ txt: '', doneAt: null }], url: '', txt: '', title: '', txtLineCount: 1, titleLineCount: 1 },
+        style: '#fff'
+    }
+}
+
+function getEmptyTodo(id) {
+    return {
+        txt: '', doneAt: null, id: id || utilService.makeId(),
+    }
+}
+
+function getEmptyTodos() {
+    return {
+        id: utilService.makeId(),
+
+        createdAt: '',
+        type: 'NoteTodos',
+        isPinned: false,
+        info: { todos: [{ txt: '', doneAt: null, id: utilService.makeId(), }], url: '', txt: '', title: '', txtLineCount: 1, titleLineCount: 1 },
+        style: '#fff'
+    }
+}
+
+function getEmptyTodoNote(type = 'NoteTodos') {
+    return {
+        // id: utilService.makeId(),
+        createdAt: '',
+        type,
+        isPinned: false,
+        info: { todos: [{ txt: '', doneAt: null, id: utilService.makeId(), }], url: '', txt: '', title: '', txtLineCount: 1, titleLineCount: 1 },
         style: '#fff'
     }
 }

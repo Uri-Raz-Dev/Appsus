@@ -80,19 +80,15 @@ export function AddNote({ notes, makeNewNotes }) {
             <form onSubmit={onSave}>
                 <AddButtons isOpen={isOpen} setIsButton={setIsButton} note={newNote} setNewNote={setNewNote} />
 
-                {/* {isOpen && <label >
-                    <input
-                        onChange={handleChange} value={newNote.info.title}
-                        id="image-url" name="image-url"
-                        type="text" placeholder="Enter image URL" />
-                </label>} */}
-
-                {isOpen && !isButton && <label >
-                    <input
-                        onChange={handleChange} value={newNote.info.title}
-                        id="title" name="title"
-                        type="text" placeholder="Title" />
-                </label>}
+                {isOpen && !isButton &&
+                    <label >
+                        <input
+                            onChange={handleChange}
+                            value={newNote.info.title}
+                            id="title" name="title"
+                            type="text" placeholder="Title" />
+                    </label>
+                }
 
                 <label htmlFor="txt"></label>
                 <TextArea note={newNote} onChange={handleChange} placeHolder={(isButton === 'image') ? 'Enter image URL' : 'Take a note...'} isButton={isButton}

@@ -7,9 +7,9 @@ import { showErrorMsg } from '../../../services/event-bus.service.js'
 
 import { TextArea } from "../cmps/TextArea.jsx";
 
-export function NoteEdit() {
+export function ToDoEdit() {
     const [note, setNote] = useState(
-        { info: { txt: '', title: '', txtLineCount: 1 } }
+        { info: { todos: [], txtLineCount: 1 } }
     )
 
     const params = useParams()
@@ -26,14 +26,14 @@ export function NoteEdit() {
             })
     }, [])
 
-    useEffect(() => {
-        setNote(prevNote => {
-            // if (prevNote.info.txt) {
-            let newInfo = { ...prevNote.info, txtLineCount: (prevNote.info.txt.match(/\n/g) || []).length + 1 }
-            return { ...prevNote, info: newInfo }
-            // }
-        })
-    }, [note.info.txt])
+    // useEffect(() => {
+    //     setNote(prevNote => {
+    //         if (prevNote.info.txt) {
+    //             let newInfo = { ...prevNote.info, txtLineCount: (prevNote.info.txt.match(/\n/g) || []).length + 1 }
+    //             return { ...prevNote, info: newInfo }
+    //         }
+    //     })
+    // }, [note.info.txt])
 
     function onSave(ev) {
         ev.preventDefault()
@@ -73,11 +73,11 @@ export function NoteEdit() {
     }
 
     return (
-        <section className="note-edit">
+        <section className="todo-edit">
             <form onSubmit={onSave}>
                 <label htmlFor="title"></label>
                 <input
-                    onChange={handleChange} value={(note.info) ? note.info.title : note.title}
+                    onChange={handleChange} value={(note.info.todos) ? note.info.title : note.title}
                     id="title" name="title"
                     type="text" placeholder="Title" />
 
