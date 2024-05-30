@@ -32,7 +32,8 @@
 
 .email-actions {
     display: flex;
-    justify-content: flex-end;
+    /* justify-content: flex-end; */
+    align-items: center;
     margin-top: 20px;
     column-gap: 10px;
 }
@@ -50,4 +51,14 @@
 
 .email-actions button:hover {
     background-color: #0056b3;
+}
+
+.email-actions .from {
+    flex-grow: 1;
+}
+
+.email-actions span:hover {
+    cursor: pointer;
+    border-radius: 100%;
+    background-color: var(--email-onhover-color);
 }

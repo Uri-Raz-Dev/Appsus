@@ -6,36 +6,44 @@ export function EmailCompose({ closeCompose, onSendMail }) {
     const [form, setForm] = useState(mailService.composeMail)
     const [emailError, setEmailError] = useState("")
     function handleChange(event) {
-        const { name, value } = event.target;
+        const { name, value } = event.target
         setForm(prevForm => ({
             ...prevForm,
             [name]: value
-        }));
+        }))
     }
 
     function isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        return emailRegex.test(email)
     }
 
-    function sendEmail() {
-        if (!isValidEmail(form.to)) {
-            setEmailError("Please enter a valid email address.");
-            return;
+    function saveEmail(isDraft = false) {
+        if (!isValidEmail(form.to) && !isDraft) {
+            setEmailError("Please enter a valid email address.")
+            return
         }
         setEmailError("")
-        const emailToSend = { ...form, folder: 'sent' }
-        mailService.save(emailToSend)
+        const emailToSave = { ...form, folder: isDraft ? 'draft' : 'sent', isDraft }
+        mailService.save(emailToSave)
             .then(() => {
                 setForm(mailService.composeMail())
-                onSendMail(emailToSend)
+                if (!isDraft) onSendMail(emailToSave)
                 closeCompose()
             })
             .catch(err => {
-                console.error('Failed to send email:', err)
+                console.error('Failed to save email:', err)
             })
     }
 
+    function sendEmail() {
+        if (!form.to || !form.subject || !form.body) {
+            saveEmail(true)
+
+        } else {
+            saveEmail(false)
+        }
+    }
     return (
         <div className="compose-email-modal">
             <div className="compose-header">
@@ -67,7 +75,10 @@ export function EmailCompose({ closeCompose, onSendMail }) {
                 />
             </div>
             <div className="compose-footer">
-                <button onClick={sendEmail}>Send</button>
+                {!form.to || !form.subject || !form.body ?
+                    <button onClick={() => saveEmail(true)}>Save as draft</button> :
+                    <button onClick={sendEmail}>Send</button>
+                }
                 {/* <button className="discard-btn" onClick={discardEmail}>Discard</button> */}
             </div>
         </div>

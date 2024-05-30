@@ -96,9 +96,9 @@ export function EmailPreview({ mail, folder, removeMail, toggleReadStatus }) {
             to={`/mail/${folder}/${mail.id}`} className="mail-body">{subject} - {body.slice(0, body.length / 5)}</Link>
         {folder !== 'trash' ? <p className="mail-date">{utilService.getFormattedTimestamp(sentAt)}</p> : <p className="mail-date">{utilService.getFormattedTimestamp(removedAt)}</p>}
         <div className="preview-icons">
-            <span onClick={removeMailByFilter}>{EmailIcons('trash')}</span>
+            <span className="trash" onClick={removeMailByFilter}>{EmailIcons('trash')}</span>
 
-            <span onClick={toggleRead}>{mail.isRead ? EmailIcons('read') : EmailIcons('unread')}</span>
+            <span className="read" onClick={toggleRead}>{mail.isRead ? EmailIcons('read') : EmailIcons('unread')}</span>
 
         </div>
     </li>
