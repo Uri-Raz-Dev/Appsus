@@ -1,4 +1,5 @@
 import { mailService } from "../services/mail.service.js"
+import { EmailIcons } from "../cmps/EmailIcons.jsx"
 const { useState, useEffect } = React
 const { useParams, useNavigate } = ReactRouterDOM
 
@@ -47,15 +48,15 @@ export function EmailDetails() {
         <div className="email-details-container">
             <div className="email-header">
                 <div className="email-subject">{mail.subject}</div>
-                <div className="email-info">From: {mail.from}</div>
+                <div className="email-actions">
+                    <div className="email-info from">From: {mail.from}</div>
+                    <span onClick={removeMail}>{EmailIcons('trash')}</span>
+                    <span onClick={() => navigate(-1)}>{EmailIcons('back')}</span>
+                </div>
                 <div className="email-info">To: {mail.to}</div>
             </div>
             <div className="email-body">{mail.body}</div>
-            <div className="email-actions">
-                <button onClick={() => navigate(-1)}>Back</button>
-                <button onClick={removeMail}>Delete</button>
 
-            </div>
         </div>
     )
 }

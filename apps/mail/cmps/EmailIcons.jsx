@@ -18,7 +18,8 @@ export function EmailIcons(name) {
         headmail: <box-icon name='envelope' type='solid' color='#6c8da6' ></box-icon>,
         headkeep: <box-icon name='pin' type='solid' color='#6c8da6' ></box-icon>,
         headhome: <box-icon name='home-alt-2' type='solid' color='#6c8da6' ></box-icon>,
-        headabout: <box-icon name='user' type='solid' color='#6c8da6' ></box-icon>
+        headabout: <box-icon name='user' type='solid' color='#6c8da6' ></box-icon>,
+        back: <box-icon name='arrow-back'></box-icon>
     }
 
     return iconsMap[name] || null
