@@ -71,7 +71,8 @@
 }
 
 .add-buttons {
+    display: flex;
     position: absolute;
-    left: 90%;
+    left: 85%;
     scale: 1.3;
 }

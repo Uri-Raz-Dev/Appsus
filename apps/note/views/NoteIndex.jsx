@@ -12,6 +12,7 @@ export function NoteIndex() {
     const [notes, setNotes] = useState([])
     const [pinned, setPinned] = useState([])
     const [nonPinned, setNonPinned] = useState([])
+    const [toDo, setToDo] = useState(false)
 
     eventBusService.on('save', note => {
         setNotes(prevNotes => {
@@ -25,6 +26,11 @@ export function NoteIndex() {
             console.log(newNotes)
             return newNotes
         })
+    })
+
+    eventBusService.on('todo', () => {
+        console.log('hi', toDo)
+        setToDo(!toDo)
     })
 
     useEffect(() => {
@@ -88,9 +94,8 @@ export function NoteIndex() {
         {/* <div className="create">Take a note</div> */}
         <Outlet />
 
-        <AddNote notes={notes} makeNewNotes={addNotes} />
-        <AddToDo notes={notes} makeNewNotes={addNotes} />
-
+        {!toDo && <AddNote notes={notes} makeNewNotes={addNotes} />}
+        {toDo && <AddToDo notes={notes} makeNewNotes={addNotes} />}
         {isPinned && < NoteList notes={pinned} onRemove={removeNote} showSectionTitle={isPinned && isNonPinned && <p>Pinned</p>} />}
 
         {isNonPinned && < NoteList notes={nonPinned} onRemove={removeNote}

@@ -72,11 +72,11 @@ export function AddNote({ notes, makeNewNotes }) {
     }
 
     return (
-        <section className="note-add" onClick={() => {
+        <section className={`note-add `} onClick={() => {
             setclickCount(prev => prev + 1)
             setIsOpen(true)
             // setIsButton(false)
-        }}>
+        }} >
             <form onSubmit={onSave}>
                 <AddButtons isOpen={isOpen} setIsButton={setIsButton} note={newNote} setNewNote={setNewNote} />
 

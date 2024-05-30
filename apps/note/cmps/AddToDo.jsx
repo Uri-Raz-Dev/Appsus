@@ -1,3 +1,4 @@
+import { eventBusService } from "../../../services/event-bus.service.js"
 import { utilService } from "../../../services/util.service.js"
 import { noteService } from '../services/note.service.js'
 
@@ -80,6 +81,7 @@ export function AddToDo({ makeNewNotes }) {
             .then(makeNewNotes)
             .then(() =>
                 setNewToDos(noteService.getEmptyTodos()))
+        eventBusService.emit('todo', false)
             //     // setNewNotes(prevNotes => {
             //     //     console.log('prevNotes', [note, ...prevNotes])
             //     //     return [note, ...prevNotes]
@@ -129,7 +131,7 @@ export function AddToDo({ makeNewNotes }) {
     }
 
     return (
-        <section className="note-add">
+        <section className={`note-add `}>
             <form onSubmit={onSave}>
                 <ul>
                     {

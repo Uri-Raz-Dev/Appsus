@@ -24,7 +24,14 @@ export function Buttons({ note, onRemove }) {
 }
 
 export function AddButtons({ note, setNewNote, onClick, isOpen, setIsButton }) {
-    return <section className="add-buttons" style={/*isOpen &&*/ { display: isOpen && "none" }}>
+    return <section className="add-buttons" style={/*isOpen &&*/ { display: (isOpen) ? "none" : "flex" }}>
+
+        <button onClick={(ev) => {
+            eventBusService.emit('todo', true)
+        }}>
+            <Icons type='boxChecked' />
+        </button>
+
         <button onClick={(ev) => {
             ev.preventDefault()
             setIsButton('image')
