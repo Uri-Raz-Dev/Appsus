@@ -20,7 +20,7 @@
 .note-edit form {
     background-color: white;
     position: absolute;
-    width: 600px;
+    max-width: 600px;
     /* opacity: 1; */
     /* z-index: 11; */
     /* margin-top: calc(93px + 125px); */
@@ -28,9 +28,11 @@
     /* transform: translate(0, -50%); */
     margin-bottom: 50px;
     border: 1px solid var(--keep-note-border);
-    left: calc(50% - 600px / 2);
+    left: 50%;
     border-radius: 8px;
     padding: 16px 15px;
+    min-width: 73%;
+    transform: translateX(-50%);
 }
 
 /* this is double code with textarea: */
@@ -45,6 +47,8 @@
     border-color: transparent;
     /* font-size: 22px; */
     color: var(--keep-dark-txt);
+    /* min-width: 73%;
+    transform: translateX(-50%); */
 
 }
 
