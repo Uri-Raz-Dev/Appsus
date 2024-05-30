@@ -1,15 +1,15 @@
 import { mailService } from "../services/mail.service.js"
 const { useState, useEffect } = React
-const { useParams, useNavigate } = ReactRouterDOM
+const { useParams, useNavigate, Outlet } = ReactRouterDOM
 
 export function EmailDetails() {
     const [mail, setMail] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
+    const { folder, mailId } = useParams()
     const params = useParams()
     const navigate = useNavigate()
-
     useEffect(() => {
-        mailService.get(params.mailId)
+        mailService.get(mailId)
             .then((mail) => {
                 setMail(mail)
                 setIsLoading(false)
@@ -18,7 +18,7 @@ export function EmailDetails() {
                 console.error('Failed to fetch mail:', err)
                 setIsLoading(false)
             })
-    }, [params.mailId])
+    }, [mailId])
 
     function removeMail() {
         const currentTime = Date.now()
@@ -54,8 +54,9 @@ export function EmailDetails() {
             <div className="email-actions">
                 <button onClick={() => navigate(-1)}>Back</button>
                 <button onClick={removeMail}>Delete</button>
-
+                <button>send to keep</button>
             </div>
+            <Outlet />
         </div>
     )
 }
