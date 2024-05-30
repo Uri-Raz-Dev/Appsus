@@ -6,7 +6,7 @@ export function NotePreview({ note }) {
     return (type === 'NoteTodos') ? <CheckBoxPreview note={note} />
         : <section className="content">
             {(note.info.title) && <h3>{note.info.title}</h3>}
-            <p >{(note.info.txt || note.info.title) ? note.info.txt : 'Empty note'}</p>
+            <p >{(note.info.txt || note.info.title || note.info.url) ? note.info.txt : 'Empty note'}</p>
         </section>
 }
 

@@ -10,18 +10,25 @@ export function Buttons({ note, onRemove }) {
         }}>
             <Icons type='trash' />
         </button>
-    </section>
-}
-
-export function AddButtons({ note, onClick, isOpen }) {
-    return <section className="add-buttons" style={/*isOpen &&*/ { display: isOpen && "none" }}>
-        <button onClick={(ev) => {
+        {(note.info.txt || note.info.title) && note.type === 'NoteTxt' && <button onClick={(ev) => {
             ev.preventDefault()
             // onRemove(note.id)
         }}>
+            <Icons type='mail' />
+        </button>}
+    </section>
+}
+
+export function AddButtons({ note, setNewNote, onClick, isOpen, setIsButton }) {
+    return <section className="add-buttons" style={/*isOpen &&*/ { display: isOpen && "none" }}>
+        <button onClick={(ev) => {
+            ev.preventDefault()
+            setIsButton('image')
+            setNewNote(note => ({ ...note, type: 'NoteImg' }))
+        }}>
             <Icons type='image' />
         </button>
-    </section>
+    </section >
 }
 
 export function Pin({ note }) {

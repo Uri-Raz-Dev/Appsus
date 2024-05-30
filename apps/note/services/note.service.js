@@ -81,7 +81,7 @@ function remove(noteId) {
 
 
 function save(note) {
-    if (!(note.info.txt || note.info.title) && !note.id) return Promise.reject()
+    if (!(note.info.txt || note.info.title || note.info.url) && !note.id) return Promise.reject()
     if (note.id) {
         return storageService.put(NOTE_KEY, note)
     } else {
@@ -99,12 +99,13 @@ function getDefaultFilter(filterBy = { title: '', price: 0, date: 0, authors: ''
     }
 }
 
-function getEmptyNote() {
+function getEmptyNote(type = 'NoteTxt') {
     return {
         createdAt: '',
-        type: 'NoteTxt',
+        type,
         isPinned: false,
-        info: { txt: '', title: '', txtLineCount: 1, titleLineCount: 1 }
+        info: { url: '', txt: '', title: '', txtLineCount: 1, titleLineCount: 1 },
+        style: '#fff'
     }
 }
 
