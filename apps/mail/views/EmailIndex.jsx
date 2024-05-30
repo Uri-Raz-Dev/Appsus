@@ -1,6 +1,6 @@
 // import { storageService } from "../../../services/async-storage.service.js"
 // import { utilService } from "../../../services/util.service.js"
-const { Link } = ReactRouterDOM
+const { Link, Outlet } = ReactRouterDOM
 
 import { EmailList } from "../cmps/EmailList.jsx"
 import { EmailFolderList } from "../cmps/EmailFolderList.jsx"
@@ -81,10 +81,15 @@ export function EmailIndex({ folder }) {
     console.log(unreadInboxCount)
     return <section className="email-layout grid">
         <EmailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
-        <EmailFolderList filterByFolders={filterByFolders} onFilterFolders={onSetFilterByFolders} folder={folder} unreadInboxCount={unreadInboxCount} closeCompose={closeCompose} onSendMail={onSendMail} openCompose={openCompose}
+        <EmailFolderList filterByFolders={filterByFolders}
+            onFilterFolders={onSetFilterByFolders}
+            folder={folder}
+            unreadInboxCount={unreadInboxCount}
+            closeCompose={closeCompose}
+            onSendMail={onSendMail}
+            openCompose={openCompose}
             isComposeOpen={isComposeOpen} />
         <EmailList mails={mails} folder={folder} removeMail={removeMail} toggleReadStatus={toggleReadStatus} />
-
     </section>
 }
 

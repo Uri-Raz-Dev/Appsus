@@ -3,7 +3,7 @@ import { mailService } from "../services/mail.service.js"
 const { useState, useEffect, useRef } = React
 export function EmailCompose({ closeCompose, onSendMail }) {
 
-    const [form, setForm] = useState(mailService.composeMail)
+    const [form, setForm] = useState(mailService.composeMail())
     const [emailError, setEmailError] = useState("")
     function handleChange(event) {
         const { name, value } = event.target;
