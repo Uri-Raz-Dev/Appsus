@@ -1,3 +1,4 @@
+import { utilService } from "../../../services/util.service.js"
 import { Icons } from "./Icons.jsx"
 
 export function NotePreview({ note }) {
@@ -19,7 +20,7 @@ export function CheckBoxPreview({ note }) {
                 <ul>
                     {
                         note.info.todos.map(todo =>
-                            <li key={todo.txt} className={(todo.doneAt === null) ? 'checkbox' : 'box-checked'}>
+                            <li key={utilService.makeId()} className={(todo.doneAt === null) ? 'checkbox' : 'box-checked'}>
                                 <Icons type={(todo.doneAt === null) ? 'checkBox' : 'boxChecked'} />
                                 {todo.txt}
                             </li>
