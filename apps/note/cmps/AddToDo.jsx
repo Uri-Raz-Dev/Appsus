@@ -76,12 +76,13 @@ export function AddToDo({ makeNewNotes }) {
     function onSave(ev) {
         ev.preventDefault()
         // eventBusService.emit('save', note)
+        eventBusService.emit('todo', false)
+
         newToDos.info.todos.splice(newToDos.info.todos.length - 1, 1)
         noteService.save(newToDos)
             .then(makeNewNotes)
             .then(() =>
                 setNewToDos(noteService.getEmptyTodos()))
-        eventBusService.emit('todo', false)
             //     // setNewNotes(prevNotes => {
             //     //     console.log('prevNotes', [note, ...prevNotes])
             //     //     return [note, ...prevNotes]
