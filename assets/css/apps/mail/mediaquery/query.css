@@ -1,0 +1,39 @@
+@media(max-width:800px) {
+    .email-layout {
+        grid-template-columns: 3.75rem 3fr 1fr;
+    }
+
+    .email-folder-list {
+        max-width: 60px;
+    }
+
+    .email-folder-list li {
+        width: fit-content;
+    }
+
+    .email-folder-list li.active {
+        max-width: 100%;
+    }
+
+    .email-folder-list li:hover {
+        max-width: 100%;
+    }
+
+    .email-folder-list .compose-wrapper {
+        padding: 0;
+        margin: 0;
+        margin-block-start: 0.6em;
+    }
+
+    .email-folder-list .compose-wrapper .compose-icon {
+        margin-inline-end: 0.3rem;
+    }
+
+    .hambar {
+        display: none;
+    }
+
+    .folderName {
+        display: none;
+    }
+}
