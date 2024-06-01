@@ -1,5 +1,8 @@
 import { utilService } from "../../../services/util.service.js"
+import { noteService } from "../services/note.service.js"
 import { Icons } from "./Icons.jsx"
+
+const { useState, useEffect } = React
 
 export function NotePreview({ note }) {
     const { type } = note
@@ -12,6 +15,21 @@ export function NotePreview({ note }) {
 }
 
 export function CheckBoxPreview({ note }) {
+    const [newNote, setNewNote] = useState(note)
+
+    useEffect(() => { noteService.save(newNote) }, [newNote])
+
+    function toggleDone(todo) {
+        setNewNote(prev => {
+            let nextToDos = [...prev.info.todos]
+            nextToDos[newNote.info.todos.indexOf(todo)] = { ...todo, doneAt: (todo.doneAt === null) ? 1 : null }
+            let newInfo = { ...prev.info, todos: nextToDos }
+            return { ...prev, info: newInfo }
+        })
+
+        // noteService.save()
+    }
+
     if (note.info.todos.length || note.info.title) {
         return <section className="content todos">
             {(note.info.title) && <h3>{note.info.title}</h3>}
@@ -19,9 +37,12 @@ export function CheckBoxPreview({ note }) {
                 // <p>helloit it</p>
                 <ul>
                     {
-                        note.info.todos.map(todo =>
+                        newNote.info.todos.map(todo =>
                             <li key={utilService.makeId()} className={(todo.doneAt === null) ? 'checkbox' : 'box-checked'}>
-                                <Icons type={(todo.doneAt === null) ? 'checkBox' : 'boxChecked'} />
+                                <Icons todo={todo} toggleDone={toggleDone}/*onClick={ev => {
+                                    ev.preventDefault()
+                                    toggleDone(todo, ev)
+                                }}*/ type={(todo.doneAt === null) ? 'checkBox' : 'boxChecked'} />
                                 {todo.txt}
                             </li>
                         )
