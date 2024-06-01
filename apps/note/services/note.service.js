@@ -90,12 +90,25 @@ function remove(noteId) {
     return storageService.remove(NOTE_KEY, noteId)
 }
 
-function save(note) {
+function save2(note) {
     if (!(note.info.txt || note.info.title || note.info.url) && !note.id) return Promise.reject()
     else if (!note.info.todos && note.id)
         return Promise.reject()
-    else if (note.info.todos)
+    // else if (note.info.todos)
+    //     return storageService.post(NOTE_KEY, note)
+    else if (note.id) {
+        return storageService.put(NOTE_KEY, note)
+    } else {
         return storageService.post(NOTE_KEY, note)
+    }
+}
+
+function save(note) {
+    if (!(note.info.txt || note.info.title || note.info.url || note.info.todos.some(todo => todo.txt))) return Promise.reject(new Error('first condition'))
+    else if (!note.info.todos && note.id)
+        return Promise.reject(new Error('second condition'))
+    // else if (note.info.todos)
+    //     return storageService.post(NOTE_KEY, note)
     else if (note.id) {
         return storageService.put(NOTE_KEY, note)
     } else {
@@ -140,7 +153,7 @@ function getEmptyTodo(id) {
 
 function getEmptyTodos() {
     return {
-        id: utilService.makeId(),
+        // id: utilService.makeId(),
 
         createdAt: '',
         type: 'NoteTodos',
