@@ -162,13 +162,14 @@ export function ToDoEdit() {
             return { ...prevNote, info: newInfo }
         })
     }
-
+    // const filteredToDos=note.info.todos.filter(todo=>todo.doneAt!==null)
     return (
         <section className={`note-add `}>
             <form onSubmit={onSave}>
                 <ul>
                     {
-                        note.info.todos.map(todo => {
+
+                        note.info.todos.filter(todo => todo.doneAt === null).map(todo => {
                             return < li key={todo.id || utilService.makeId()}>
                                 <label >
                                     <input type="text" id={note.info.todos.indexOf(todo)}
