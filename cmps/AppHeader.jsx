@@ -15,10 +15,10 @@ export function AppHeader() {
             return <h3>Appsus</h3>
 
         } else if (location.pathname.startsWith('/mail/')) {
-            return <img className="gmail-logo" src="/assets/css/imgs/gmail-logo.png" alt="gmail icon" />
+            return <img className="gmail-logo" src="assets/css/imgs/gmail-logo.png" alt="gmail icon" />
 
         } else if (location.pathname === '/note') {
-            return <img className="keep-logo" src="/assets/css/imgs/keep-logo.png" alt="keep icon" />
+            return <img className="keep-logo" src="assets/css/imgs/keep-logo.png" alt="keep icon" />
 
         }
 
@@ -41,10 +41,10 @@ export function AppHeader() {
                     {isDropdownOpen && (
                         <div className="dropdown-content">
                             <NavLink to="/mail/inbox" onClick={() => setIsDropdownOpen(false)}>
-                                <img className="app-icon" src="/assets/css/imgs/gmail.png" alt="gmail icon" />
+                                <img className="app-icon" src="assets/css/imgs/gmail.png" alt="gmail icon" />
                             </NavLink>
                             <NavLink to="/note" onClick={() => setIsDropdownOpen(false)}>
-                                <img className="app-icon" src="/assets/css/imgs/keep-icon.png" alt="gmail icon" /></NavLink>
+                                <img className="app-icon" src="assets/css/imgs/keep-icon.png" alt="gmail icon" /></NavLink>
                         </div>
                     )}
                 </div>
