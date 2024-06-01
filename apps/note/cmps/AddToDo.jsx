@@ -29,6 +29,7 @@ export function AddToDo({ makeNewNotes }) {
             let nextToDos = [...prev.info.todos]
             nextToDos[lineNum] = newToDo
             let newInfo = { ...prev.info, todos: nextToDos }
+            console.log('{ ...prev, info: newInfo }', { ...prev, info: newInfo })
             return { ...prev, info: newInfo }
         })
 
@@ -77,9 +78,12 @@ export function AddToDo({ makeNewNotes }) {
         ev.preventDefault()
         // eventBusService.emit('save', note)
         eventBusService.emit('todo', false)
-
-        newToDos.info.todos.splice(newToDos.info.todos.length - 1, 1)
-        noteService.save(newToDos)
+        const toDosForSave = newToDos.info.todos.filter(todo => todo.txt)
+        let newInfo = { ...newToDos.info, todos: toDosForSave }
+        const noteForSave = { ...newToDos, info: newInfo }
+        // newToDos.info.todos.splice(newToDos.info.todos.length - 1, 1)
+        console.log('newToDos from save', noteForSave)
+        noteService.save(noteForSave)
             .then(makeNewNotes)
             .then(() =>
                 setNewToDos(noteService.getEmptyTodos()))
@@ -88,8 +92,8 @@ export function AddToDo({ makeNewNotes }) {
             //     //     return [note, ...prevNotes]
             //     // })
             // })
-            .catch(() => {
-                console.log('error');
+            .catch((result) => {
+                console.log(result);
                 // showErrorMsg('Couldnt save')
                 // navigate('/note')
             })
