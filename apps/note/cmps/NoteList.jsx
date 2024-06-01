@@ -10,7 +10,7 @@ export function NoteList({ notes, onRemove, showSectionTitle }) {
         <ul className="list">
             {notes.map(note =>
                 <li key={note.id} >
-                    <Link to={(note.type === 'NoteTodos') ? '/note' : `/note/edit/${note.id}`}>
+                    <Link to={(note.type === 'NoteTodos') ? `/note/todo-edit/${note.id}` : `/note/note-edit/${note.id}`}>
                         <article className="note">
                             <Pin note={note} />
                             {(note.info.url) && <img src={note.info.url} />}
