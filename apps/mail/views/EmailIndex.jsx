@@ -19,7 +19,7 @@ export function EmailIndex({ folder }) {
     const [filterByFolders, setFilterByFolders] = useState(mailService.getDefaultFolderFilter())
     const [isComposeOpen, setIsComposeOpen] = useState(false)
     const [unreadInboxCount, setUnreadInboxCount] = useState('')
-
+    const [isCollapse, setIsCollapse] = useState(false)
     useEffect(() => {
         const combinedFilter = { ...filterBy, ...filterByFolders, status: folder }
         mailService.query(combinedFilter).then(mails => {
@@ -33,6 +33,12 @@ export function EmailIndex({ folder }) {
     function onSetFilterBy(newFilter) {
         setFilterBy(prevFilter => ({ ...prevFilter, ...newFilter }))
     }
+
+    function toggleCollapse() {
+        return setIsCollapse(prevIsCollapse => !prevIsCollapse)
+    }
+
+
 
     function onSetFilterByFolders(newFilter) {
         setFilterByFolders(prevFilter => ({ ...prevFilter, ...newFilter }))
@@ -78,11 +84,10 @@ export function EmailIndex({ folder }) {
         setUnreadInboxCount(unreadMessages);
     }
 
-    console.log(unreadInboxCount)
-    return <section className="email-layout grid">
+    return <section className={isCollapse ? "email-layout grid collapse" : "email-layout grid"}>
         <EmailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
         <EmailFolderList filterByFolders={filterByFolders} onFilterFolders={onSetFilterByFolders} folder={folder} unreadInboxCount={unreadInboxCount} closeCompose={closeCompose} onSendMail={onSendMail} openCompose={openCompose}
-            isComposeOpen={isComposeOpen} />
+            isComposeOpen={isComposeOpen} isCollapse={isCollapse} toggleCollapse={toggleCollapse} />
         <EmailList mails={mails} folder={folder} removeMail={removeMail} toggleReadStatus={toggleReadStatus} />
 
     </section>

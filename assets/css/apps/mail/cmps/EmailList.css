@@ -40,6 +40,9 @@
  .mail-from {
      padding-inline-end: 10em;
      padding-inline-start: 2em;
+     overflow: hidden;
+     white-space: nowrap;
+     text-overflow: none;
  }
 
  .mail-body {
@@ -79,12 +82,19 @@
      flex-grow: 0.9;
  } */
 
+
+
  .preview-icons .trash:hover {
-     border-radius: 100%;
+     border-radius: 50%;
+     padding: 3px;
      background-color: var(--email-onhover-color);
  }
 
+
+
  .preview-icons .read:hover {
-     border-radius: 100%;
+     border-radius: 50%;
+     padding: 3px;
+
      background-color: var(--email-onhover-color);
  }

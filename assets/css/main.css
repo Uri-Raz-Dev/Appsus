@@ -31,3 +31,7 @@
 @import './apps/mail/cmps/EmailFilter.css';
 @import './apps/mail/cmps/EmailFolderList.css';
 @import './apps/mail/cmps/EmailCompose.css';
+
+/* media querys */
+@import './apps/mail/mediaquery/query.css';
+/* email */
