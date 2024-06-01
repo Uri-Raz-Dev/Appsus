@@ -3,6 +3,7 @@ import { eventBusService } from "../../../services/event-bus.service.js"
 
 import { NoteList } from "../cmps/NoteList.jsx"
 import { AddNote } from "../cmps/AddNote.jsx"
+import { AddToDo } from "../cmps/AddToDo.jsx"
 
 const { Outlet } = ReactRouterDOM
 const { useState, useEffect } = React
@@ -11,6 +12,7 @@ export function NoteIndex() {
     const [notes, setNotes] = useState([])
     const [pinned, setPinned] = useState([])
     const [nonPinned, setNonPinned] = useState([])
+    const [toDo, setToDo] = useState(false)
 
     eventBusService.on('save', note => {
         setNotes(prevNotes => {
@@ -24,6 +26,11 @@ export function NoteIndex() {
             console.log(newNotes)
             return newNotes
         })
+    })
+
+    eventBusService.on('todo', () => {
+        console.log('hi', toDo)
+        setToDo(!toDo)
     })
 
     useEffect(() => {
@@ -86,10 +93,14 @@ export function NoteIndex() {
         {/* <CreateNote /> */}
         {/* <div className="create">Take a note</div> */}
         <Outlet />
-        <AddNote notes={notes} makeNewNotes={addNotes} />
+
+        {!toDo && <AddNote notes={notes} makeNewNotes={addNotes} />}
+        {toDo && <AddToDo notes={notes} makeNewNotes={addNotes} />}
         {isPinned && < NoteList notes={pinned} onRemove={removeNote} showSectionTitle={isPinned && isNonPinned && <p>Pinned</p>} />}
+
         {isNonPinned && < NoteList notes={nonPinned} onRemove={removeNote}
             showSectionTitle={isPinned && isNonPinned && <p>Others</p>} />}
+
         {!isPinned && !isNonPinned && <section className="notes"/*style={{ opacity: isLoading ? 0.5 : 1 }}*/ >
             <div className="empty-notes">Notes you add appear here</div>
         </section>}

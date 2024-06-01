@@ -1,8 +1,12 @@
 import { eventBusService } from "../../../services/event-bus.service.js"
 
+const { useNavigate } = ReactRouter
+
 import { Icons } from "./Icons.jsx"
 
 export function Buttons({ note, onRemove }) {
+    const navigate = useNavigate()
+
     return <section className="note-buttons">
         <button onClick={(ev) => {
             ev.preventDefault()
@@ -12,7 +16,7 @@ export function Buttons({ note, onRemove }) {
         </button>
         {(note.info.txt || note.info.title) && note.type === 'NoteTxt' && <button onClick={(ev) => {
             ev.preventDefault()
-            // onRemove(note.id)
+            navigate(`/mail/inbox/compose/`)
         }}>
             <Icons type='mail' />
         </button>}
@@ -20,7 +24,14 @@ export function Buttons({ note, onRemove }) {
 }
 
 export function AddButtons({ note, setNewNote, onClick, isOpen, setIsButton }) {
-    return <section className="add-buttons" style={/*isOpen &&*/ { display: isOpen && "none" }}>
+    return <section className="add-buttons" style={/*isOpen &&*/ { display: (isOpen) ? "none" : "flex" }}>
+
+        <button onClick={(ev) => {
+            eventBusService.emit('todo', true)
+        }}>
+            <Icons type='boxChecked' />
+        </button>
+
         <button onClick={(ev) => {
             ev.preventDefault()
             setIsButton('image')

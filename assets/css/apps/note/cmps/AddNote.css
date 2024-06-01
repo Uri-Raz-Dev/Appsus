@@ -9,6 +9,7 @@
     /* padding-top: 12px; */
     overflow: auto;
     /* margin: 25px auto; */
+    margin-inline: 20px;
     margin-bottom: 50px;
     /* padding-bottom: 125px; */
     /* background-color: var(--keep-dark-txt); */
@@ -71,7 +72,10 @@
 }
 
 .add-buttons {
+    display: flex;
     position: absolute;
-    left: 90%;
     scale: 1.3;
+    float: inline-end;
+    right: 10px;
+    top: 10px;
 }
