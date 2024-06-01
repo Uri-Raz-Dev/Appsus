@@ -15,9 +15,11 @@ export function NotePreview({ note }) {
 }
 
 export function CheckBoxPreview({ note }) {
-    const [newNote, setNewNote] = useState(note)
+    console.log('note from checkboxpreview', note)
+    const [newNote, setNewNote] = useState({})
 
-    useEffect(() => { noteService.save(newNote) }, [newNote])
+    useEffect(() => { if (newNote.info) noteService.save(newNote) }, [newNote])
+    useEffect(() => { setNewNote(note) }, [])
 
     function toggleDone(todo) {
         setNewNote(prev => {
@@ -37,7 +39,7 @@ export function CheckBoxPreview({ note }) {
                 // <p>helloit it</p>
                 <ul>
                     {
-                        newNote.info.todos.map(todo =>
+                        (newNote.info) && newNote.info.todos.map(todo =>
                             <li key={utilService.makeId()} className={(todo.doneAt === null) ? 'checkbox' : 'box-checked'}>
                                 <Icons todo={todo} toggleDone={toggleDone}/*onClick={ev => {
                                     ev.preventDefault()

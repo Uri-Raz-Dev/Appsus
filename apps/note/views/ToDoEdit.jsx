@@ -94,10 +94,13 @@ export function ToDoEdit() {
         let newInfo = { ...note.info, todos: toDosForSave }
         const noteForSave = { ...note, info: newInfo }
 
-        eventBusService.emit('save', noteForSave)
+
 
         noteService.save(noteForSave)
-            .then(() => console.log('note from storage', note))
+            .then(() => {
+                console.log('note from storage', note)
+                eventBusService.emit('save', noteForSave)
+            })
             .catch(() => {
                 // if (note.id) {
                 //     console.log('note.id', note.id)
