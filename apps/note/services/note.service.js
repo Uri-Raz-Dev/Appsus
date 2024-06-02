@@ -18,7 +18,7 @@ export const noteService = {
     getEmptyTodos,
     getEmptyTodo,
     getPinnedNotes,
-    getNonPinnedNotes,
+    getOtherNotes,
 }
 
 window.ns = noteService
@@ -82,7 +82,7 @@ function getPinnedNotes(notes) {
     return notes.filter(note => note.isPinned)
 }
 
-function getNonPinnedNotes(notes) {
+function getOtherNotes(notes) {
     return notes.filter(note => !note.isPinned)
 }
 

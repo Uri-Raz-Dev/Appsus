@@ -11,7 +11,7 @@ const { useState, useEffect } = React
 export function NoteIndex() {
     const [notes, setNotes] = useState([])
     const [pinned, setPinned] = useState([])
-    const [nonPinned, setNonPinned] = useState([])
+    const [other, setOther] = useState([])
     const [toDo, setToDo] = useState(false)
 
     const unSubToToDo = eventBusService.on('todo', () => {
@@ -58,9 +58,9 @@ export function NoteIndex() {
         setPinned(() => {
             return [...noteService.getPinnedNotes(notes)]
         })
-        setNonPinned(() => {
+        setOther(() => {
             console.log('There was a change in notes', notes)
-            return [...noteService.getNonPinnedNotes(notes)]
+            return [...noteService.getOtherNotes(notes)]
         })
     }, [notes])
 
@@ -91,7 +91,7 @@ export function NoteIndex() {
     }
 
     const isPinned = pinned.length > 0
-    const isNonPinned = nonPinned.length > 0
+    const isOther = other.length > 0
 
     return <main className="note-index">
         {/* <CreateNote /> */}
@@ -100,12 +100,12 @@ export function NoteIndex() {
 
         {!toDo && <AddNote notes={notes} makeNewNotes={addNotes} />}
         {toDo && <AddToDo notes={notes} makeNewNotes={addNotes} />}
-        {isPinned && < NoteList notes={pinned} onRemove={removeNote} showSectionTitle={isPinned && isNonPinned && <p>Pinned</p>} />}
+        {isPinned && < NoteList notes={pinned} onRemove={removeNote} showSectionTitle={isPinned && isOther && <p>Pinned</p>} />}
 
-        {isNonPinned && < NoteList notes={nonPinned} onRemove={removeNote}
-            showSectionTitle={isPinned && isNonPinned && <p>Others</p>} />}
+        {isOther && < NoteList notes={other} onRemove={removeNote}
+            showSectionTitle={isPinned && isOther && <p>Others</p>} />}
 
-        {!isPinned && !isNonPinned && <section className="notes"/*style={{ opacity: isLoading ? 0.5 : 1 }}*/ >
+        {!isPinned && !isOther && <section className="notes"/*style={{ opacity: isLoading ? 0.5 : 1 }}*/ >
             <div className="empty-notes">Notes you add appear here</div>
         </section>}
     </main>
