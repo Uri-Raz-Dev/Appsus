@@ -43,7 +43,9 @@ export function AddToDo({ makeNewNotes }) {
         console.log('newToDos.info.todos.length', newToDos.info.todos.length)
         console.log('newToDos.info.todos[lineNum].txt.length === 1', newToDos.info.todos[lineNum].txt.length === 1)
         console.log('lineNum === newToDos.info.todos.length - 1', lineNum === newToDos.info.todos.length - 1)
-        if (newToDos.info.todos[lineNum].txt.length === 1 && lineNum == newToDos.info.todos.length - 1) {
+        console.log('typeof(lineNum)', typeof (lineNum))
+        console.log('typeof(newToDos.info.todos.length - 1)', typeof (newToDos.info.todos.length - 1))
+        if (newToDos.info.todos[lineNum].txt.length === 1 && +lineNum === newToDos.info.todos.length - 1) {
             console.log('condition true')
             setNewToDos(prev => {
                 let nextToDos = [...prev.info.todos]
