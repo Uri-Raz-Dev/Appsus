@@ -34,6 +34,7 @@ export function NoteIndex() {
 
         noteService.query()
             .then(setNotes)
+
         return unSubToSavePin
     }, [])
 
