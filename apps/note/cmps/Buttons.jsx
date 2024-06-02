@@ -4,7 +4,7 @@ import { Icons } from "./Icons.jsx"
 
 const { useNavigate } = ReactRouter
 
-export function Buttons({ note, onRemove }) {
+export function NoteButtons({ note, onRemove }) {
     const navigate = useNavigate()
 
     return (

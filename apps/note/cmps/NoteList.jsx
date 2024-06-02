@@ -1,5 +1,5 @@
 import { NotePreview } from './NotePreview.jsx'
-import { Buttons, Pin } from './Buttons.jsx'
+import { NoteButtons, Pin } from './Buttons.jsx'
 
 const { Link } = ReactRouterDOM
 
@@ -15,7 +15,7 @@ export function NoteList({ notes, onRemove, showSectionTitle }) {
                             <Pin note={note} />
                             {(note.info.url) && <img src={note.info.url} />}
                             <NotePreview note={note} />
-                            <Buttons note={note} onRemove={onRemove} />
+                            <NoteButtons note={note} onRemove={onRemove} />
 
                             {/* <button onClick={() => onRemove(note.id)}>x</button> */}
                             {/* <Link to={`/note/${note.id}`}><button>Details</button></Link> */}
