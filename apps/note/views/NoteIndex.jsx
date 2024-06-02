@@ -14,7 +14,7 @@ export function NoteIndex() {
     const [nonPinned, setNonPinned] = useState([])
     const [toDo, setToDo] = useState(false)
 
-    eventBusService.on('save', note => {
+    eventBusService.on('savePin', note => {
         setNotes(prevNotes => {
             console.log('note.id', note.id)
             let newNotes = []

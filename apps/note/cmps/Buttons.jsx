@@ -46,7 +46,7 @@ export function Pin({ note }) {
     return <section className="pin" >
         <button onClick={(ev) => {
             ev.preventDefault()
-            eventBusService.emit('save', { ...note, isPinned: !note.isPinned })
+            eventBusService.emit('savePin', { ...note, isPinned: !note.isPinned })
         }}>
             <Icons type={(note.isPinned) ? 'pinChecked' : 'pin'} />
         </button>
