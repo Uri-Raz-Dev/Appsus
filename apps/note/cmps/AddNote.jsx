@@ -26,20 +26,20 @@ export function AddNote({ notes, makeNewNotes }) {
 
     function onSave(ev) {
         ev.preventDefault()
-        // eventBusService.emit('save', note)
+
         noteService.save(newNote)
             .then(makeNewNotes)
             .then(() =>
                 setNewNote(noteService.getEmptyNote()))
-            //     // setNewNotes(prevNotes => {
-            //     //     console.log('prevNotes', [note, ...prevNotes])
-            //     //     return [note, ...prevNotes]
-            //     // })
-            // })
+
+
+
+
+
             .catch(() => {
                 console.log('error');
-                // showErrorMsg('Couldnt save')
-                // navigate('/note')
+
+
             })
             .finally(() => {
                 setclickCount(0)
@@ -75,7 +75,7 @@ export function AddNote({ notes, makeNewNotes }) {
         <section className={`note-add `} onClick={() => {
             setclickCount(prev => prev + 1)
             setIsOpen(true)
-            // setIsButton(false)
+
         }} >
             <form onSubmit={onSave}>
                 <AddButtons isOpen={isOpen} setIsButton={setIsButton} note={newNote} setNewNote={setNewNote} />
