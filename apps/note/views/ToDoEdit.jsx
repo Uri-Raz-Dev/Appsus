@@ -167,7 +167,7 @@ export function ToDoEdit() {
     }
     // const filteredToDos=note.info.todos.filter(todo=>todo.doneAt!==null)
     return (
-        <section className={`note-add `}>
+        <section className={`note-edit `}>
             <form onSubmit={onSave}>
                 <ul>
                     {

@@ -17,7 +17,7 @@ export function AppHeader() {
         } else if (location.pathname.startsWith('/mail/')) {
             return <img className="gmail-logo" src="assets/css/imgs/gmail-logo.png" alt="gmail icon" />
 
-        } else if (location.pathname === '/note') {
+        } else if (location.pathname.startsWith('/note')) {
             return <img className="keep-logo" src="assets/css/imgs/keep-logo.png" alt="keep icon" />
 
         }
