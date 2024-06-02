@@ -157,6 +157,7 @@ function _createNotes() {
                 url: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fanimalsadda.com%2Fwp-content%2Fuploads%2F2015%2F03%2FGrumpy-Cat-6.jpg&f=1&nofb=1&ipt=fdeff2dad4abd41a7125730ad0466cfe79e4e1c876f6eb793789141f7590ea8e&ipo=images', title: 'Bobi and Me', txt: 'Fullstack Me Baby!',
                 txtLineCount: 1,
                 titleLineCount: 1,
+                todos: [{ txt: '', doneAt: null, id: utilService.makeId(), }],
             },
             style: { backgroundColor: '#00d' }
         },
@@ -170,6 +171,7 @@ function _createNotes() {
                 txt: 'Fullstack Me Baby!', title: 'Bobi and Me',
                 txtLineCount: 1,
                 titleLineCount: 1,
+                todos: [{ txt: '', doneAt: null, id: utilService.makeId(), }],
             }
         },
     ]
