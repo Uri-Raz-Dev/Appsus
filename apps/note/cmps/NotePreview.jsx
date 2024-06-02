@@ -39,8 +39,6 @@ export function NotePreview({ note }) {
 
 export function CheckBoxPreview({ note }) {
     const [newNote, setNewNote] = useState(note)
-    const info = note.info
-    const newInfo = newNote.info
 
     useEffect(() => {
         const unsubscribe = eventBusService.on('saveToDoEdit', note => {
@@ -50,13 +48,13 @@ export function CheckBoxPreview({ note }) {
     }, [])
 
 
-    useEffect(() => { if (newInfo) noteService.save(newNote) }, [newNote])
+    useEffect(() => { if (newNote.info) noteService.save(newNote) }, [newNote])
 
     function toggleDone(todo) {
 
         setNewNote(prev => {
             let nextToDos = [...prev.info.todos]
-            nextToDos[newInfo.todos.indexOf(todo)] =
+            nextToDos[newNote.info.todos.indexOf(todo)] =
                 { ...todo, doneAt: (todo.doneAt === null) ? 1 : null }
             let newInfo = { ...prev.info, todos: nextToDos }
             return { ...prev, info: newInfo }
@@ -67,11 +65,11 @@ export function CheckBoxPreview({ note }) {
     if (note.info.todos.length) {
         return (
             <section className="content todos">
-                {(info.title) && <h3>{info.title}</h3>}
-                {info.todos.length > 0 &&
+                {(note.info.title) && <h3>{note.info.title}</h3>}
+                {note.info.todos.length > 0 &&
                     <ul>
                         {
-                            (newInfo) && newInfo.todos.map(todo =>
+                            (newNote.info) && newNote.info.todos.map(todo =>
 
                                 <li key={utilService.makeId()}
                                     className={(todo.doneAt === null) ? 'checkbox' : 'box-checked'}>
