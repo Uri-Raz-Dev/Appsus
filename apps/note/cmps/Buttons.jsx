@@ -24,7 +24,7 @@ export function Buttons({ note, onRemove }) {
 }
 
 export function AddButtons({ note, setNewNote, onClick, isOpen, setIsButton }) {
-    return <section className="add-buttons" style={/*isOpen &&*/ { display: (isOpen) ? "none" : "flex" }}>
+    return <section className="add-buttons" style={{ display: (isOpen) ? "none" : "flex" }}>
 
         <button onClick={(ev) => {
             eventBusService.emit('todo', true)
