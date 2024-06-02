@@ -19,6 +19,7 @@ export function NoteIndex() {
     })
 
     useEffect(() => {
+
         const unSubToSavePin = eventBusService.on('savePin', note => {
             setNotes(prevNotes => {
                 let newNotes = []
@@ -69,15 +70,26 @@ export function NoteIndex() {
     return <main className="note-index">
         <Outlet />
 
-        {!toDo && <AddNote notes={notes} makeNewNotes={addNotes} />}
-        {toDo && <AddToDo notes={notes} makeNewNotes={addNotes} />}
-        {isPinned && < NoteList notes={pinned} onRemove={removeNote} showSectionTitle={isPinned && isOther && <p>Pinned</p>} />}
+        {(toDo) ?
+            <AddToDo notes={notes} makeNewNotes={addNotes} />
+            :
+            <AddNote notes={notes} makeNewNotes={addNotes} />
+        }
 
-        {isOther && < NoteList notes={other} onRemove={removeNote}
-            showSectionTitle={isPinned && isOther && <p>Others</p>} />}
+        {isPinned &&
+            < NoteList notes={pinned} onRemove={removeNote}
+                showSectionTitle={isPinned && isOther && <p>Pinned</p>} />
+        }
 
-        {!isPinned && !isOther && <section className="notes" >
-            <div className="empty-notes">Notes you add appear here</div>
-        </section>}
+        {isOther &&
+            < NoteList notes={other} onRemove={removeNote}
+                showSectionTitle={isPinned && isOther && <p>Others</p>} />
+        }
+
+        {!isPinned && !isOther &&
+            <section className="notes" >
+                <div className="empty-notes">Notes you add appear here</div>
+            </section>
+        }
     </main>
 }
