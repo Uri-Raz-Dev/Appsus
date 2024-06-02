@@ -1,4 +1,4 @@
-const { useState, useEffect, useRef } = React
+const { useState, useEffect } = React
 import { EmailIcons } from "./EmailIcons.jsx"
 export function EmailFilter({ filterBy, onFilter }) {
 
@@ -11,21 +11,12 @@ export function EmailFilter({ filterBy, onFilter }) {
 
     }, [filterByToEdit])
 
-    // useEffect(() => {
-    //     setFilterByToEdit(prevFilterBy => ({
-    //         ...prevFilterBy,
-    //         title:''
-    //     }))
-    // }, [selectedFilterToEdit])
 
 
 
     function onClearSearch() {
         setFilterByToEdit({
             txt: '',
-            // isRead: false,
-            // isStared: false,
-            // labels: [],
             sortByDate: 0,
             sortByTitle: 0
         })

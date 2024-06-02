@@ -3,19 +3,13 @@ import { mailService } from "../services/mail.service.js"
 import { EmailIcons } from "./EmailIcons.jsx"
 const { Link } = ReactRouterDOM
 
-const { useState, useEffect, useRef } = React
+const { useState } = React
 export function EmailPreview({ mail, folder, removeMail, toggleReadStatus }) {
     const { subject, body, from, sentAt, to, isRead, removedAt, isStarred, id } = mail
     const [isReadState, setIsReadState] = useState(isRead)
     const [isStarredState, setIsStarredState] = useState(isStarred)
     const [remove, setRemove] = useState(removedAt)
-    // const [mailFolder, setMailFolder] = useState(mail.folder)
-    // useEffect(() => {
-    //     mailService.get(id)
-    //         .then((email) => {
 
-    //         })
-    // }, [])
 
 
 
