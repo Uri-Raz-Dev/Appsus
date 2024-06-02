@@ -79,12 +79,12 @@ export function NoteIndex() {
 
         {isPinned &&
             < NoteList notes={pinned} onRemove={removeNote}
-                showSectionTitle={isPinned && isOther && <p>Pinned</p>} />
+                title={isPinned && isOther && 'Pinned'} />
         }
 
         {isOther &&
             < NoteList notes={other} onRemove={removeNote}
-                showSectionTitle={isPinned && isOther && <p>Others</p>} />
+                title={isPinned && isOther && 'Others'} />
         }
 
         {!isPinned && !isOther &&
