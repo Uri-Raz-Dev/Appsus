@@ -7,18 +7,23 @@ const { useState, useEffect } = React
 
 export function NotePreview({ note }) {
     const { type } = note
+    const [noteForPreview, setNoteForPreview] = useState(note)
+
+    eventBusService.on('saveEdit', note => {
+        setNoteForPreview(note)
+    })
 
     return (type === 'NoteTodos') ? <CheckBoxPreview note={note} />
         : <section className="content">
-            {(note.info.title) && <h3>{note.info.title}</h3>}
-            <p >{(note.info.txt || note.info.title || note.info.url) ? note.info.txt : 'Empty note'}</p>
+            {(noteForPreview.info.title) && <h3>{noteForPreview.info.title}</h3>}
+            <p >{(noteForPreview.info.txt || noteForPreview.info.title || noteForPreview.info.url) ? noteForPreview.info.txt : 'Empty note'}</p>
         </section>
 }
 
 export function CheckBoxPreview({ note }) {
     const [newNote, setNewNote] = useState(note)
 
-    eventBusService.on('saveEdit', note => {
+    eventBusService.on('saveToDoEdit', note => {
         setNewNote(note)
     })
 

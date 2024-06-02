@@ -99,7 +99,7 @@ export function ToDoEdit() {
         noteService.save(noteForSave)
             .then(() => {
                 console.log('note from storage', note)
-                eventBusService.emit('saveEdit', noteForSave)
+                eventBusService.emit('saveToDoEdit', noteForSave)
             })
             .catch(() => {
                 // if (note.id) {

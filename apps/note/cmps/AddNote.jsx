@@ -67,7 +67,7 @@ export function AddNote({ notes, makeNewNotes }) {
                 console.log('value', value)
                 const newInfo = { ...prevNewNote.info, [prop]: value }
                 console.log('newInfo', newInfo)
-                return { ...prevNewNote, info: newInfo }
+                return { ...prevNewNote, info: newInfo, type: (prop === 'url') ? 'NoteImg' : 'NoteTxt' }
             })
     }
 

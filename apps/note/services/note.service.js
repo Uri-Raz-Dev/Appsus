@@ -105,8 +105,8 @@ function save2(note) {
 
 function save(note) {
     if (!(note.info.txt || note.info.title || note.info.url || note.info.todos.some(todo => todo.txt))) return Promise.reject(new Error('first condition'))
-    else if (!note.info.todos && note.id)
-        return Promise.reject(new Error('second condition'))
+    // else if (!note.info.todos && note.id)
+    //     return Promise.reject(new Error('second condition'))
     // else if (note.info.todos)
     //     return storageService.post(NOTE_KEY, note)
     else if (note.id) {

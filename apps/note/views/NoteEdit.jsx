@@ -37,7 +37,7 @@ export function NoteEdit() {
 
     function onSave(ev) {
         ev.preventDefault()
-        eventBusService.emit('save', note)
+        eventBusService.emit('saveEdit', note)
         noteService.save(note)
             .catch(() => {
                 // if (note.id) {
