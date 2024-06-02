@@ -10,7 +10,6 @@ export function EmailFolderList({ folder, unreadInboxCount, closeCompose,
     return (
         <nav className={isCollapse ? "email-folder-list flex collapse" : "email-folder-list flex"}>
             <span className="hambar" onClick={() => toggleCollapse()}>☰</span>
-
             <Link onClick={openCompose} className="compose-wrapper flex" to="compose">
                 <span className="compose-icon">{EmailIcons('compose')}</span>
                 {!isCollapse && <div className="compose folderName">Compose</div>}

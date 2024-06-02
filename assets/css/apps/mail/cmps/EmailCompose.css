@@ -16,6 +16,7 @@
     align-items: center;
     font-size: 1.2em;
     margin-bottom: 10px;
+    background-color: #F2F6FC;
 }
 
 .close-btn {
@@ -43,6 +44,9 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    background-color: #1B61D1;
+    font-weight: 700;
+    color: white;
 }
 
 .compose-footer .discard-btn {
