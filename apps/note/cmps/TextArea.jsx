@@ -20,7 +20,7 @@ export function TextArea({ note, onChange, placeHolder, isButton }) {
             rows={note.info.txtLineCount + ''}
             wrap="hard"
             placeholder={placeHolder || "Note"}
-            // value={note.info.txt}
+
             value={(isButton === 'image') ? note.info.url : note.info.txt}
             onChange={onChange}
         />
