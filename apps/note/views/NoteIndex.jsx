@@ -14,7 +14,9 @@ export function NoteIndex() {
     const [nonPinned, setNonPinned] = useState([])
     const [toDo, setToDo] = useState(false)
 
-
+    const unSubToToDo = eventBusService.on('todo', () => {
+        setToDo(!toDo)
+    })
 
     useEffect(() => {
         const unSubToSavePin = eventBusService.on('savePin', note => {
@@ -49,9 +51,6 @@ export function NoteIndex() {
     }, [/*filterBy*/])
 
     useEffect(() => {
-        const unSubToToDo = eventBusService.on('todo', () => {
-            setToDo(!toDo)
-        })
         return unSubToToDo
     }, [])
 
