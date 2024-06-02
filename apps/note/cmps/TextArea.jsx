@@ -3,11 +3,13 @@ const { useRef, useEffect } = React
 
 export function TextArea({ note, onChange, placeHolder, isButton }) {
     const inputRef = useRef(null)
-    // useEffect(() => {
-    eventBusService.on('focus', () => {
-        if (inputRef.current) inputRef.current.focus()
-    })
-    // }, [])
+
+    useEffect(() => {
+        const unsubscribe = eventBusService.on('focus', () => {
+            if (inputRef.current) inputRef.current.focus()
+        })
+        return unsubscribe
+    }, [])
 
     return <label >
         <textarea

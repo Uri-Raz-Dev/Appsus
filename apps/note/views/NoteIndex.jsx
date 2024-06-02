@@ -14,26 +14,23 @@ export function NoteIndex() {
     const [nonPinned, setNonPinned] = useState([])
     const [toDo, setToDo] = useState(false)
 
-    eventBusService.on('savePin', note => {
-        setNotes(prevNotes => {
-            console.log('note.id', note.id)
-            let newNotes = []
-            prevNotes.forEach(element => {
-                if (element.id === note.id)
-                    newNotes.push(note)
-                else newNotes.push(element)
-            })
-            console.log(newNotes)
-            return newNotes
-        })
-    })
 
-    eventBusService.on('todo', () => {
-        console.log('hi', toDo)
-        setToDo(!toDo)
-    })
 
     useEffect(() => {
+        const unSubToSavePin = eventBusService.on('savePin', note => {
+            setNotes(prevNotes => {
+                console.log('note.id', note.id)
+                let newNotes = []
+                prevNotes.forEach(element => {
+                    if (element.id === note.id)
+                        newNotes.push(note)
+                    else newNotes.push(element)
+                })
+                console.log(newNotes)
+                return newNotes
+            })
+        })
+
         // setSearchParams(filterBy)
         // setNotes(prevNotes => {
         //     console.log('notesFromService', notesFromService)
@@ -48,7 +45,15 @@ export function NoteIndex() {
         //     return [...noteService.getPinnedNotes(notes)]
         // }))
         // .then((pinned) => console.log('currently pinned', pinned))
+        return unSubToSavePin
     }, [/*filterBy*/])
+
+    useEffect(() => {
+        const unSubToToDo = eventBusService.on('todo', () => {
+            setToDo(!toDo)
+        })
+        return unSubToToDo
+    }, [])
 
     useEffect(() => {
         setPinned(() => {

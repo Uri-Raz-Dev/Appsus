@@ -8,10 +8,13 @@ const { useState, useEffect } = React
 export function NotePreview({ note }) {
     const { type } = note
     const [noteForPreview, setNoteForPreview] = useState(note)
+    useEffect(() => {
+        const unsubscribe = eventBusService.on('saveEdit', note => {
+            setNoteForPreview(note)
+        })
+        return unsubscribe
+    }, [])
 
-    eventBusService.on('saveEdit', note => {
-        setNoteForPreview(note)
-    })
 
     return (type === 'NoteTodos') ? <CheckBoxPreview note={note} />
         : <section className="content">
@@ -23,9 +26,13 @@ export function NotePreview({ note }) {
 export function CheckBoxPreview({ note }) {
     const [newNote, setNewNote] = useState(note)
 
-    eventBusService.on('saveToDoEdit', note => {
-        setNewNote(note)
-    })
+    useEffect(() => {
+        const unsubscribe = eventBusService.on('saveToDoEdit', note => {
+            setNewNote(note)
+        })
+        return unsubscribe
+    }, [])
+
 
     useEffect(() => { if (newNote.info) noteService.save(newNote) }, [newNote])
 
