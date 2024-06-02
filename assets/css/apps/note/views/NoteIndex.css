@@ -47,7 +47,8 @@
 
  .icon {
      position: relative;
-     top: 2px;
+     /* top: 2px; */
+     right: 3px;
      transition: opacity 0.218s ease-in-out;
  }
 
@@ -62,6 +63,16 @@
      background-color: transparent;
      border: transparent;
      transition: background-color 0.218s ease-in-out;
+ }
+
+ .note-add button:not(.close) {
+     height: 34px;
+     width: 34px;
+ }
+
+ .note button:not(.close) {
+     height: 26px;
+     width: 26px;
  }
 
  .note button:not(.close),

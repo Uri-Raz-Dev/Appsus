@@ -79,3 +79,8 @@
     right: 22px;
     top: 12px;
 }
+
+.add-buttons svg {
+    position: relative;
+    left: 1px;
+}
