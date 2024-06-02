@@ -1,3 +1,4 @@
+import { eventBusService } from "../../../services/event-bus.service.js"
 import { utilService } from "../../../services/util.service.js"
 import { noteService } from "../services/note.service.js"
 import { Icons } from "./Icons.jsx"
@@ -15,11 +16,13 @@ export function NotePreview({ note }) {
 }
 
 export function CheckBoxPreview({ note }) {
-    console.log('note from checkboxpreview', note)
-    const [newNote, setNewNote] = useState({})
+    const [newNote, setNewNote] = useState(note)
+
+    eventBusService.on('saveEdit', note => {
+        setNewNote(note)
+    })
 
     useEffect(() => { if (newNote.info) noteService.save(newNote) }, [newNote])
-    useEffect(() => { setNewNote(note) }, [])
 
     function toggleDone(todo) {
         setNewNote(prev => {
@@ -28,23 +31,17 @@ export function CheckBoxPreview({ note }) {
             let newInfo = { ...prev.info, todos: nextToDos }
             return { ...prev, info: newInfo }
         })
-
-        // noteService.save()
     }
 
-    if (note.info.todos.length || note.info.title) {
+    if (note.info.todos.length) {
         return <section className="content todos">
             {(note.info.title) && <h3>{note.info.title}</h3>}
             {note.info.todos.length > 0 &&
-                // <p>helloit it</p>
                 <ul>
                     {
                         (newNote.info) && newNote.info.todos.map(todo =>
                             <li key={utilService.makeId()} className={(todo.doneAt === null) ? 'checkbox' : 'box-checked'}>
-                                <Icons todo={todo} toggleDone={toggleDone}/*onClick={ev => {
-                                    ev.preventDefault()
-                                    toggleDone(todo, ev)
-                                }}*/ type={(todo.doneAt === null) ? 'checkBox' : 'boxChecked'} />
+                                <Icons todo={todo} toggleDone={toggleDone} type={(todo.doneAt === null) ? 'checkBox' : 'boxChecked'} />
                                 {todo.txt}
                             </li>
                         )
@@ -53,8 +50,5 @@ export function CheckBoxPreview({ note }) {
             }
         </section>
 
-    } else return (<section className="content">
-        <p >Empty note</p>
-    </section>
-    )
+    }
 }
