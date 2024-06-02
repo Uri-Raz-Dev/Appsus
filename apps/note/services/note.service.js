@@ -59,21 +59,10 @@ function query(filterBy = {}) {
         })
 }
 
-
-
-
 function get(noteId) {
     return storageService.get(NOTE_KEY, noteId)
         .then(note => {
-            // note = _setNextPrevNoteId(note)
-            return note
-        })
-}
 
-function getToDo(toDoId) {
-    return storageService.get(NOTE_KEY, noteId)
-        .then(note => {
-            // note = _setNextPrevNoteId(note)
             return note
         })
 }
@@ -90,41 +79,14 @@ function remove(noteId) {
     return storageService.remove(NOTE_KEY, noteId)
 }
 
-function save2(note) {
-    if (!(note.info.txt || note.info.title || note.info.url) && !note.id) return Promise.reject()
-    else if (!note.info.todos && note.id)
-        return Promise.reject()
-    // else if (note.info.todos)
-    //     return storageService.post(NOTE_KEY, note)
-    else if (note.id) {
-        return storageService.put(NOTE_KEY, note)
-    } else {
-        return storageService.post(NOTE_KEY, note)
-    }
-}
-
 function save(note) {
     if (!(note.info.txt || note.info.title || note.info.url || note.info.todos.some(todo => todo.txt))) return Promise.reject(new Error('first condition'))
-    // else if (!note.info.todos && note.id)
-    //     return Promise.reject(new Error('second condition'))
-    // else if (note.info.todos)
-    //     return storageService.post(NOTE_KEY, note)
     else if (note.id) {
         return storageService.put(NOTE_KEY, note)
     } else {
         return storageService.post(NOTE_KEY, note)
     }
 }
-
-// function save(note) {
-//     if (!(note.info.txt || note.info.title || note.info.url || note.info.todos) && !note.id) return Promise.reject()
-//     if (note.id) {
-//         return storageService.put(NOTE_KEY, note)
-//     } else {
-//         return storageService.post(NOTE_KEY, note)
-//     }
-// }
-
 
 function getDefaultFilter(filterBy = { title: '', price: 0, date: 0, authors: '' }) {
     return {
@@ -153,8 +115,6 @@ function getEmptyTodo(id) {
 
 function getEmptyTodos() {
     return {
-        // id: utilService.makeId(),
-
         createdAt: '',
         type: 'NoteTodos',
         isPinned: false,
@@ -165,7 +125,6 @@ function getEmptyTodos() {
 
 function getEmptyTodoNote(type = 'NoteTodos') {
     return {
-        // id: utilService.makeId(),
         createdAt: '',
         type,
         isPinned: false,
@@ -182,16 +141,11 @@ function _createNotes() {
             isPinned: false,
             info: {
                 title: 'Get my stuff together',
-                // txt: 'Fullstack Me Baby!',
                 txtLineCount: 1,
                 titleLineCount: 1,
                 todos: [
                     { txt: 'Driving license', doneAt: null },
                     { txt: 'Coding power', doneAt: 187111111 },
-                    // { txt: 'Driving license', doneAt: null },
-                    // { txt: 'Driving license', doneAt: null },
-                    // { txt: 'Driving license', doneAt: null },
-
                 ]
             }
         },
@@ -219,7 +173,6 @@ function _createNotes() {
             }
         },
     ]
-    console.log('notes', notes)
     utilService.saveToStorage(NOTE_KEY, notes)
     return notes
 }
