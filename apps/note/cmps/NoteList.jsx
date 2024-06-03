@@ -30,7 +30,7 @@ export function NoteList({ notes, onRemove, title }) {
                                 {(note.info.url) &&
                                     <img src={note.info.url} />}
 
-                                <NotePreview note={note} />
+                                <NotePreview note={note} id={note.id} />
 
                                 <NoteButtons note={note} onRemove={onRemove} />
 

@@ -5,7 +5,7 @@ import { Icons } from "./Icons.jsx"
 
 const { useState, useEffect } = React
 
-export function NotePreview({ note }) {
+export function NotePreview({ note, id }) {
     const { type } = note
     const [noteForPreview, setNoteForPreview] = useState(note)
     const info = noteForPreview.info
@@ -13,7 +13,9 @@ export function NotePreview({ note }) {
     useEffect(() => {
 
         const unsubscribe = eventBusService.on('saveEdit', note => {
-            setNoteForPreview(note)
+            if (note.id === id) {
+                setNoteForPreview(note)
+            }
         })
 
         return unsubscribe
