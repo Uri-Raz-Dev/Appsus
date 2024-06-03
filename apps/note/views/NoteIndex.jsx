@@ -19,6 +19,10 @@ export function NoteIndex() {
     })
 
     useEffect(() => {
+        return unSubToToDo
+    }, [])
+
+    useEffect(() => {
 
         const unSubToSavePin = eventBusService.on('savePin', note => {
             setNotes(prevNotes => {
@@ -36,10 +40,6 @@ export function NoteIndex() {
             .then(setNotes)
 
         return unSubToSavePin
-    }, [])
-
-    useEffect(() => {
-        return unSubToToDo
     }, [])
 
     useEffect(() => {
