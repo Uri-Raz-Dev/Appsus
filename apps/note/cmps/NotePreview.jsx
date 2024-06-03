@@ -24,7 +24,7 @@ export function NotePreview({ note, id }) {
 
     return (
         (type === 'NoteTodos') ?
-            <CheckBoxPreview note={note} />
+            <CheckBoxPreview note={note} id={id} />
             :
             <section className="content">
                 {(noteForPreview.info.title) &&
@@ -44,7 +44,9 @@ export function CheckBoxPreview({ note }) {
 
     useEffect(() => {
         const unsubscribe = eventBusService.on('saveToDoEdit', note => {
-            setNewNote(note)
+            if (note.id === id) {
+                setNewNote(note)
+            }
         })
         return unsubscribe
     }, [])
