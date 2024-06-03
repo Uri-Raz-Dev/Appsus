@@ -1,5 +1,5 @@
 const { Link, NavLink, useLocation } = ReactRouterDOM
-const { useState, useEffect, useRef } = React
+const { useState } = React
 import { EmailIcons } from "../apps/mail/cmps/EmailIcons.jsx"
 
 export function AppHeader() {
@@ -50,24 +50,7 @@ export function AppHeader() {
                 </div>
             </nav>
         </header>
-    );
+    )
 }
 
 
-// export function AppHeader() {
-
-//     return <header className="app-header">
-//         <Link to="/">
-//             <h3 className="logo">Appsus</h3>
-//         </Link>
-//         <nav className="main-header">
-//             <NavLink to="/">Home</NavLink>
-//             <NavLink to="/about">About</NavLink>
-//             <NavLink to="/mail/inbox">Mail</NavLink>
-//             <NavLink to="/note">Note</NavLink>
-//             <span class="material-symbols-outlined">
-//                 apps
-//             </span>
-//         </nav>
-//     </header>
-// }

@@ -2,16 +2,10 @@
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     grid-column: 2/-1;
-    /* background-color: var(--email-header-color); */
-    /* padding-block-start: 1em; */
+
 }
 
-/* .mail-filter button,
-select,
-input {
-    width: min-content;
-    height: min-content;
-} */
+
 
 .search-wrapper {
     grid-column: 1/3;
@@ -20,24 +14,17 @@ input {
     border-radius: 1.5rem;
     background-color: var(--email-searchbox-color);
     align-items: center;
-    /* padding-block-end: 0.5em; */
     margin-block-start: 10px;
-    /* justify-content: space-between; */
 }
 
 .filter-select-wrapper {
     gap: .625rem;
-    padding-block-start: 1em;
-
+    padding-block: 1em;
 }
 
 
 
 .filter-select-wrapper select {
-
-    /* appearance: none; */
-    /* Hide default arrow icon */
-    /* width: 100%; */
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -55,9 +42,7 @@ input {
     outline: none;
     border-color: #4d90fe;
     background-color: #F0F1F1;
-    /* Highlight border on focus */
     box-shadow: 0 0 0 2px rgba(77, 144, 254, 0.2);
-    /* Highlight border on focus */
 }
 
 .filter-select-wrapper select option {
@@ -67,7 +52,6 @@ input {
 .email-search {
     display: inline-block;
     align-self: center;
-    /* flex-grow: 1; */
     background-color: inherit;
     width: 36.25rem;
     height: 38px;
@@ -94,9 +78,7 @@ input {
 .search-wrapper:focus-within {
     background-color: var(--email-searchbox-color-focus);
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1),
-        /* More prominent bottom shadow on focus */
         0 -4px 6px rgba(0, 0, 0, 0.08),
-        /* More prominent top shadow on focus */
         0 2px 4px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease;
 }

@@ -1,6 +1,6 @@
 import { mailService } from "../services/mail.service.js"
 
-const { useState, useEffect, useRef } = React
+const { useState } = React
 export function EmailCompose({ closeCompose, onSendMail }) {
 
     const [form, setForm] = useState(mailService.composeMail)
@@ -79,7 +79,6 @@ export function EmailCompose({ closeCompose, onSendMail }) {
                     <button onClick={() => saveEmail(true)}>Save as draft</button> :
                     <button onClick={sendEmail}>Send</button>
                 }
-                {/* <button className="discard-btn" onClick={discardEmail}>Discard</button> */}
             </div>
         </div>
     );
