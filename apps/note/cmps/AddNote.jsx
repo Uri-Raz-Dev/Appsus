@@ -5,7 +5,6 @@ import { TextArea } from "./TextArea.jsx"
 import { AddButtons } from "./Buttons.jsx"
 
 const { useState, useEffect } = React
-const { useParams, useNavigate } = ReactRouter
 
 export function AddNote({ notes, makeNewNotes }) {
     const [isOpen, setIsOpen] = useState(false)
@@ -31,15 +30,8 @@ export function AddNote({ notes, makeNewNotes }) {
             .then(makeNewNotes)
             .then(() =>
                 setNewNote(noteService.getEmptyNote()))
-
-
-
-
-
             .catch(() => {
                 console.log('error');
-
-
             })
             .finally(() => {
                 setclickCount(0)
@@ -63,10 +55,7 @@ export function AddNote({ notes, makeNewNotes }) {
         }
         setNewNote(
             prevNewNote => {
-                console.log('prop', prop)
-                console.log('value', value)
                 const newInfo = { ...prevNewNote.info, [prop]: value }
-                console.log('newInfo', newInfo)
                 return { ...prevNewNote, info: newInfo, type: (prop === 'url') ? 'NoteImg' : 'NoteTxt' }
             })
     }

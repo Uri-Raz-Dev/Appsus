@@ -28,10 +28,8 @@ export function NoteEdit() {
 
     useEffect(() => {
         setNote(prevNote => {
-            // if (prevNote.info.txt) {
             let newInfo = { ...prevNote.info, txtLineCount: (prevNote.info.txt.match(/\n/g) || []).length + 1 }
             return { ...prevNote, info: newInfo }
-            // }
         })
     }, [note.info.txt])
 
@@ -40,13 +38,6 @@ export function NoteEdit() {
         eventBusService.emit('saveEdit', note)
         noteService.save(note)
             .catch(() => {
-                // if (note.id) {
-                //     console.log('note.id', note.id)
-                //     setNote(prevNote => {
-                //         let newInfo = { ...prevNote.info, txt: 'EMPTY NOTE' }
-                //         return { ...prevNote, info: newInfo }
-                //     })
-                // } else 
                 showErrorMsg('Couldnt save')
             })
             .finally(() => navigate('/note'))
