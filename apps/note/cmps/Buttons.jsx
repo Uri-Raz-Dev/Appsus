@@ -43,7 +43,8 @@ export function NoteButtons({ note, onRemove, setColor }) {
 
 export function AddButtons({ setNewNote, isOpen, setIsButton }) {
     return (
-        <section className="add-buttons" style={{ display: (isOpen) ? "none" : "flex" }}>
+        <section className="add-buttons"
+            style={{ display: (isOpen) ? "none" : "flex" }}>
 
             <button onClick={() => {
                 eventBusService.emit('todo', true)

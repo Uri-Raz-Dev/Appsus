@@ -28,7 +28,11 @@ export function NoteEdit() {
 
     useEffect(() => {
         setNote(prevNote => {
-            let newInfo = { ...prevNote.info, txtLineCount: (prevNote.info.txt.match(/\n/g) || []).length + 1 }
+            let newInfo = {
+                ...prevNote.info,
+                txtLineCount:
+                    (prevNote.info.txt.match(/\n/g) || []).length + 1
+            }
             return { ...prevNote, info: newInfo }
         })
     }, [note.info.txt])
@@ -44,19 +48,9 @@ export function NoteEdit() {
     }
 
     function handleChange({ target }) {
-        const { type, name: prop } = target
+        const { name: prop } = target
         let { value } = target
 
-        switch (type) {
-            case 'range':
-            case 'number':
-                value = +value
-                break;
-
-            case 'checkbox':
-                value = target.checked
-                break;
-        }
         setNote(prevNote => {
             let newInfo = { ...prevNote.info, [prop]: value }
             return { ...prevNote, info: newInfo }
@@ -66,14 +60,17 @@ export function NoteEdit() {
     return (
         <section className="note-edit">
             <form onSubmit={onSave}>
+
                 <label htmlFor="title"></label>
                 <input
-                    onChange={handleChange} value={(note.info) ? note.info.title : note.title}
+                    onChange={handleChange}
+                    value={(note.info) ? note.info.title : note.title}
                     id="title" name="title"
                     type="text" placeholder="Title" />
 
                 <label htmlFor="txt"></label>
                 <TextArea note={note} onChange={handleChange} />
+
                 <button>Close</button>
             </form>
         </section>
