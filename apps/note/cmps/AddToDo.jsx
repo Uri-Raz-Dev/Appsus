@@ -4,11 +4,7 @@ import { noteService } from '../services/note.service.js'
 const { useState, useEffect } = React
 
 export function AddToDo({ makeNewNotes }) {
-    const [isOpen, setIsOpen] = useState(true)
-    const [isButton, setIsButton] = useState('')
-
     const [newToDos, setNewToDos] = useState(noteService.getEmptyTodos())
-    const [newToDo, setNewToDo] = useState(noteService.getEmptyTodo(newToDos.info.todos[0].id))
     const [lineNum, setLineNum] = useState(0)
 
     useEffect(() => {
@@ -36,11 +32,12 @@ export function AddToDo({ makeNewNotes }) {
 
         noteService.save(noteForSave)
             .then(makeNewNotes)
-            .then(() =>
-                setNewToDos(noteService.getEmptyTodos()))
             .catch((result) => {
                 console.log(result);
             })
+            .finally(() =>
+                setNewToDos(noteService.getEmptyTodos()))
+
 
     }
 
@@ -50,7 +47,7 @@ export function AddToDo({ makeNewNotes }) {
 
         setNewToDos(prev => {
             let nextToDos = [...prev.info.todos]
-            nextToDos[target.id] = { ...newToDo, txt: value }
+            nextToDos[target.id].txt = value
             let newInfo = { ...prev.info, todos: nextToDos }
             return { ...prev, info: newInfo }
         })
@@ -77,9 +74,7 @@ export function AddToDo({ makeNewNotes }) {
                     }
                 </ul>
 
-                {isOpen && <button className="close" onClick={() => {
-                    setIsButton('')
-                }}>Close</button>}
+                {<button className="close" >Close</button>}
             </form>
         </section >
     )
