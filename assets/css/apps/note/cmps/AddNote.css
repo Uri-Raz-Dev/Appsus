@@ -82,5 +82,11 @@
 
 .add-buttons svg {
     position: relative;
-    left: 1px;
+    left: -1px;
+}
+
+@-moz-document url-prefix() {
+    .add-buttons svg {
+        left: 1px;
+    }
 }
