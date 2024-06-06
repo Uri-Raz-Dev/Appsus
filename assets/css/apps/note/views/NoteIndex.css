@@ -86,6 +86,7 @@
      right: 12px;
      top: 6px;
      position: absolute;
+     z-index: 11;
  }
 
  svg {
