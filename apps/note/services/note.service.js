@@ -19,6 +19,7 @@ export const noteService = {
     getEmptyTodo,
     getPinnedNotes,
     getOtherNotes,
+    getNoteColor,
 }
 
 window.ns = noteService
@@ -64,6 +65,16 @@ function get(noteId) {
         .then(note => {
 
             return note
+        })
+}
+
+function getNoteColor(noteId) {
+    return storageService.get(NOTE_KEY, noteId)
+        .then(note => {
+            if (note.style) {
+                return note.style.backgroundColor
+            }
+            return 'white'
         })
 }
 
@@ -159,14 +170,14 @@ function _createNotes() {
                 titleLineCount: 1,
                 todos: [{ txt: '', doneAt: null, id: utilService.makeId(), }],
             },
-            style: { backgroundColor: '#00d' }
+            style: { backgroundColor: '#FFF8B8' }
         },
         {
             id: 'n101',
             createdAt: 1112222,
             type: 'NoteTxt',
             isPinned: true,
-            style: { backgroundColor: '#00d' },
+            style: { backgroundColor: '#F39F76' },
             info: {
                 txt: 'Fullstack Me Baby!', title: 'Bobi and Me',
                 txtLineCount: 1,

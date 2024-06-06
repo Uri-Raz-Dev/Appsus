@@ -1,5 +1,4 @@
-import { NotePreview } from './NotePreview.jsx'
-import { NoteButtons, Pin } from './Buttons.jsx'
+import { Note } from './Note.jsx'
 
 const { Link } = ReactRouterDOM
 
@@ -22,22 +21,8 @@ export function NoteList({ notes, onRemove, title }) {
                         <Link to={(note.type === 'NoteTodos') ?
                             `/note/todo-edit/${note.id}` :
                             `/note/note-edit/${note.id}`}>
-
-                            <article className="note">
-
-                                <Pin note={note} />
-
-                                {(note.info.url) &&
-                                    <img src={note.info.url} />}
-
-                                <NotePreview note={note} id={note.id} />
-
-                                <NoteButtons note={note} onRemove={onRemove} />
-
-                            </article>
-
+                            <Note note={note} onRemove={onRemove} />
                         </Link>
-
                     </li>)
                 }
             </ul>

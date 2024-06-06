@@ -24,7 +24,7 @@ export function NoteIndex() {
 
     useEffect(() => {
 
-        const unSubToSavePin = eventBusService.on('savePin', note => {
+        const unSubToSave = eventBusService.on('save', note => {
             setNotes(prevNotes => {
                 let newNotes = []
                 prevNotes.forEach(element => {
@@ -39,7 +39,7 @@ export function NoteIndex() {
         noteService.query()
             .then(setNotes)
 
-        return unSubToSavePin
+        return unSubToSave
     }, [])
 
     useEffect(() => {

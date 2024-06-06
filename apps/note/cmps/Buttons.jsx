@@ -1,11 +1,14 @@
 import { eventBusService } from "../../../services/event-bus.service.js"
 
 import { Icons } from "./Icons.jsx"
+import { ColorsMenu } from "./ColorsMenu.jsx"
 
 const { useNavigate } = ReactRouter
+const { useState } = React
 
-export function NoteButtons({ note, onRemove }) {
+export function NoteButtons({ note, onRemove, setColor }) {
     const navigate = useNavigate()
+    const [isColors, setIsColors] = useState(false)
 
     return (
         <section className="note-buttons">
@@ -17,7 +20,7 @@ export function NoteButtons({ note, onRemove }) {
                 <Icons type='trash' />
             </button>
 
-            {(note.info.txt || note.info.title) && note.type === 'NoteTxt' &&
+            {/* {(note.info.txt || note.info.title) && note.type === 'NoteTxt' &&
 
                 <button onClick={(ev) => {
                     ev.preventDefault()
@@ -25,9 +28,16 @@ export function NoteButtons({ note, onRemove }) {
                 }}>
                     <Icons type='mail' />
                 </button>
-            }
+            } */}
 
-        </section>
+            <button onClick={(ev) => {
+                ev.preventDefault()
+                setIsColors(!isColors)
+            }}>
+                <Icons type='palette' />
+            </button>
+            {isColors && <ColorsMenu note={note} isColors={isColors} setIsColors={setIsColors} setColor={setColor} />
+            }        </section>
     )
 }
 
@@ -58,7 +68,7 @@ export function Pin({ note }) {
         <section className="pin" >
             <button onClick={(ev) => {
                 ev.preventDefault()
-                eventBusService.emit('savePin', { ...note, isPinned: !note.isPinned })
+                eventBusService.emit('save', { ...note, isPinned: !note.isPinned })
             }}>
                 <Icons type={(note.isPinned) ? 'pinChecked' : 'pin'} />
             </button>
