@@ -28,13 +28,16 @@ export function NotePreview({ note, id, setNewNote }) {
             <CheckBoxPreview note={note} id={id} setNewNote={setNewNote} />
             :
             <section className="content">
+
                 {(noteForPreview.info.title) &&
                     <h3>{info.title}</h3>
                 }
 
-                <p >{(info.txt || info.title || info.url) ?
-                    info.txt : 'Empty note'}
+                <p >
+                    {(info.txt || info.title || info.url) ?
+                        info.txt : 'Empty note'}
                 </p>
+
             </section>
     )
 }

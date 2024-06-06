@@ -89,7 +89,11 @@ export function NoteIndex() {
 
         {!isPinned && !isOther &&
             <section className="notes" >
-                <div className="empty-notes">Notes you add appear here</div>
+                <div className="empty-notes">
+
+                    Notes you add appear here
+
+                </div>
             </section>
         }
     </main>

@@ -6,7 +6,7 @@ import { AddButtons } from "./Buttons.jsx"
 
 const { useState, useEffect } = React
 
-export function AddNote({ notes, makeNewNotes }) {
+export function AddNote({ makeNewNotes }) {
     const [isOpen, setIsOpen] = useState(false)
     const [isButton, setIsButton] = useState('')
     const [clickCount, setclickCount] = useState(0)
@@ -14,7 +14,11 @@ export function AddNote({ notes, makeNewNotes }) {
 
     useEffect(() => {
         setNewNote(prevNote => {
-            let newInfo = { ...prevNote.info, txtLineCount: (prevNote.info.txt.match(/\n/g) || []).length + 1 }
+            let newInfo = {
+                ...prevNote.info,
+                txtLineCount:
+                    (prevNote.info.txt.match(/\n/g) || []).length + 1
+            }
             return { ...prevNote, info: newInfo }
         })
     }, [newNote.info.txt])
@@ -40,34 +44,32 @@ export function AddNote({ notes, makeNewNotes }) {
     }
 
     function handleChange({ target }) {
-        const { type, name: prop } = target
+        const { name: prop } = target
         let { value } = target
 
-        switch (type) {
-            case 'range':
-            case 'number':
-                value = +value
-                break;
-
-            case 'checkbox':
-                value = target.checked
-                break;
-        }
         setNewNote(
             prevNewNote => {
                 const newInfo = { ...prevNewNote.info, [prop]: value }
-                return { ...prevNewNote, info: newInfo, type: (prop === 'url') ? 'NoteImg' : 'NoteTxt' }
+                return {
+                    ...prevNewNote,
+                    info: newInfo,
+                    type: (prop === 'url') ? 'NoteImg' : 'NoteTxt'
+                }
             })
     }
 
     return (
-        <section className={`note-add `} onClick={() => {
-            setclickCount(prev => prev + 1)
-            setIsOpen(true)
+        <section className={`note-add `}
+            onClick={() => {
+                setclickCount(prev => prev + 1)
+                setIsOpen(true)
 
-        }} >
+            }} >
+
             <form onSubmit={onSave}>
-                <AddButtons isOpen={isOpen} setIsButton={setIsButton} note={newNote} setNewNote={setNewNote} />
+
+                <AddButtons isOpen={isOpen} setIsButton={setIsButton}
+                    note={newNote} setNewNote={setNewNote} />
 
                 {isOpen && !isButton &&
                     <label >
@@ -80,11 +82,22 @@ export function AddNote({ notes, makeNewNotes }) {
                 }
 
                 <label htmlFor="txt"></label>
-                <TextArea note={newNote} onChange={handleChange} placeHolder={(isButton === 'image') ? 'Enter image URL' : 'Take a note...'} isButton={isButton}
+                <TextArea
+                    note={newNote}
+                    onChange={handleChange}
+                    placeHolder={(isButton === 'image') ?
+                        'Enter image URL' : 'Take a note...'}
+                    isButton={isButton}
                 />
-                {isOpen && <button className="close" onClick={() => {
-                    setIsButton('')
-                }}>Close</button>}
+
+                {isOpen &&
+                    <button className="close"
+                        onClick={() => {
+                            setIsButton('')
+                        }}>
+                        Close
+                    </button>}
+
             </form>
         </section>
     )

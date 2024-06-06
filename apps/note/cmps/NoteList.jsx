@@ -21,8 +21,11 @@ export function NoteList({ notes, onRemove, title }) {
                         <Link to={(note.type === 'NoteTodos') ?
                             `/note/todo-edit/${note.id}` :
                             `/note/note-edit/${note.id}`}>
+
                             <Note note={note} onRemove={onRemove} />
+
                         </Link>
+
                     </li>)
                 }
             </ul>
