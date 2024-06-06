@@ -1,31 +1,16 @@
 .note-edit {
     position: absolute;
     z-index: 10;
-    /* width: 100dvw; */
     width: 100%;
     height: 100%;
-    /* margin: 0; */
-    /* min-height: 100vh; */
     background-color: #00000087;
-    /* background-color: transparent; */
     padding-top: 125px;
-    /* overflow: auto; */
-    /* margin-bottom: 50px; */
-
-    /* padding-bottom: 125px; */
-    /* background-color: var(--keep-dark-txt); */
-    /* opacity: 0.6; */
 }
 
 .note-edit form {
     background-color: white;
     position: absolute;
     max-width: 600px;
-    /* opacity: 1; */
-    /* z-index: 11; */
-    /* margin-top: calc(93px + 125px); */
-    /* top: calc(93px + 125px); */
-    /* transform: translate(0, -50%); */
     margin-bottom: 50px;
     border: 1px solid var(--keep-note-border);
     left: 50%;
@@ -35,21 +20,13 @@
     transform: translateX(-50%);
 }
 
-/* this is double code with textarea: */
-
-
 .note-edit form>* {
-    /* margin-block: 1px; */
     font-family: GoogleSans;
     font-weight: 200;
     display: block;
     width: 100%;
     border-color: transparent;
-    /* font-size: 22px; */
     color: var(--keep-dark-txt);
-    /* min-width: 73%;
-    transform: translateX(-50%); */
-
 }
 
 .note-edit input {
@@ -60,6 +37,4 @@
 .note-edit textarea {
     font-family: Roboto;
     font-size: 16px;
-    /* color: var(--keep-dark-txt); */
-
 }

@@ -32,8 +32,7 @@ export function NotePreview({ note, id }) {
                 }
 
                 <p >{(info.txt || info.title || info.url) ?
-                    info.txt : 'Empty note'
-                }
+                    info.txt : 'Empty note'}
                 </p>
             </section>
     )
@@ -67,9 +66,12 @@ export function CheckBoxPreview({ note }) {
     }
 
     if (note.info.todos.length) {
+
         return (
             <section className="content todos">
+
                 {(note.info.title) && <h3>{note.info.title}</h3>}
+
                 {note.info.todos.length > 0 &&
                     <ul>
                         {
@@ -81,6 +83,7 @@ export function CheckBoxPreview({ note }) {
                                     <Icons todo={todo}
                                         toggleDone={toggleDone}
                                         type={(todo.doneAt === null) ? 'checkBox' : 'boxChecked'} />
+
                                     {todo.txt}
 
                                 </li>

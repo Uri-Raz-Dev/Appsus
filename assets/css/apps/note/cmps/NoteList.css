@@ -1,8 +1,5 @@
- /* note list */
-
  .notes {
      display: grid;
-     /* justify-content: center; */
      margin-inline-start: calc(25500vw / 1902);
  }
 
@@ -13,20 +10,7 @@
      display: flex;
      gap: 16px;
      flex-wrap: wrap;
-     /* justify-items: left; */
-     /* justify-content: space-around; */
-     /* visibility: collapse; */
-
-     /* display: grid; */
-     /* padding-inline: 100px; */
-     /* grid-template-columns: repeat(auto-fit, 240px); */
-     /* grid-template-rows: min-content; */
-     /* grid-auto-flow: dense; */
-     /* columns: 3 240px; */
-     /* column-rule: 1px solid lightgray; */
-     /* column-gap: 16px; */
      margin-block: 0;
-
  }
 
  .list li {
