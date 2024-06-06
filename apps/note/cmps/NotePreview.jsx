@@ -5,7 +5,7 @@ import { Icons } from "./Icons.jsx"
 
 const { useState, useEffect } = React
 
-export function NotePreview({ note, id }) {
+export function NotePreview({ note, id, setNewNote }) {
     const { type } = note
     const [noteForPreview, setNoteForPreview] = useState(note)
     const info = noteForPreview.info
@@ -15,6 +15,7 @@ export function NotePreview({ note, id }) {
         const unsubscribe = eventBusService.on('saveEdit', note => {
             if (note.id === id) {
                 setNoteForPreview(note)
+                setNewNote(note)
             }
         })
 
@@ -24,7 +25,7 @@ export function NotePreview({ note, id }) {
 
     return (
         (type === 'NoteTodos') ?
-            <CheckBoxPreview note={note} id={id} />
+            <CheckBoxPreview note={note} id={id} setNewNote={setNewNote} />
             :
             <section className="content">
                 {(noteForPreview.info.title) &&
@@ -38,26 +39,31 @@ export function NotePreview({ note, id }) {
     )
 }
 
-export function CheckBoxPreview({ note }) {
-    const [newNote, setNewNote] = useState(note)
+export function CheckBoxPreview({ note, id, setNewNote }) {
+    const [toDoNote, setToDoNote] = useState(note)
 
     useEffect(() => {
         const unsubscribe = eventBusService.on('saveToDoEdit', note => {
-            if (note.id === id) {
-                setNewNote(note)
+            if (note && note.id === id) {
+                setToDoNote(note)
             }
         })
         return unsubscribe
     }, [])
 
 
-    useEffect(() => { if (newNote.info) noteService.save(newNote) }, [newNote])
+    useEffect(() => {
+        if (toDoNote.info) {
+            noteService.save(toDoNote)
+            setNewNote(toDoNote)
+        }
+    }, [toDoNote])
 
     function toggleDone(todo) {
 
-        setNewNote(prev => {
+        setToDoNote(prev => {
             let nextToDos = [...prev.info.todos]
-            nextToDos[newNote.info.todos.indexOf(todo)] =
+            nextToDos[toDoNote.info.todos.indexOf(todo)] =
                 { ...todo, doneAt: (todo.doneAt === null) ? 1 : null }
             let newInfo = { ...prev.info, todos: nextToDos }
             return { ...prev, info: newInfo }
@@ -75,7 +81,7 @@ export function CheckBoxPreview({ note }) {
                 {note.info.todos.length > 0 &&
                     <ul>
                         {
-                            (newNote.info) && newNote.info.todos.map(todo =>
+                            (toDoNote.info) && toDoNote.info.todos.map(todo =>
 
                                 <li key={utilService.makeId()}
                                     className={(todo.doneAt === null) ? 'checkbox' : 'box-checked'}>

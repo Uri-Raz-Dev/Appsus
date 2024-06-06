@@ -1,7 +1,7 @@
 import { eventBusService } from "../../../services/event-bus.service.js"
 import { noteService } from "../services/note.service.js"
 
-export function ColorsMenu({ note, setIsColors, setColor }) {
+export function ColorsMenu({ note, setIsColors, setNewNote }) {
     const colors = [
         '#FFFFFF',
         '#FAAFA8',
@@ -20,11 +20,12 @@ export function ColorsMenu({ note, setIsColors, setColor }) {
     function onSetColor(ev, color) {
         ev.preventDefault()
 
-        setColor(color)
         setIsColors(false)
 
         const newStyle = { backgroundColor: color }
         const newNote = { ...note, style: newStyle }
+
+        setNewNote(newNote)
 
         eventBusService.emit('save', newNote)
 

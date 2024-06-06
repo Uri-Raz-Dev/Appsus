@@ -4,19 +4,19 @@ import { NoteButtons, Pin } from './Buttons.jsx'
 const { useState } = React
 
 export function Note({ note, onRemove }) {
-    const [color, setColor] = useState((note.style) ? note.style.backgroundColor : 'white')
+    const [newNote, setNewNote] = useState(note)
 
     return (
-        <article className="note" style={{ backgroundColor: color }}>
+        <article className="note" style={{ backgroundColor: (newNote.style) ? newNote.style.backgroundColor : 'white' }}>
 
-            <Pin note={note} />
+            <Pin note={newNote} />
 
-            {(note.info.url) &&
-                <img src={note.info.url} />}
+            {(newNote.info.url) &&
+                <img src={newNote.info.url} />}
 
-            <NotePreview note={note} id={note.id} />
+            <NotePreview note={newNote} id={newNote.id} setNewNote={setNewNote} />
 
-            <NoteButtons note={note} onRemove={onRemove} setColor={setColor} />
+            <NoteButtons note={newNote} onRemove={onRemove} setNewNote={setNewNote} />
 
         </article>
     )

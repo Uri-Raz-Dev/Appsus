@@ -6,7 +6,7 @@ import { ColorsMenu } from "./ColorsMenu.jsx"
 const { useNavigate } = ReactRouter
 const { useState } = React
 
-export function NoteButtons({ note, onRemove, setColor }) {
+export function NoteButtons({ setNewNote, note, onRemove }) {
     const navigate = useNavigate()
     const [isColors, setIsColors] = useState(false)
 
@@ -36,7 +36,7 @@ export function NoteButtons({ note, onRemove, setColor }) {
             }}>
                 <Icons type='palette' />
             </button>
-            {isColors && <ColorsMenu note={note} isColors={isColors} setIsColors={setIsColors} setColor={setColor} />
+            {isColors && <ColorsMenu note={note} isColors={isColors} setIsColors={setIsColors} setNewNote={setNewNote} />
             }        </section>
     )
 }
